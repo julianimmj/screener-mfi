@@ -1,7 +1,7 @@
 """
 app.py — Screener MFI "Fluxo Financeiro"
 Dashboard profissional para Streamlit Cloud.
-Dados carregados de CSV pré-gerado (atualizado diariamente via GitHub Actions).
+Mostra APENAS ativos em zona de Sobrecompra (MFI ≥ 86) ou Sobrevenda (MFI ≤ 24).
 """
 
 import streamlit as st
@@ -90,11 +90,6 @@ st.markdown("""
     }
 
     /* ── KPI Cards ─────────────────────── */
-    .kpi-container {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 2rem;
-    }
     .kpi-card {
         background: linear-gradient(145deg, #111b2e, #0d1926);
         border: 1px solid rgba(0, 200, 255, 0.15);
@@ -207,45 +202,38 @@ st.markdown("""
         color: #00c8ff;
     }
 
-    /* ── Signal badges ─────────────────── */
-    .signal-entrada {
-        background: linear-gradient(135deg, rgba(0,230,118,0.2), rgba(0,230,118,0.05));
-        border: 1px solid rgba(0,230,118,0.4);
-        color: #00e676;
-        padding: 4px 12px;
-        border-radius: 8px;
+    /* ── Universe selector cards ────────── */
+    .universe-card {
+        background: linear-gradient(145deg, #111b2e, #0d1926);
+        border: 1px solid rgba(0, 200, 255, 0.12);
+        border-radius: 14px;
+        padding: 0.9rem 1rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .universe-card:hover {
+        border-color: rgba(0, 200, 255, 0.4);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .universe-card.active {
+        border-color: #00c8ff;
+        background: linear-gradient(145deg, #152540, #112035);
+        box-shadow: 0 0 20px rgba(0, 200, 255, 0.15);
+    }
+    .universe-card .icon {
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
+    }
+    .universe-card .name {
         font-weight: 700;
-        font-size: 0.8rem;
-        display: inline-block;
+        font-size: 0.85rem;
+        color: #e0e8f0;
     }
-    .signal-saida {
-        background: linear-gradient(135deg, rgba(255,23,68,0.2), rgba(255,23,68,0.05));
-        border: 1px solid rgba(255,23,68,0.4);
-        color: #ff1744;
-        padding: 4px 12px;
-        border-radius: 8px;
-        font-weight: 700;
-        font-size: 0.8rem;
-        display: inline-block;
-    }
-    .signal-neutro {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.15);
-        color: #888;
-        padding: 4px 12px;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 0.8rem;
-        display: inline-block;
-    }
-
-    /* ── MFI Meter bar ─────────────────── */
-    .mfi-bar {
-        height: 8px;
-        border-radius: 4px;
-        background: linear-gradient(90deg, #00e676, #ffab00, #ff1744);
-        position: relative;
-        margin: 0.5rem 0;
+    .universe-card .count {
+        font-size: 0.7rem;
+        color: #6688aa;
+        margin-top: 0.2rem;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -258,7 +246,7 @@ st.markdown("""
     <h1>🌊 Screener MFI — Fluxo Financeiro</h1>
     <p class="subtitle">
         Money Flow Index para <b>ações brasileiras</b> e <b>BDRs</b> —
-        identifique <b>entrada</b> e <b>saída</b> de fluxo financeiro em tempo real.
+        identifique ativos em zona de <b>sobrecompra</b> e <b>sobrevenda</b>.
         Timeframe 8D · Período 4 · OB 86 · OS 24
     </p>
 </div>
@@ -290,11 +278,10 @@ def get_last_updated() -> str:
 
 
 def is_bdr(ticker: str) -> bool:
-    """Check if a ticker is a BDR (ends with 34.SA, 33.SA, 31.SA, etc)."""
+    """Check if a ticker is a BDR."""
     if not ticker.endswith('.SA'):
         return False
     code = ticker.replace('.SA', '')
-    # BDRs typically end in 34, 33, 31, 32, 35, 39
     if len(code) >= 5:
         suffix = code[-2:]
         if suffix in ('34', '33', '31', '32', '35', '39'):
@@ -310,36 +297,38 @@ with st.sidebar:
     st.caption("Screener Money Flow Index")
     st.markdown("---")
 
-    # Market toggle
+    # ── Universe selector ──
     st.subheader("🌎 Universo")
     universe = st.radio(
-        "Exibir:",
-        ["Todos", "🇧🇷 Apenas Ações BR", "🌐 Apenas BDRs"],
+        "Exibir ativos de:",
+        ["Todos", "Apenas Ações Brasileiras", "Apenas BDRs"],
         index=0,
+        label_visibility="collapsed",
     )
 
     st.markdown("---")
 
-    # Signal filter
-    st.subheader("📡 Filtro de Fluxo")
-    signal_options = ["Todos", "🟢 Entrada", "🔴 Saída", "⚪ Neutro"]
+    # ── Zone filter (sobrecompra / sobrevenda) ──
+    st.subheader("📡 Zona de Sinal")
+    zone_options = ["Todos (OB + OS)", "🟢 Sobrevenda (MFI ≤ 24)", "🔴 Sobrecompra (MFI ≥ 86)"]
 
-    if "signal_filter" not in st.session_state:
-        st.session_state.signal_filter = "Todos"
+    if "zone_filter" not in st.session_state:
+        st.session_state.zone_filter = "Todos (OB + OS)"
 
     try:
-        signal_idx = signal_options.index(st.session_state.signal_filter)
+        zone_idx = zone_options.index(st.session_state.zone_filter)
     except ValueError:
-        signal_idx = 0
+        zone_idx = 0
 
-    signal_filter = st.radio(
-        "Filtrar por sinal:",
-        signal_options,
-        index=signal_idx,
+    zone_filter = st.radio(
+        "Filtrar por zona:",
+        zone_options,
+        index=zone_idx,
+        label_visibility="collapsed",
     )
 
-    if signal_filter != st.session_state.signal_filter:
-        st.session_state.signal_filter = signal_filter
+    if zone_filter != st.session_state.zone_filter:
+        st.session_state.zone_filter = zone_filter
         st.rerun()
 
     st.markdown("---")
@@ -360,7 +349,7 @@ with st.sidebar:
     # Methodology
     with st.expander("📐 Metodologia MFI"):
         st.markdown("""
-**Money Flow Index** combina **preço** e **volume** em um único indicador, medindo a pressão de compra vs venda.
+**Money Flow Index** combina **preço** e **volume** para medir a pressão de compra vs venda.
 
 ```
 hlc3 = (H + L + C) / 3
@@ -369,14 +358,9 @@ MFR = Σ Positive MF / Σ Negative MF
 MFI = 100 - 100 / (1 + MFR)
 ```
 
-**Zonas:**
-- **> 60**: Tendência de Alta (fluxo positivo)
-- **40–60**: Transição / Consolidação
-- **< 40**: Tendência de Baixa (fluxo negativo)
-
-**Sinais:**
-- **≥ 86**: Sobrecompra → possível saída
-- **≤ 24**: Sobrevenda → possível entrada
+**Sinais plotados:**
+- **MFI ≥ 86**: 🔴 Sobrecompra → saída de fluxo
+- **MFI ≤ 24**: 🟢 Sobrevenda → entrada de fluxo
         """)
 
     st.markdown("---")
@@ -416,97 +400,122 @@ if refresh_btn:
         progress_bar.progress(pct, text=f"⏳ Processando {current}/{total_count} ativos...")
 
     status_text.info(f"🔄 Calculando MFI para {total} ativos...")
-    df = run_mfi_screener(ALL_TICKERS, progress_callback=update_progress)
+    df_all = run_mfi_screener(ALL_TICKERS, progress_callback=update_progress)
 
-    if not df.empty:
+    if not df_all.empty:
         os.makedirs(str(DATA_DIR), exist_ok=True)
-        df.to_csv(csv_path, index=False)
+        df_all.to_csv(csv_path, index=False)
 
-        # Update metadata
         from datetime import datetime, timezone
         now = datetime.now(timezone.utc)
         meta = {
             "last_updated": now.isoformat(),
             "tickers_total": total,
-            "tickers_ok": len(df),
+            "tickers_ok": len(df_all),
         }
         pd.Series(meta).to_json(str(METADATA_FILE))
 
         progress_bar.empty()
-        status_text.success(f"✅ Dados atualizados! {len(df)} ativos processados.")
+        status_text.success(f"✅ Dados atualizados! {len(df_all)} ativos processados.")
     else:
         progress_bar.empty()
         status_text.error("❌ Erro ao buscar dados. Tente novamente em alguns minutos.")
         st.stop()
 else:
-    df = load_cached_data(csv_path)
+    df_all = load_cached_data(csv_path)
 
-    if df.empty:
+    if df_all.empty:
         st.error(
             "❌ Dados ainda não disponíveis.\n\n"
             "Clique em **🔄 Atualizar Dados Agora** na barra lateral para buscar os dados."
         )
         st.stop()
 
-# Add BDR flag
-df['Tipo'] = df['Ticker'].apply(lambda t: 'BDR' if is_bdr(t) else 'Ação')
+# ─────────────────────────────────────────
+# Pre-process: Add type flag + filter to OB/OS ONLY
+# ─────────────────────────────────────────
+df_all['Tipo'] = df_all['Ticker'].apply(lambda t: 'BDR' if is_bdr(t) else 'Ação')
+
+# ★ CORE FILTER: Only keep assets in sobrecompra or sobrevenda
+total_analyzed = len(df_all)
+df = df_all[(df_all['MFI'] >= 86) | (df_all['MFI'] <= 24)].copy()
+
+if df.empty:
+    last_updated = get_last_updated()
+    st.markdown(
+        f'<div class="freshness">📅 Dados de: <b>{last_updated}</b> · '
+        f'{total_analyzed} ativos analisados · '
+        f'Nenhum ativo em zona de sobrecompra ou sobrevenda no momento</div>',
+        unsafe_allow_html=True
+    )
+    st.info(
+        "📊 **Nenhum ativo em zona extrema no momento.**\n\n"
+        "Todos os ativos analisados estão com MFI entre 24 e 86 "
+        "(fora das zonas de sobrecompra/sobrevenda).\n\n"
+        "Os dados são atualizados diariamente — volte mais tarde para checar novos sinais."
+    )
+    st.stop()
+
+# Tag zone
+df['Zona Signal'] = df['MFI'].apply(
+    lambda v: '🟢 Sobrevenda' if v <= 24 else '🔴 Sobrecompra'
+)
 
 # Show data freshness
 last_updated = get_last_updated()
 n_acoes = len(df[df['Tipo'] == 'Ação'])
 n_bdrs = len(df[df['Tipo'] == 'BDR'])
+n_ob = int((df['MFI'] >= 86).sum())
+n_os = int((df['MFI'] <= 24).sum())
+
 st.markdown(
     f'<div class="freshness">📅 Dados de: <b>{last_updated}</b> · '
-    f'{len(df)} ativos ({n_acoes} ações + {n_bdrs} BDRs) · '
-    f'Timeframe 8D · Período 4</div>',
+    f'{total_analyzed} ativos analisados · '
+    f'<b>{len(df)}</b> em zona extrema ({n_ob} sobrecompra + {n_os} sobrevenda)</div>',
     unsafe_allow_html=True
 )
 
 # ─────────────────────────────────────────
 # Apply Universe Filter
 # ─────────────────────────────────────────
-if universe == "🇧🇷 Apenas Ações BR":
+if universe == "Apenas Ações Brasileiras":
     df = df[df['Tipo'] == 'Ação'].copy()
-elif universe == "🌐 Apenas BDRs":
+elif universe == "Apenas BDRs":
     df = df[df['Tipo'] == 'BDR'].copy()
 
 if df.empty:
-    st.info("Nenhum ativo encontrado para esse universo.")
+    st.info("Nenhum ativo encontrado para esse universo nas zonas de sobrecompra/sobrevenda.")
     st.stop()
 
 # ─────────────────────────────────────────
-# Apply Signal Filter
+# Apply Zone Filter
 # ─────────────────────────────────────────
-view_filter = st.session_state.signal_filter
+view_zone = st.session_state.zone_filter
 
-if "Entrada" in view_filter:
-    filtered = df[df['Signal'] == 'ENTRADA'].copy()
-elif "Saída" in view_filter:
-    filtered = df[df['Signal'] == 'SAÍDA'].copy()
-elif "Neutro" in view_filter:
-    filtered = df[df['Signal'] == 'NEUTRO'].copy()
+if "Sobrevenda" in view_zone:
+    filtered = df[df['MFI'] <= 24].copy()
+    filtered.sort_values('MFI', ascending=True, inplace=True)
+elif "Sobrecompra" in view_zone:
+    filtered = df[df['MFI'] >= 86].copy()
+    filtered.sort_values('MFI', ascending=False, inplace=True)
 else:
+    # "Todos (OB + OS)"
     filtered = df.copy()
+    filtered.sort_values('MFI', ascending=True, inplace=True)
 
 filtered.reset_index(drop=True, inplace=True)
 
 # ─────────────────────────────────────────
 # KPI Cards
 # ─────────────────────────────────────────
-n_total = len(df)
-n_entrada = int((df['Signal'] == 'ENTRADA').sum())
-n_saida = int((df['Signal'] == 'SAÍDA').sum())
-n_neutro = int((df['Signal'] == 'NEUTRO').sum())
+n_total_signals = len(df)
+n_sobrecompra = int((df['MFI'] >= 86).sum())
+n_sobrevenda = int((df['MFI'] <= 24).sum())
 
-# Find extreme values
-if not df.empty:
-    ob_count = int((df['MFI'] >= 86).sum())
-    os_count = int((df['MFI'] <= 24).sum())
-
-k1, k2, k3, k4, k5 = st.columns(5)
+k1, k2, k3, k4 = st.columns(4)
 
 
-def kpi_box(col, val, label, btn_label, state_val, color="#00c8ff", val_size="2.4rem"):
+def kpi_box(col, val, label, btn_label, state_val, color="#00c8ff", val_size="2.6rem"):
     col.markdown(f"""
     <div class="kpi-card">
         <p class="value" style="color: {color}; font-size: {val_size}">{val}</p>
@@ -514,44 +523,41 @@ def kpi_box(col, val, label, btn_label, state_val, color="#00c8ff", val_size="2.
     </div>
     """, unsafe_allow_html=True)
     if col.button(btn_label, key=f"btn_{label}_{val}", use_container_width=True):
-        st.session_state.signal_filter = state_val
+        st.session_state.zone_filter = state_val
         st.rerun()
 
 
-kpi_box(k1, n_total, "Analisados", "🔍 Ver Todos", "Todos")
-kpi_box(k2, n_entrada, "🟢 Entrada de Fluxo", "🟢 Filtrar", "🟢 Entrada", "#00e676")
-kpi_box(k3, n_saida, "🔴 Saída de Fluxo", "🔴 Filtrar", "🔴 Saída", "#ff1744")
-kpi_box(k4, n_neutro, "⚪ Neutro", "⚪ Filtrar", "⚪ Neutro", "#888")
-kpi_box(k5, f"{ob_count} OB / {os_count} OS", "Extremos", "🔍 Ver Todos", "Todos", "#ffab00", "1.6rem")
+kpi_box(k1, total_analyzed, "Total Analisados", "🔍 Ver Sinais", "Todos (OB + OS)", "#6688aa", "2rem")
+kpi_box(k2, n_sobrecompra, "🔴 Sobrecompra", "🔴 Filtrar", "🔴 Sobrecompra (MFI ≥ 86)", "#ff1744")
+kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 24)", "#00e676")
+kpi_box(k4, n_total_signals, "Com Sinal", "🔍 Ver Todos", "Todos (OB + OS)", "#ffab00")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
 # ─────────────────────────────────────────
 # Tabs
 # ─────────────────────────────────────────
-tab_ranking, tab_gauge, tab_split, tab_dist = st.tabs([
-    "📋 Ranking MFI", "📊 Gauge por Ativo", "🔀 Ações vs BDRs", "📈 Distribuição"
+tab_ranking, tab_gauge, tab_split = st.tabs([
+    "📋 Lista de Sinais", "📊 Gauge por Ativo", "🔀 Ações vs BDRs"
 ])
 
 # ── Tab 1: Ranking Table ─────────────
 with tab_ranking:
-    label_map = {
-        "🟢 Entrada": "Entrada de Fluxo",
-        "🔴 Saída": "Saída de Fluxo",
-        "⚪ Neutro": "Neutro",
-        "Todos": "Todos",
+    zone_labels = {
+        "Todos (OB + OS)": "Sobrecompra + Sobrevenda",
+        "🟢 Sobrevenda (MFI ≤ 24)": "Sobrevenda (Entrada de Fluxo)",
+        "🔴 Sobrecompra (MFI ≥ 86)": "Sobrecompra (Saída de Fluxo)",
     }
-    view_label = label_map.get(view_filter, view_filter)
+    view_label = zone_labels.get(view_zone, view_zone)
     st.markdown(
-        f'<div class="section-title">Ranking por MFI — {view_label}</div>',
+        f'<div class="section-title">Ativos com Sinal — {view_label}</div>',
         unsafe_allow_html=True
     )
 
     if filtered.empty:
-        st.info(f"Nenhum ativo encontrado com o filtro '{view_filter}'.")
+        st.info(f"Nenhum ativo encontrado na zona '{view_label}'.")
     else:
-        # Prepare display DataFrame
-        display_cols = ['Ticker', 'Nome', 'Preço', 'MFI', 'Status', 'Signal', 'Zona', 'Tipo', 'Volume Médio']
+        display_cols = ['Ticker', 'Nome', 'Preço', 'MFI', 'Zona Signal', 'Tipo', 'Volume Médio']
         available = [c for c in display_cols if c in filtered.columns]
         display = filtered[available].copy()
 
@@ -571,9 +577,7 @@ with tab_ranking:
             "Nome": st.column_config.TextColumn("Nome", width="medium"),
             "Preço": st.column_config.TextColumn("Preço", width="small"),
             "MFI": st.column_config.TextColumn("MFI", width="small"),
-            "Status": st.column_config.TextColumn("Status", width="medium"),
-            "Signal": st.column_config.TextColumn("Sinal", width="small"),
-            "Zona": st.column_config.TextColumn("Zona", width="medium"),
+            "Zona Signal": st.column_config.TextColumn("Zona", width="medium"),
             "Tipo": st.column_config.TextColumn("Tipo", width="small"),
             "Volume Médio": st.column_config.TextColumn("Vol. Médio", width="small"),
         }
@@ -586,41 +590,51 @@ with tab_ranking:
             column_config=col_config,
         )
 
-        st.caption(f"Exibindo {len(display)} de {n_total} ativos · MFI com Timeframe 8D, Período 4")
+        st.caption(
+            f"Exibindo {len(display)} ativos com sinal · "
+            f"{total_analyzed} ativos analisados · MFI Timeframe 8D, Período 4"
+        )
 
 # ── Tab 2: Gauge Charts ─────────────
 with tab_gauge:
     st.markdown('<div class="section-title">Gauge MFI por Ativo</div>', unsafe_allow_html=True)
 
     if filtered.empty:
-        st.info("Nenhum ativo disponível para exibição.")
+        st.info("Nenhum ativo com sinal disponível para exibição.")
     else:
-        # Ativo selector
         selected_ticker = st.selectbox(
-            "Selecione um ativo:",
+            "Selecione um ativo com sinal:",
             filtered['Ticker'].tolist(),
             key="gauge_ticker"
         )
 
         row = filtered[filtered['Ticker'] == selected_ticker].iloc[0]
         mfi_val = row['MFI']
+        is_ob = mfi_val >= 86
 
         # Build gauge
+        bar_color = '#ff1744' if is_ob else '#00e676'
+
         fig = go.Figure(go.Indicator(
-            mode="gauge+number+delta",
+            mode="gauge+number",
             value=mfi_val,
-            title={'text': f"<b>{selected_ticker}</b><br><span style='font-size:0.8em;color:#888'>{row.get('Nome', '')}</span>"},
-            number={'font': {'size': 56, 'color': '#fff'}},
+            title={
+                'text': (
+                    f"<b>{selected_ticker}</b><br>"
+                    f"<span style='font-size:0.8em;color:#888'>{row.get('Nome', '')}</span>"
+                )
+            },
+            number={'font': {'size': 60, 'color': bar_color}},
             gauge={
                 'axis': {'range': [0, 100], 'tickwidth': 1, 'tickcolor': "#444", 'dtick': 10},
-                'bar': {'color': '#00c8ff', 'thickness': 0.3},
+                'bar': {'color': bar_color, 'thickness': 0.35},
                 'bgcolor': 'rgba(0,0,0,0)',
                 'borderwidth': 0,
                 'steps': [
                     {'range': [0, 24], 'color': 'rgba(0,230,118,0.15)'},
-                    {'range': [24, 40], 'color': 'rgba(255,171,0,0.08)'},
-                    {'range': [40, 60], 'color': 'rgba(255,255,255,0.03)'},
-                    {'range': [60, 86], 'color': 'rgba(255,171,0,0.08)'},
+                    {'range': [24, 40], 'color': 'rgba(255,255,255,0.02)'},
+                    {'range': [40, 60], 'color': 'rgba(255,255,255,0.02)'},
+                    {'range': [60, 86], 'color': 'rgba(255,255,255,0.02)'},
                     {'range': [86, 100], 'color': 'rgba(255,23,68,0.15)'},
                 ],
                 'threshold': {
@@ -631,15 +645,10 @@ with tab_gauge:
             }
         ))
 
-        # Add reference lines as annotations
         fig.add_annotation(x=0.13, y=0.08, text="OS 24", showarrow=False,
-                          font=dict(color="#00e676", size=11))
+                          font=dict(color="#00e676", size=12, family="Inter"))
         fig.add_annotation(x=0.87, y=0.08, text="OB 86", showarrow=False,
-                          font=dict(color="#ff1744", size=11))
-        fig.add_annotation(x=0.35, y=-0.05, text="40", showarrow=False,
-                          font=dict(color="#ffab00", size=10))
-        fig.add_annotation(x=0.65, y=-0.05, text="60", showarrow=False,
-                          font=dict(color="#ffab00", size=10))
+                          font=dict(color="#ff1744", size=12, family="Inter"))
 
         fig.update_layout(
             paper_bgcolor='rgba(0,0,0,0)',
@@ -652,21 +661,28 @@ with tab_gauge:
         st.plotly_chart(fig, use_container_width=True)
 
         # Info cards below gauge
-        g1, g2, g3, g4 = st.columns(4)
+        g1, g2, g3 = st.columns(3)
         g1.metric("MFI", f"{mfi_val:.1f}")
-        g2.metric("Status", row['Status'])
-        g3.metric("Sinal", row['Signal'])
-        g4.metric("Zona", row.get('Trend', '–'))
+        g2.metric("Zona", "🔴 Sobrecompra" if is_ob else "🟢 Sobrevenda")
+        g3.metric("Fluxo", "Saída" if is_ob else "Entrada")
 
-        # OB/OS cross alert
-        if row.get('OB Cross', False):
-            st.warning("⚠️ **Cruzamento de Sobrecompra detectado!** MFI acabou de cruzar acima de 86.")
-        if row.get('OS Cross', False):
-            st.success("✅ **Cruzamento de Sobrevenda detectado!** MFI acabou de cruzar abaixo de 24.")
+        if is_ob:
+            st.error(
+                "🔴 **Sobrecompra** — MFI ≥ 86. "
+                "Indica saída de fluxo financeiro. Possível topo ou distribuição."
+            )
+        else:
+            st.success(
+                "🟢 **Sobrevenda** — MFI ≤ 24. "
+                "Indica entrada de fluxo financeiro. Possível fundo ou acumulação."
+            )
 
 # ── Tab 3: Split View ───────────────
 with tab_split:
-    st.markdown('<div class="section-title">Ações BR vs BDRs — Comparativo de Fluxo</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="section-title">Ações Brasileiras vs BDRs — Sinais Extremos</div>',
+        unsafe_allow_html=True
+    )
 
     df_acoes = df[df['Tipo'] == 'Ação'].copy()
     df_bdrs = df[df['Tipo'] == 'BDR'].copy()
@@ -676,158 +692,50 @@ with tab_split:
     with col_a:
         st.markdown("#### 🇧🇷 Ações Brasileiras")
         if not df_acoes.empty:
-            # Stats
-            entrada_a = int((df_acoes['Signal'] == 'ENTRADA').sum())
-            saida_a = int((df_acoes['Signal'] == 'SAÍDA').sum())
-            media_mfi_a = df_acoes['MFI'].mean()
+            ob_a = df_acoes[df_acoes['MFI'] >= 86]
+            os_a = df_acoes[df_acoes['MFI'] <= 24]
 
-            ca1, ca2, ca3 = st.columns(3)
-            ca1.metric("Entrada", f"{entrada_a}")
-            ca2.metric("Saída", f"{saida_a}")
-            ca3.metric("MFI Médio", f"{media_mfi_a:.1f}")
+            ca1, ca2 = st.columns(2)
+            ca1.metric("🔴 Sobrecompra", len(ob_a))
+            ca2.metric("🟢 Sobrevenda", len(os_a))
 
-            # Top 10 entrance
-            top_entrada = df_acoes[df_acoes['Signal'] == 'ENTRADA'].head(10)
-            if not top_entrada.empty:
-                st.markdown("**Top Entrada de Fluxo:**")
-                st.dataframe(
-                    top_entrada[['Ticker', 'MFI', 'Status', 'Signal']],
-                    hide_index=True,
-                    use_container_width=True,
-                )
+            if not os_a.empty:
+                st.markdown("**🟢 Sobrevenda (Entrada de Fluxo):**")
+                display_os = os_a[['Ticker', 'MFI', 'Zona Signal']].copy()
+                display_os['MFI'] = display_os['MFI'].map(lambda v: f"{v:.1f}")
+                st.dataframe(display_os, hide_index=True, use_container_width=True)
 
-            # Top 10 exit
-            top_saida = df_acoes[df_acoes['Signal'] == 'SAÍDA'].nlargest(10, 'MFI')
-            if not top_saida.empty:
-                st.markdown("**Top Saída de Fluxo:**")
-                st.dataframe(
-                    top_saida[['Ticker', 'MFI', 'Status', 'Signal']],
-                    hide_index=True,
-                    use_container_width=True,
-                )
+            if not ob_a.empty:
+                st.markdown("**🔴 Sobrecompra (Saída de Fluxo):**")
+                display_ob = ob_a[['Ticker', 'MFI', 'Zona Signal']].copy()
+                display_ob['MFI'] = display_ob['MFI'].map(lambda v: f"{v:.1f}")
+                st.dataframe(display_ob, hide_index=True, use_container_width=True)
         else:
-            st.info("Nenhuma ação BR disponível.")
+            st.info("Nenhuma ação brasileira com sinal no momento.")
 
     with col_b:
         st.markdown("#### 🌐 BDRs")
         if not df_bdrs.empty:
-            entrada_b = int((df_bdrs['Signal'] == 'ENTRADA').sum())
-            saida_b = int((df_bdrs['Signal'] == 'SAÍDA').sum())
-            media_mfi_b = df_bdrs['MFI'].mean()
+            ob_b = df_bdrs[df_bdrs['MFI'] >= 86]
+            os_b = df_bdrs[df_bdrs['MFI'] <= 24]
 
-            cb1, cb2, cb3 = st.columns(3)
-            cb1.metric("Entrada", f"{entrada_b}")
-            cb2.metric("Saída", f"{saida_b}")
-            cb3.metric("MFI Médio", f"{media_mfi_b:.1f}")
+            cb1, cb2 = st.columns(2)
+            cb1.metric("🔴 Sobrecompra", len(ob_b))
+            cb2.metric("🟢 Sobrevenda", len(os_b))
 
-            top_entrada_b = df_bdrs[df_bdrs['Signal'] == 'ENTRADA'].head(10)
-            if not top_entrada_b.empty:
-                st.markdown("**Top Entrada de Fluxo:**")
-                st.dataframe(
-                    top_entrada_b[['Ticker', 'MFI', 'Status', 'Signal']],
-                    hide_index=True,
-                    use_container_width=True,
-                )
+            if not os_b.empty:
+                st.markdown("**🟢 Sobrevenda (Entrada de Fluxo):**")
+                display_os_b = os_b[['Ticker', 'MFI', 'Zona Signal']].copy()
+                display_os_b['MFI'] = display_os_b['MFI'].map(lambda v: f"{v:.1f}")
+                st.dataframe(display_os_b, hide_index=True, use_container_width=True)
 
-            top_saida_b = df_bdrs[df_bdrs['Signal'] == 'SAÍDA'].nlargest(10, 'MFI')
-            if not top_saida_b.empty:
-                st.markdown("**Top Saída de Fluxo:**")
-                st.dataframe(
-                    top_saida_b[['Ticker', 'MFI', 'Status', 'Signal']],
-                    hide_index=True,
-                    use_container_width=True,
-                )
+            if not ob_b.empty:
+                st.markdown("**🔴 Sobrecompra (Saída de Fluxo):**")
+                display_ob_b = ob_b[['Ticker', 'MFI', 'Zona Signal']].copy()
+                display_ob_b['MFI'] = display_ob_b['MFI'].map(lambda v: f"{v:.1f}")
+                st.dataframe(display_ob_b, hide_index=True, use_container_width=True)
         else:
-            st.info("Nenhum BDR disponível.")
-
-# ── Tab 4: Distribution ─────────────
-with tab_dist:
-    st.markdown('<div class="section-title">Distribuição do MFI</div>', unsafe_allow_html=True)
-
-    if not df.empty and 'MFI' in df.columns:
-        # Histogram
-        fig_hist = go.Figure()
-
-        fig_hist.add_trace(go.Histogram(
-            x=df['MFI'],
-            nbinsx=25,
-            marker_color='rgba(0, 200, 255, 0.6)',
-            marker_line=dict(color='rgba(0, 200, 255, 0.8)', width=1),
-            name='MFI'
-        ))
-
-        # Add vertical lines for OS/OB thresholds
-        fig_hist.add_vline(x=24, line_dash="dash", line_color="#00e676",
-                          annotation_text="OS 24", annotation_font_color="#00e676")
-        fig_hist.add_vline(x=86, line_dash="dash", line_color="#ff1744",
-                          annotation_text="OB 86", annotation_font_color="#ff1744")
-        fig_hist.add_vline(x=40, line_dash="dot", line_color="rgba(255,171,0,0.5)",
-                          annotation_text="40", annotation_font_color="rgba(255,171,0,0.7)")
-        fig_hist.add_vline(x=60, line_dash="dot", line_color="rgba(255,171,0,0.5)",
-                          annotation_text="60", annotation_font_color="rgba(255,171,0,0.7)")
-
-        fig_hist.update_layout(
-            xaxis_title="MFI",
-            yaxis_title="Número de Ativos",
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)',
-            font={'family': 'Inter', 'size': 13, 'color': '#ccc'},
-            height=400,
-            margin={'l': 50, 'r': 30, 't': 30, 'b': 50},
-            bargap=0.05,
-        )
-
-        st.plotly_chart(fig_hist, use_container_width=True)
-
-        # Scatter: MFI vs Volume
-        st.markdown('<div class="section-title">MFI vs Volume Médio</div>', unsafe_allow_html=True)
-
-        scatter_df = df.copy()
-        scatter_df['Vol M'] = scatter_df['Volume Médio'] / 1e6
-
-        fig_scatter = px.scatter(
-            scatter_df,
-            x='MFI',
-            y='Vol M',
-            color='Signal',
-            hover_name='Ticker',
-            hover_data={
-                'MFI': ':.1f',
-                'Vol M': ':.2f',
-                'Status': True,
-                'Tipo': True,
-                'Signal': False,
-            },
-            color_discrete_map={
-                'ENTRADA': '#00e676',
-                'SAÍDA': '#ff1744',
-                'NEUTRO': '#666',
-            },
-            size_max=12,
-            template='plotly_dark',
-        )
-
-        fig_scatter.add_vline(x=24, line_dash="dash", line_color="rgba(0,230,118,0.4)")
-        fig_scatter.add_vline(x=86, line_dash="dash", line_color="rgba(255,23,68,0.4)")
-
-        fig_scatter.update_layout(
-            xaxis_title="MFI",
-            yaxis_title="Volume Médio (Milhões)",
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)',
-            font={'family': 'Inter', 'size': 13, 'color': '#ccc'},
-            legend_title_text="Sinal",
-            height=450,
-            margin={'l': 50, 'r': 30, 't': 30, 'b': 50},
-        )
-
-        st.plotly_chart(fig_scatter, use_container_width=True)
-
-        st.info(
-            "💡 **Dica:** Ativos com MFI ≤ 24 e alto volume podem indicar "
-            "acumulação institucional. Ativos com MFI ≥ 86 e volume crescente "
-            "podem indicar distribuição."
-        )
+            st.info("Nenhum BDR com sinal no momento.")
 
 
 # ─────────────────────────────────────────
@@ -838,6 +746,7 @@ st.markdown("""
 <div style="text-align:center; opacity:0.4; font-size:0.8rem; padding: 1rem 0">
     <b>Screener MFI "Fluxo Financeiro"</b> · Dados via Yahoo Finance (atualização diária) ·
     <a href="https://github.com/julianimmj/screener-mfi" target="_blank" style="color:#00c8ff">github.com/julianimmj</a><br>
-    Indicador: Money Flow Index (TF 8D · Per 4 · OB 86 · OS 24)
+    Indicador: Money Flow Index (TF 8D · Per 4 · OB 86 · OS 24) ·
+    Exibe apenas ativos em zona de sobrecompra ou sobrevenda
 </div>
 """, unsafe_allow_html=True)
