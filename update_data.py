@@ -39,7 +39,7 @@ TICKERS_BR = [
     "MULT3.SA", "IGTI11.SA", "ALOS3.SA",
     "LWSA3.SA", "CASH3.SA", "POSI3.SA", "INTB3.SA",
     "FLRY3.SA", "DASA3.SA", "ODPV3.SA",
-    "AZUL4.SA", "EMBR3.SA", "HBSA3.SA",
+    "AZUL4.SA", "EMBJ3.SA", "HBSA3.SA",
     "MOVI3.SA", "VAMO3.SA", "SIMH3.SA", "SMTO3.SA", "SLCE3.SA",
     "BRFS3.SA", "MRFG3.SA", "BEEF3.SA",
     "COGN3.SA", "YDUQ3.SA", "ECOR3.SA", "EGIE3.SA",
@@ -47,16 +47,16 @@ TICKERS_BR = [
     # Mid / Small Caps com volume
     "ABCB4.SA", "BMGB4.SA", "BRSR6.SA", "GRND3.SA", "ALPA4.SA",
     "MDIA3.SA", "BRAV3.SA", "RECV3.SA", "CMIN3.SA", "STBP3.SA",
-    "ELET3.SA", "ELET6.SA", "CMIG3.SA", "ENGI11.SA", "AESB3.SA",
+    "AXIA3.SA", "AXIA6.SA", "CMIG3.SA", "ENGI11.SA", "AESB3.SA",
     "NEOE3.SA", "COCE5.SA", "RANI3.SA", "DXCO3.SA",
     "KEPL3.SA", "TUPY3.SA", "POMO4.SA", "RAIZ4.SA",
     "MLAS3.SA", "SRNA3.SA", "SEQL3.SA", "ESPA3.SA",
-    "GMAT3.SA", "PETZ3.SA", "AZZA3.SA", "CEAB3.SA",
+    "GMAT3.SA", "AUAU3.SA", "AZZA3.SA", "CEAB3.SA",
     "ANIM3.SA", "SEER3.SA", "PNVL3.SA", "BLAU3.SA",
     "MATD3.SA", "QUAL3.SA", "ONCO3.SA", "AALR3.SA",
     "CVCB3.SA", "SMFT3.SA", "PORT3.SA", "GOLL4.SA",
     "WIZC3.SA", "BBDC3.SA",
-    "AGRO3.SA", "CAML3.SA", "JBSS3.SA", "MTRE3.SA",
+    "AGRO3.SA", "CAML3.SA", "JBSS32.SA", "MTRE3.SA",
     "LAVV3.SA", "MDNE3.SA", "PLPL3.SA", "TRIS3.SA",
     "LOGG3.SA",
     "CLSA3.SA", "DESK3.SA", "FIQE3.SA",
@@ -144,7 +144,7 @@ TICKERS_BDR = [
 ALL_TICKERS = TICKERS_BR + TICKERS_BDR
 
 
-def fetch_all(tickers: list[str]) -> pd.DataFrame:
+def fetch_all(tickers: list[str], min_volume: int = 0) -> pd.DataFrame:
     """Fetch data for all tickers with delays to avoid rate limiting."""
     results = []
     total = len(tickers)
@@ -153,8 +153,11 @@ def fetch_all(tickers: list[str]) -> pd.DataFrame:
         print(f"  [{i}/{total}] {ticker}...", end=" ", flush=True)
         row = _calculate_with_retry(ticker, max_retries=3)
         if row is not None:
-            results.append(row)
-            print(f"✓ MFI={row['MFI']}")
+            if row['Volume Médio'] >= min_volume:
+                results.append(row)
+                print(f"✓ MFI={row['MFI']}")
+            else:
+                print(f"✗ (volume {row['Volume Médio']} < {min_volume})")
         else:
             print("✗ (skipped)")
 
@@ -181,9 +184,23 @@ def main():
     print(f"    Tickers: {len(ALL_TICKERS)} ({len(TICKERS_BR)} BR + {len(TICKERS_BDR)} BDR)")
     print()
 
-    # ── Fetch all ──────────────────────
-    print("── Fetching MFI data ──")
-    df = fetch_all(ALL_TICKERS)
+    # ── Fetch BR ──────────────────────
+    print("── Fetching MFI data (BR) ──")
+    df_br = fetch_all(TICKERS_BR, min_volume=1000000)
+
+    # ── Fetch BDR ─────────────────────
+    print("\\n── Fetching MFI data (BDR) ──")
+    df_bdr = fetch_all(TICKERS_BDR, min_volume=0)
+
+    # Concatenate results
+    if not df_br.empty and not df_bdr.empty:
+        df = pd.concat([df_br, df_bdr], ignore_index=True)
+    elif not df_br.empty:
+        df = df_br
+    elif not df_bdr.empty:
+        df = df_bdr
+    else:
+        df = pd.DataFrame()
 
     if not df.empty:
         df.to_csv("data/mfi_screener.csv", index=False)
