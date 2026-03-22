@@ -274,7 +274,7 @@ st.markdown(f"""
     <h1>{_banner_html} Screener MFI — Fluxo Financeiro</h1>
     <p class="subtitle">
         O <b>Money Flow Index (MFI)</b> combina preço e volume para medir a real pressão de compra e venda institucional no mercado.<br>
-        Monitore <b>ações brasileiras</b> e <b>BDRs</b> para identificar oportunidades com <b>crossover recente</b> (últimos 7 dias) em zonas extremas de <b>sobrecompra</b> e <b>sobrevenda</b>.<br>
+        A aplicação monitora <b>ações brasileiras</b> e <b>BDRs</b> para identificar oportunidades com <b>crossover recente</b> (últimos 7 dias) em zonas extremas de <b>sobrecompra</b> e <b>sobrevenda</b>.<br>
         <span style="opacity: 0.8; font-size: 0.9em;">Parâmetros: Timeframe 8D · Período 4 · OB 86 · OS 24</span>
     </p>
 </div>
