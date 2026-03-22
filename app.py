@@ -38,11 +38,11 @@ SIGNAL_MAX_AGE_DAYS = 7
 # ─────────────────────────────────────────
 # Load bull/bear banner image as base64
 # ─────────────────────────────────────────
-_banner_path = Path(__file__).parent / "bull_bear_banner_neon.png"
+_banner_path = Path(__file__).parent / "bull_bear_banner_transparent.png"
 if _banner_path.exists():
     with open(_banner_path, "rb") as _f:
         _banner_b64 = base64.b64encode(_f.read()).decode()
-    _banner_html = f'<img src="data:image/png;base64,{_banner_b64}" style="height:110px; margin-right:20px; vertical-align:middle; mix-blend-mode: screen;">'
+    _banner_html = f'<img src="data:image/png;base64,{_banner_b64}" style="height:110px; margin-right:20px; vertical-align:middle; filter: drop-shadow(0 0 10px rgba(0,255,136,0.3));">'
 else:
     _banner_html = '🐂🐻'
 
