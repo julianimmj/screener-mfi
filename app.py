@@ -11,6 +11,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import json
 import os
+import base64
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
@@ -33,6 +34,17 @@ METADATA_FILE = DATA_DIR / "metadata.json"
 
 # Signal recency filter (calendar days)
 SIGNAL_MAX_AGE_DAYS = 7
+
+# ─────────────────────────────────────────
+# Load bull/bear banner image as base64
+# ─────────────────────────────────────────
+_banner_path = Path(__file__).parent / "bull_bear_banner.png"
+if _banner_path.exists():
+    with open(_banner_path, "rb") as _f:
+        _banner_b64 = base64.b64encode(_f.read()).decode()
+    _banner_html = f'<img src="data:image/png;base64,{_banner_b64}" style="height:64px; margin-right:16px; vertical-align:middle; border-radius:10px;">'
+else:
+    _banner_html = '🐂🐻'
 
 # ─────────────────────────────────────────
 # Custom CSS — Premium Dark Theme
@@ -92,6 +104,18 @@ st.markdown("""
         font-weight: 300;
     }
 
+    /* ── KPI Row — force equal columns ──── */
+    div[data-testid="stHorizontalBlock"] {
+        display: flex !important;
+        gap: 1rem !important;
+        align-items: stretch !important;
+    }
+    div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"] {
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
+        width: 0 !important;
+    }
+
     /* ── KPI Cards ─────────────────────── */
     .kpi-card {
         background: linear-gradient(145deg, #111b2e, #0d1926);
@@ -108,6 +132,7 @@ st.markdown("""
         box-shadow: 0 4px 20px rgba(0,0,0,0.4);
         transition: all 0.3s ease;
         margin-bottom: 0.5rem;
+        box-sizing: border-box;
     }
     .kpi-card:hover {
         border-color: rgba(0, 200, 255, 0.4);
@@ -244,9 +269,9 @@ st.markdown("""
 # ─────────────────────────────────────────
 # Hero Header
 # ─────────────────────────────────────────
-st.markdown("""
+st.markdown(f"""
 <div class="hero">
-    <h1>🌊 Screener MFI — Fluxo Financeiro</h1>
+    <h1>{_banner_html} Screener MFI — Fluxo Financeiro</h1>
     <p class="subtitle">
         Money Flow Index para <b>ações brasileiras</b> e <b>BDRs</b> —
         identifique ativos com <b>crossover</b> de <b>sobrecompra</b> ou <b>sobrevenda</b>
