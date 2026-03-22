@@ -42,7 +42,7 @@ _banner_path = Path(__file__).parent / "bull_bear_banner.png"
 if _banner_path.exists():
     with open(_banner_path, "rb") as _f:
         _banner_b64 = base64.b64encode(_f.read()).decode()
-    _banner_html = f'<img src="data:image/png;base64,{_banner_b64}" style="height:64px; margin-right:16px; vertical-align:middle; border-radius:10px;">'
+    _banner_html = f'<img src="data:image/png;base64,{_banner_b64}" style="height:90px; margin-right:20px; vertical-align:middle;">'
 else:
     _banner_html = '🐂🐻'
 
@@ -596,7 +596,7 @@ def kpi_box(col, val, label, btn_label, state_val, color="#00c8ff", val_size="2.
         st.rerun()
 
 
-kpi_box(k1, total_analyzed, "Total Analisados", "🔍 Ver Sinais", "Todos (OB + OS)", "#6688aa", "2rem")
+kpi_box(k1, total_analyzed, "Total Analisados", "🔍 Ver Sinais", "Todos (OB + OS)", "#6688aa", "2.6rem")
 kpi_box(k2, n_sobrecompra, "🔴 Sobrecompra", "🔴 Filtrar", "🔴 Sobrecompra (MFI ≥ 86)", "#ff1744")
 kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 24)", "#00e676")
 kpi_box(k4, n_total_signals, "Crossovers (7d)", "🔍 Ver Todos", "Todos (OB + OS)", "#ffab00")
