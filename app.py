@@ -273,10 +273,9 @@ st.markdown(f"""
 <div class="hero">
     <h1>{_banner_html} Screener MFI — Fluxo Financeiro</h1>
     <p class="subtitle">
-        Money Flow Index para <b>ações brasileiras</b> e <b>BDRs</b> —
-        identifique ativos com <b>crossover</b> de <b>sobrecompra</b> ou <b>sobrevenda</b>
-        nos últimos 7 dias.
-        Timeframe 8D · Período 4 · OB 86 · OS 24
+        O <b>Money Flow Index (MFI)</b> combina preço e volume para medir a real pressão de compra e venda institucional no mercado.<br>
+        Monitore <b>ações brasileiras</b> e <b>BDRs</b> para identificar oportunidades com <b>crossover recente</b> (últimos 7 dias) em zonas extremas de <b>sobrecompra</b> e <b>sobrevenda</b>.<br>
+        <span style="opacity: 0.8; font-size: 0.9em;">Parâmetros: Timeframe 8D · Período 4 · OB 86 · OS 24</span>
     </p>
 </div>
 """, unsafe_allow_html=True)
