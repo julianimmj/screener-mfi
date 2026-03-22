@@ -9,18 +9,18 @@ Parâmetros configuráveis:
   - Sobrecompra (OB): 86
   - Sobrevenda (OS): 24
 
-Classificação:
-  MFI >= 86  → 🔴 Sobrecompra (saída iminente)
-  MFI <= 24  → 🟢 Sobrevenda (entrada iminente)
-  MFI > 60   → 🔵 Tendência de Alta
-  MFI < 40   → 🟠 Tendência de Baixa
-  40–60      → ⚪ Zona de Transição
+Detecção de sinais (crossover, fiel ao Pine Script):
+  OB Cross: mfi_prev < OB  AND  mfi_current > OB
+  OS Cross: mfi_prev > OS  AND  mfi_current < OS
+
+Filtragem: somente sinais cujo crossover ocorreu nos últimos 7 dias.
 """
 
 import yfinance as yf
 import pandas as pd
 import numpy as np
 import time
+from datetime import datetime, timedelta, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # ─────────────────────────────────────────────
@@ -33,6 +33,9 @@ MFI_OVERBOUGHT = 86   # Nível de sobrecompra
 
 # How many calendar days of history to download (enough for resampling + warm-up)
 HISTORY_DAYS = 120
+
+# Maximum age of a signal (calendar days) to be included in the screener
+SIGNAL_MAX_AGE_DAYS = 7
 
 
 # ─────────────────────────────────────────────
@@ -95,17 +98,19 @@ def _compute_mfi(ohlcv: pd.DataFrame, length: int = MFI_LENGTH) -> pd.Series:
     # Raw Money Flow
     raw_mf = hlc3 * ohlcv['Volume']
 
-    # Positive / Negative Money Flow
+    # Positive / Negative Money Flow (faithful to Pine Script)
     direction = hlc3.diff()
     positive_mf = raw_mf.where(direction > 0, 0.0)
     negative_mf = raw_mf.where(direction < 0, 0.0)
 
     # SMA of positive and negative money flow
-    pos_sma = positive_mf.rolling(window=length).sum()
-    neg_sma = negative_mf.rolling(window=length).sum()
+    # Pine's sma() = rolling mean.  Since MFR = mean(pos)/mean(neg) = sum(pos)/sum(neg),
+    # we can use sum directly — the result is mathematically identical.
+    pos_sum = positive_mf.rolling(window=length).sum()
+    neg_sum = negative_mf.rolling(window=length).sum()
 
     # Money Flow Ratio — avoid division by zero
-    mfr = pos_sma / neg_sma.replace(0, np.nan)
+    mfr = pos_sum / neg_sum.replace(0, np.nan)
 
     # MFI = 100 - 100 / (1 + MFR)
     mfi = 100 - 100 / (1 + mfr)
@@ -113,56 +118,71 @@ def _compute_mfi(ohlcv: pd.DataFrame, length: int = MFI_LENGTH) -> pd.Series:
     return mfi
 
 
-def _classify_mfi(mfi_value: float, mfi_prev: float) -> dict:
+def _find_crossover_signal(mfi_series: pd.Series,
+                           ob: float = MFI_OVERBOUGHT,
+                           os_level: float = MFI_OVERSOLD) -> dict | None:
     """
-    Classify asset based on MFI value and detect OB/OS crossovers.
+    Scan the MFI series to find the most recent OB or OS crossover event.
 
-    Returns dict with:
-      - status: classification label
-      - trend_zone: uptrend / downtrend / transition
-      - ob_cross: True if MFI just crossed above OB level
-      - os_cross: True if MFI just crossed below OS level
-      - signal: 'ENTRADA' / 'SAÍDA' / 'NEUTRO'
+    Pine Script crossover conditions (faithful translation):
+        overbought = moneyFlowIndex[1] < ob  AND  moneyFlowIndex > ob
+        oversold   = moneyFlowIndex[1] > os  AND  moneyFlowIndex < os
+
+    Note: Pine uses strict inequalities (< and >), not ≤ / ≥.
+
+    Returns dict with signal info or None if no crossover found.
     """
-    # Trend Zone (lines 40 and 60 from Pine Script)
+    clean = mfi_series.dropna()
+    if len(clean) < 2:
+        return None
+
+    # Walk backwards through the series to find the most recent crossover
+    values = clean.values
+    dates = clean.index
+
+    for i in range(len(values) - 1, 0, -1):
+        mfi_curr = values[i]
+        mfi_prev = values[i - 1]
+
+        # Overbought crossover: previous < OB AND current > OB (strict, as Pine)
+        if mfi_prev < ob and mfi_curr > ob:
+            signal_date = dates[i]
+            return {
+                'signal_type': 'SOBRECOMPRA',
+                'signal_label': '🔴 Sobrecompra',
+                'signal_flow': 'SAÍDA',
+                'signal_date': signal_date,
+                'mfi_at_signal': round(float(mfi_curr), 2),
+                'mfi_prev_at_signal': round(float(mfi_prev), 2),
+                'ob_cross': True,
+                'os_cross': False,
+            }
+
+        # Oversold crossover: previous > OS AND current < OS (strict, as Pine)
+        if mfi_prev > os_level and mfi_curr < os_level:
+            signal_date = dates[i]
+            return {
+                'signal_type': 'SOBREVENDA',
+                'signal_label': '🟢 Sobrevenda',
+                'signal_flow': 'ENTRADA',
+                'signal_date': signal_date,
+                'mfi_at_signal': round(float(mfi_curr), 2),
+                'mfi_prev_at_signal': round(float(mfi_prev), 2),
+                'ob_cross': False,
+                'os_cross': True,
+            }
+
+    return None
+
+
+def _classify_trend(mfi_value: float) -> dict:
+    """Classify the current MFI value into trend zones (40/60 lines from Pine)."""
     if mfi_value > 60:
-        trend_zone = "🔵 Tendência de Alta"
-        trend_code = "ALTA"
+        return {"Zona": "🔵 Tendência de Alta", "Trend": "ALTA"}
     elif mfi_value < 40:
-        trend_zone = "🟠 Tendência de Baixa"
-        trend_code = "BAIXA"
+        return {"Zona": "🟠 Tendência de Baixa", "Trend": "BAIXA"}
     else:
-        trend_zone = "⚪ Zona de Transição"
-        trend_code = "TRANSIÇÃO"
-
-    # OB/OS classification
-    ob_cross = (mfi_prev < MFI_OVERBOUGHT) and (mfi_value >= MFI_OVERBOUGHT) if pd.notna(mfi_prev) else False
-    os_cross = (mfi_prev > MFI_OVERSOLD) and (mfi_value <= MFI_OVERSOLD) if pd.notna(mfi_prev) else False
-
-    if mfi_value >= MFI_OVERBOUGHT:
-        status = "🔴 Sobrecompra"
-        signal = "SAÍDA"
-    elif mfi_value <= MFI_OVERSOLD:
-        status = "🟢 Sobrevenda"
-        signal = "ENTRADA"
-    elif mfi_value > 60:
-        status = "🔵 Alta"
-        signal = "ENTRADA"
-    elif mfi_value < 40:
-        status = "🟠 Baixa"
-        signal = "SAÍDA"
-    else:
-        status = "⚪ Transição"
-        signal = "NEUTRO"
-
-    return {
-        "Status": status,
-        "Zona": trend_zone,
-        "Trend": trend_code,
-        "Signal": signal,
-        "OB Cross": ob_cross,
-        "OS Cross": os_cross,
-    }
+        return {"Zona": "⚪ Zona de Transição", "Trend": "TRANSIÇÃO"}
 
 
 # ─────────────────────────────────────────────
@@ -174,7 +194,7 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
     Calculate MFI for a single ticker.
 
     Downloads daily OHLCV, resamples to MFI_TIMEFRAME-day bars,
-    computes MFI with MFI_LENGTH period.
+    computes MFI with MFI_LENGTH period, and detects crossover signals.
 
     Returns:
         dict with all metrics, or None on failure.
@@ -200,13 +220,44 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
         if mfi_series.empty or mfi_series.dropna().empty:
             return None
 
-        # Get the latest and previous MFI values
+        # Get the latest MFI value
         mfi_clean = mfi_series.dropna()
         mfi_current = mfi_clean.iloc[-1]
-        mfi_prev = mfi_clean.iloc[-2] if len(mfi_clean) >= 2 else np.nan
 
-        # Classify
-        classification = _classify_mfi(mfi_current, mfi_prev)
+        # Find the most recent crossover signal
+        signal = _find_crossover_signal(mfi_series)
+
+        # Trend zone classification (based on current MFI)
+        trend = _classify_trend(mfi_current)
+
+        # Determine signal status
+        if signal is not None:
+            status = signal['signal_label']
+            signal_type = signal['signal_type']
+            signal_flow = signal['signal_flow']
+            ob_cross = signal['ob_cross']
+            os_cross = signal['os_cross']
+            # Convert signal date to string for serialization
+            sig_date = signal['signal_date']
+            if hasattr(sig_date, 'strftime'):
+                signal_date_str = sig_date.strftime('%Y-%m-%d')
+            else:
+                signal_date_str = str(sig_date)[:10]
+        else:
+            # No crossover found — classify by current value only (no signal)
+            if mfi_current > 60:
+                status = "🔵 Alta"
+                signal_flow = "NEUTRO"
+            elif mfi_current < 40:
+                status = "🟠 Baixa"
+                signal_flow = "NEUTRO"
+            else:
+                status = "⚪ Transição"
+                signal_flow = "NEUTRO"
+            signal_type = "NENHUM"
+            ob_cross = False
+            os_cross = False
+            signal_date_str = ""
 
         # Get volume (average daily volume from original data)
         avg_volume = hist['Volume'].tail(20).mean()
@@ -222,13 +273,14 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
             'Nome': name,
             'Preço': price,
             'MFI': round(mfi_current, 2),
-            'MFI Anterior': round(mfi_prev, 2) if pd.notna(mfi_prev) else None,
-            'Status': classification['Status'],
-            'Zona': classification['Zona'],
-            'Trend': classification['Trend'],
-            'Signal': classification['Signal'],
-            'OB Cross': classification['OB Cross'],
-            'OS Cross': classification['OS Cross'],
+            'Status': status,
+            'Zona': trend['Zona'],
+            'Trend': trend['Trend'],
+            'Signal': signal_flow,
+            'Signal Type': signal_type,
+            'Signal Date': signal_date_str,
+            'OB Cross': ob_cross,
+            'OS Cross': os_cross,
             'Volume Médio': int(avg_volume) if pd.notna(avg_volume) else 0,
             'Setor': sector,
         }

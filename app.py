@@ -1,7 +1,7 @@
 """
 app.py — Screener MFI "Fluxo Financeiro"
 Dashboard profissional para Streamlit Cloud.
-Mostra APENAS ativos em zona de Sobrecompra (MFI ≥ 86) ou Sobrevenda (MFI ≤ 24).
+Mostra APENAS ativos com crossover de Sobrecompra ou Sobrevenda nos últimos 7 dias.
 """
 
 import streamlit as st
@@ -12,7 +12,7 @@ import plotly.graph_objects as go
 import json
 import os
 from pathlib import Path
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 # ─────────────────────────────────────────
 # Page Config
@@ -30,6 +30,9 @@ st.set_page_config(
 DATA_DIR = Path(__file__).parent / "data"
 CSV_MFI = DATA_DIR / "mfi_screener.csv"
 METADATA_FILE = DATA_DIR / "metadata.json"
+
+# Signal recency filter (calendar days)
+SIGNAL_MAX_AGE_DAYS = 7
 
 # ─────────────────────────────────────────
 # Custom CSS — Premium Dark Theme
@@ -246,7 +249,8 @@ st.markdown("""
     <h1>🌊 Screener MFI — Fluxo Financeiro</h1>
     <p class="subtitle">
         Money Flow Index para <b>ações brasileiras</b> e <b>BDRs</b> —
-        identifique ativos em zona de <b>sobrecompra</b> e <b>sobrevenda</b>.
+        identifique ativos com <b>crossover</b> de <b>sobrecompra</b> ou <b>sobrevenda</b>
+        nos últimos 7 dias.
         Timeframe 8D · Período 4 · OB 86 · OS 24
     </p>
 </div>
@@ -287,6 +291,37 @@ def is_bdr(ticker: str) -> bool:
         if suffix in ('34', '33', '31', '32', '35', '39'):
             return True
     return False
+
+
+def filter_recent_signals(df: pd.DataFrame, max_age_days: int = SIGNAL_MAX_AGE_DAYS) -> pd.DataFrame:
+    """
+    Filter DataFrame to only include rows with crossover signals
+    that occurred within the last `max_age_days` calendar days.
+    """
+    if df.empty or 'Signal Date' not in df.columns:
+        return pd.DataFrame()
+
+    # Only keep rows that have a signal (OB or OS crossover)
+    has_signal = df['Signal Type'].isin(['SOBRECOMPRA', 'SOBREVENDA'])
+    df_signals = df[has_signal].copy()
+
+    if df_signals.empty:
+        return pd.DataFrame()
+
+    # Filter by recency
+    cutoff = datetime.now(timezone.utc).date() - timedelta(days=max_age_days)
+
+    def is_recent(date_str):
+        if not date_str or pd.isna(date_str) or str(date_str).strip() == '':
+            return False
+        try:
+            sig_date = pd.to_datetime(str(date_str)).date()
+            return sig_date >= cutoff
+        except Exception:
+            return False
+
+    recent_mask = df_signals['Signal Date'].apply(is_recent)
+    return df_signals[recent_mask].copy()
 
 
 # ─────────────────────────────────────────
@@ -340,8 +375,9 @@ with st.sidebar:
     |-----------|-------|
     | Timeframe | **8 dias** |
     | Período | **4** |
-    | Sobrecompra | **≥ 86** |
-    | Sobrevenda | **≤ 24** |
+    | Sobrecompra | **> 86** |
+    | Sobrevenda | **< 24** |
+    | Janela de Sinal | **7 dias** |
     """)
 
     st.markdown("---")
@@ -358,9 +394,11 @@ MFR = Σ Positive MF / Σ Negative MF
 MFI = 100 - 100 / (1 + MFR)
 ```
 
-**Sinais plotados:**
-- **MFI ≥ 86**: 🔴 Sobrecompra → saída de fluxo
-- **MFI ≤ 24**: 🟢 Sobrevenda → entrada de fluxo
+**Sinais de Crossover (fiel ao Pine Script):**
+- **OB Cross**: MFI anterior < 86 E MFI atual > 86 → 🔴 Sobrecompra
+- **OS Cross**: MFI anterior > 24 E MFI atual < 24 → 🟢 Sobrevenda
+
+⏰ Apenas sinais dos **últimos 7 dias** são exibidos.
         """)
 
     st.markdown("---")
@@ -432,46 +470,52 @@ else:
         st.stop()
 
 # ─────────────────────────────────────────
-# Pre-process: Add type flag + filter to OB/OS ONLY
+# Pre-process: Add type flag + filter to recent crossover signals ONLY
 # ─────────────────────────────────────────
 df_all['Tipo'] = df_all['Ticker'].apply(lambda t: 'BDR' if is_bdr(t) else 'Ação')
 
-# ★ CORE FILTER: Only keep assets in sobrecompra or sobrevenda
+# ★ CORE FILTER: Only keep assets with crossover signals from last 7 days
 total_analyzed = len(df_all)
-df = df_all[(df_all['MFI'] >= 86) | (df_all['MFI'] <= 24)].copy()
+df = filter_recent_signals(df_all, max_age_days=SIGNAL_MAX_AGE_DAYS)
 
 if df.empty:
     last_updated = get_last_updated()
     st.markdown(
         f'<div class="freshness">📅 Dados de: <b>{last_updated}</b> · '
         f'{total_analyzed} ativos analisados · '
-        f'Nenhum ativo em zona de sobrecompra ou sobrevenda no momento</div>',
+        f'Nenhum crossover de sobrecompra ou sobrevenda nos últimos {SIGNAL_MAX_AGE_DAYS} dias</div>',
         unsafe_allow_html=True
     )
     st.info(
-        "📊 **Nenhum ativo em zona extrema no momento.**\n\n"
-        "Todos os ativos analisados estão com MFI entre 24 e 86 "
-        "(fora das zonas de sobrecompra/sobrevenda).\n\n"
+        "📊 **Nenhum sinal de crossover recente.**\n\n"
+        f"Nenhum ativo apresentou cruzamento de sobrecompra (MFI > 86) ou "
+        f"sobrevenda (MFI < 24) nos últimos {SIGNAL_MAX_AGE_DAYS} dias.\n\n"
         "Os dados são atualizados diariamente — volte mais tarde para checar novos sinais."
     )
     st.stop()
 
 # Tag zone
-df['Zona Signal'] = df['MFI'].apply(
-    lambda v: '🟢 Sobrevenda' if v <= 24 else '🔴 Sobrecompra'
+df['Zona Signal'] = df['Signal Type'].apply(
+    lambda v: '🟢 Sobrevenda' if v == 'SOBREVENDA' else '🔴 Sobrecompra'
+)
+
+# Format signal date for display
+df['Data do Sinal'] = df['Signal Date'].apply(
+    lambda d: pd.to_datetime(str(d)).strftime('%d/%m/%Y') if d and str(d).strip() else '–'
 )
 
 # Show data freshness
 last_updated = get_last_updated()
 n_acoes = len(df[df['Tipo'] == 'Ação'])
 n_bdrs = len(df[df['Tipo'] == 'BDR'])
-n_ob = int((df['MFI'] >= 86).sum())
-n_os = int((df['MFI'] <= 24).sum())
+n_ob = int((df['Signal Type'] == 'SOBRECOMPRA').sum())
+n_os = int((df['Signal Type'] == 'SOBREVENDA').sum())
 
 st.markdown(
     f'<div class="freshness">📅 Dados de: <b>{last_updated}</b> · '
     f'{total_analyzed} ativos analisados · '
-    f'<b>{len(df)}</b> em zona extrema ({n_ob} sobrecompra + {n_os} sobrevenda)</div>',
+    f'<b>{len(df)}</b> crossovers nos últimos {SIGNAL_MAX_AGE_DAYS} dias '
+    f'({n_ob} sobrecompra + {n_os} sobrevenda)</div>',
     unsafe_allow_html=True
 )
 
@@ -484,7 +528,7 @@ elif universe == "Apenas BDRs":
     df = df[df['Tipo'] == 'BDR'].copy()
 
 if df.empty:
-    st.info("Nenhum ativo encontrado para esse universo nas zonas de sobrecompra/sobrevenda.")
+    st.info("Nenhum ativo encontrado para esse universo com crossover recente.")
     st.stop()
 
 # ─────────────────────────────────────────
@@ -493,10 +537,10 @@ if df.empty:
 view_zone = st.session_state.zone_filter
 
 if "Sobrevenda" in view_zone:
-    filtered = df[df['MFI'] <= 24].copy()
+    filtered = df[df['Signal Type'] == 'SOBREVENDA'].copy()
     filtered.sort_values('MFI', ascending=True, inplace=True)
 elif "Sobrecompra" in view_zone:
-    filtered = df[df['MFI'] >= 86].copy()
+    filtered = df[df['Signal Type'] == 'SOBRECOMPRA'].copy()
     filtered.sort_values('MFI', ascending=False, inplace=True)
 else:
     # "Todos (OB + OS)"
@@ -509,8 +553,8 @@ filtered.reset_index(drop=True, inplace=True)
 # KPI Cards
 # ─────────────────────────────────────────
 n_total_signals = len(df)
-n_sobrecompra = int((df['MFI'] >= 86).sum())
-n_sobrevenda = int((df['MFI'] <= 24).sum())
+n_sobrecompra = int((df['Signal Type'] == 'SOBRECOMPRA').sum())
+n_sobrevenda = int((df['Signal Type'] == 'SOBREVENDA').sum())
 
 k1, k2, k3, k4 = st.columns(4)
 
@@ -530,7 +574,7 @@ def kpi_box(col, val, label, btn_label, state_val, color="#00c8ff", val_size="2.
 kpi_box(k1, total_analyzed, "Total Analisados", "🔍 Ver Sinais", "Todos (OB + OS)", "#6688aa", "2rem")
 kpi_box(k2, n_sobrecompra, "🔴 Sobrecompra", "🔴 Filtrar", "🔴 Sobrecompra (MFI ≥ 86)", "#ff1744")
 kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 24)", "#00e676")
-kpi_box(k4, n_total_signals, "Com Sinal", "🔍 Ver Todos", "Todos (OB + OS)", "#ffab00")
+kpi_box(k4, n_total_signals, "Crossovers (7d)", "🔍 Ver Todos", "Todos (OB + OS)", "#ffab00")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -550,14 +594,14 @@ with tab_ranking:
     }
     view_label = zone_labels.get(view_zone, view_zone)
     st.markdown(
-        f'<div class="section-title">Ativos com Sinal — {view_label}</div>',
+        f'<div class="section-title">Crossovers Recentes — {view_label} (últimos {SIGNAL_MAX_AGE_DAYS} dias)</div>',
         unsafe_allow_html=True
     )
 
     if filtered.empty:
-        st.info(f"Nenhum ativo encontrado na zona '{view_label}'.")
+        st.info(f"Nenhum crossover encontrado na zona '{view_label}' nos últimos {SIGNAL_MAX_AGE_DAYS} dias.")
     else:
-        display_cols = ['Ticker', 'Nome', 'Preço', 'MFI', 'Zona Signal', 'Tipo', 'Volume Médio']
+        display_cols = ['Ticker', 'Nome', 'Preço', 'MFI', 'Zona Signal', 'Data do Sinal', 'Tipo', 'Volume Médio']
         available = [c for c in display_cols if c in filtered.columns]
         display = filtered[available].copy()
 
@@ -578,6 +622,7 @@ with tab_ranking:
             "Preço": st.column_config.TextColumn("Preço", width="small"),
             "MFI": st.column_config.TextColumn("MFI", width="small"),
             "Zona Signal": st.column_config.TextColumn("Zona", width="medium"),
+            "Data do Sinal": st.column_config.TextColumn("Data Sinal", width="small"),
             "Tipo": st.column_config.TextColumn("Tipo", width="small"),
             "Volume Médio": st.column_config.TextColumn("Vol. Médio", width="small"),
         }
@@ -591,8 +636,9 @@ with tab_ranking:
         )
 
         st.caption(
-            f"Exibindo {len(display)} ativos com sinal · "
-            f"{total_analyzed} ativos analisados · MFI Timeframe 8D, Período 4"
+            f"Exibindo {len(display)} crossovers recentes · "
+            f"{total_analyzed} ativos analisados · MFI TF 8D, Per 4 · "
+            f"Janela: {SIGNAL_MAX_AGE_DAYS} dias"
         )
 
 # ── Tab 2: Gauge Charts ─────────────
@@ -600,7 +646,7 @@ with tab_gauge:
     st.markdown('<div class="section-title">Gauge MFI por Ativo</div>', unsafe_allow_html=True)
 
     if filtered.empty:
-        st.info("Nenhum ativo com sinal disponível para exibição.")
+        st.info("Nenhum ativo com crossover recente disponível para exibição.")
     else:
         selected_ticker = st.selectbox(
             "Selecione um ativo com sinal:",
@@ -610,7 +656,7 @@ with tab_gauge:
 
         row = filtered[filtered['Ticker'] == selected_ticker].iloc[0]
         mfi_val = row['MFI']
-        is_ob = mfi_val >= 86
+        is_ob = row.get('Signal Type', '') == 'SOBRECOMPRA'
 
         # Build gauge
         bar_color = '#ff1744' if is_ob else '#00e676'
@@ -661,26 +707,27 @@ with tab_gauge:
         st.plotly_chart(fig, use_container_width=True)
 
         # Info cards below gauge
-        g1, g2, g3 = st.columns(3)
+        g1, g2, g3, g4 = st.columns(4)
         g1.metric("MFI", f"{mfi_val:.1f}")
         g2.metric("Zona", "🔴 Sobrecompra" if is_ob else "🟢 Sobrevenda")
         g3.metric("Fluxo", "Saída" if is_ob else "Entrada")
+        g4.metric("Data Sinal", row.get('Data do Sinal', '–'))
 
         if is_ob:
             st.error(
-                "🔴 **Sobrecompra** — MFI ≥ 86. "
+                "🔴 **Sobrecompra (Crossover)** — MFI cruzou acima de 86. "
                 "Indica saída de fluxo financeiro. Possível topo ou distribuição."
             )
         else:
             st.success(
-                "🟢 **Sobrevenda** — MFI ≤ 24. "
+                "🟢 **Sobrevenda (Crossover)** — MFI cruzou abaixo de 24. "
                 "Indica entrada de fluxo financeiro. Possível fundo ou acumulação."
             )
 
 # ── Tab 3: Split View ───────────────
 with tab_split:
     st.markdown(
-        '<div class="section-title">Ações Brasileiras vs BDRs — Sinais Extremos</div>',
+        f'<div class="section-title">Ações Brasileiras vs BDRs — Crossovers Recentes ({SIGNAL_MAX_AGE_DAYS}d)</div>',
         unsafe_allow_html=True
     )
 
@@ -692,8 +739,8 @@ with tab_split:
     with col_a:
         st.markdown("#### 🇧🇷 Ações Brasileiras")
         if not df_acoes.empty:
-            ob_a = df_acoes[df_acoes['MFI'] >= 86]
-            os_a = df_acoes[df_acoes['MFI'] <= 24]
+            ob_a = df_acoes[df_acoes['Signal Type'] == 'SOBRECOMPRA']
+            os_a = df_acoes[df_acoes['Signal Type'] == 'SOBREVENDA']
 
             ca1, ca2 = st.columns(2)
             ca1.metric("🔴 Sobrecompra", len(ob_a))
@@ -701,23 +748,23 @@ with tab_split:
 
             if not os_a.empty:
                 st.markdown("**🟢 Sobrevenda (Entrada de Fluxo):**")
-                display_os = os_a[['Ticker', 'MFI', 'Zona Signal']].copy()
+                display_os = os_a[['Ticker', 'MFI', 'Zona Signal', 'Data do Sinal']].copy()
                 display_os['MFI'] = display_os['MFI'].map(lambda v: f"{v:.1f}")
                 st.dataframe(display_os, hide_index=True, use_container_width=True)
 
             if not ob_a.empty:
                 st.markdown("**🔴 Sobrecompra (Saída de Fluxo):**")
-                display_ob = ob_a[['Ticker', 'MFI', 'Zona Signal']].copy()
+                display_ob = ob_a[['Ticker', 'MFI', 'Zona Signal', 'Data do Sinal']].copy()
                 display_ob['MFI'] = display_ob['MFI'].map(lambda v: f"{v:.1f}")
                 st.dataframe(display_ob, hide_index=True, use_container_width=True)
         else:
-            st.info("Nenhuma ação brasileira com sinal no momento.")
+            st.info("Nenhuma ação brasileira com crossover recente.")
 
     with col_b:
         st.markdown("#### 🌐 BDRs")
         if not df_bdrs.empty:
-            ob_b = df_bdrs[df_bdrs['MFI'] >= 86]
-            os_b = df_bdrs[df_bdrs['MFI'] <= 24]
+            ob_b = df_bdrs[df_bdrs['Signal Type'] == 'SOBRECOMPRA']
+            os_b = df_bdrs[df_bdrs['Signal Type'] == 'SOBREVENDA']
 
             cb1, cb2 = st.columns(2)
             cb1.metric("🔴 Sobrecompra", len(ob_b))
@@ -725,28 +772,28 @@ with tab_split:
 
             if not os_b.empty:
                 st.markdown("**🟢 Sobrevenda (Entrada de Fluxo):**")
-                display_os_b = os_b[['Ticker', 'MFI', 'Zona Signal']].copy()
+                display_os_b = os_b[['Ticker', 'MFI', 'Zona Signal', 'Data do Sinal']].copy()
                 display_os_b['MFI'] = display_os_b['MFI'].map(lambda v: f"{v:.1f}")
                 st.dataframe(display_os_b, hide_index=True, use_container_width=True)
 
             if not ob_b.empty:
                 st.markdown("**🔴 Sobrecompra (Saída de Fluxo):**")
-                display_ob_b = ob_b[['Ticker', 'MFI', 'Zona Signal']].copy()
+                display_ob_b = ob_b[['Ticker', 'MFI', 'Zona Signal', 'Data do Sinal']].copy()
                 display_ob_b['MFI'] = display_ob_b['MFI'].map(lambda v: f"{v:.1f}")
                 st.dataframe(display_ob_b, hide_index=True, use_container_width=True)
         else:
-            st.info("Nenhum BDR com sinal no momento.")
+            st.info("Nenhum BDR com crossover recente.")
 
 
 # ─────────────────────────────────────────
 # Footer
 # ─────────────────────────────────────────
 st.markdown("---")
-st.markdown("""
+st.markdown(f"""
 <div style="text-align:center; opacity:0.4; font-size:0.8rem; padding: 1rem 0">
     <b>Screener MFI "Fluxo Financeiro"</b> · Dados via Yahoo Finance (atualização diária) ·
     <a href="https://github.com/julianimmj/screener-mfi" target="_blank" style="color:#00c8ff">github.com/julianimmj</a><br>
     Indicador: Money Flow Index (TF 8D · Per 4 · OB 86 · OS 24) ·
-    Exibe apenas ativos em zona de sobrecompra ou sobrevenda
+    Crossovers dos últimos {SIGNAL_MAX_AGE_DAYS} dias apenas
 </div>
 """, unsafe_allow_html=True)
