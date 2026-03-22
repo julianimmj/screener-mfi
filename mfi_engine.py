@@ -32,7 +32,7 @@ MFI_OVERSOLD = 24     # Nível de sobrevenda
 MFI_OVERBOUGHT = 86   # Nível de sobrecompra
 
 # How many calendar days of history to download (enough for resampling + warm-up)
-HISTORY_DAYS = 120
+HISTORY_DAYS = 200
 
 # Maximum age of a signal (calendar days) to be included in the screener
 SIGNAL_MAX_AGE_DAYS = 7
@@ -44,26 +44,24 @@ SIGNAL_MAX_AGE_DAYS = 7
 
 def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
     """
-    Resample daily OHLCV data into n-day bars.
-    Uses fixed blocks of n trading days (not calendar days).
+    Resample daily OHLCV data into n-day calendar bars anchored to UNIX epoch.
+    This exactly matches TradingView's static n-day Timeframe resolution logic.
     """
-    if df.empty or len(df) < n_days:
+    if df.empty:
         return pd.DataFrame()
 
-    # Work with trading-day blocks (not calendar)
-    n_blocks = len(df) // n_days
-    if n_blocks == 0:
-        return pd.DataFrame()
+    # Get dates without timezone to calculate ordinal accurately
+    dates = df.index.tz_localize(None)
+    
+    # TV uses 1970-01-01 as epoch. 1970-01-01 is ordinal day 719163.
+    # Group by the number of n_day blocks since the epoch.
+    block_ids = (dates.map(lambda d: d.toordinal()) - 719163) // n_days
+    
+    # We create a copy to avoid modifying the original dataframe slice warning
+    df_grouped = df.copy()
+    df_grouped['_block'] = block_ids
 
-    # Trim from the start to have complete blocks aligned to the end
-    trim = len(df) - n_blocks * n_days
-    df = df.iloc[trim:].copy()
-
-    # Create block labels
-    block_ids = np.repeat(range(n_blocks), n_days)
-    df['_block'] = block_ids
-
-    resampled = df.groupby('_block').agg({
+    resampled = df_grouped.groupby('_block').agg({
         'Open': 'first',
         'High': 'max',
         'Low': 'min',
@@ -71,9 +69,10 @@ def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
         'Volume': 'sum',
     })
 
-    # Recover the last date of each block as index
-    dates = df.groupby('_block').apply(lambda x: x.index[-1])
-    resampled.index = dates.values
+    # Recover the last trading date of each block as index
+    # We use include_groups=False to avoid future pandas warnings
+    last_dates = df_grouped.groupby('_block').apply(lambda x: x.index[-1], include_groups=False)
+    resampled.index = last_dates.values
 
     return resampled
 
