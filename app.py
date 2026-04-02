@@ -263,6 +263,75 @@ st.markdown("""
         color: #6688aa;
         margin-top: 0.2rem;
     }
+
+    /* ── Responsive Mobile ───────────────── */
+    @media (max-width: 768px) {
+        .hero {
+            padding: 1.2rem 1rem !important;
+            margin-bottom: 1rem !important;
+            border-radius: 12px !important;
+        }
+        .hero h1 {
+            font-size: 1.4rem !important;
+        }
+        .hero .subtitle {
+            font-size: 0.85rem !important;
+        }
+        div[data-testid="stHorizontalBlock"] {
+            flex-direction: column !important;
+            gap: 0.5rem !important;
+        }
+        div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"] {
+            width: 100% !important;
+            flex: none !important;
+            min-width: 100% !important;
+        }
+        .kpi-card {
+            padding: 0.8rem 0.5rem !important;
+            min-height: 80px !important;
+        }
+        .kpi-card .value {
+            font-size: 1.8rem !important;
+        }
+        .kpi-card .label {
+            font-size: 0.6rem !important;
+        }
+        .stButton > button {
+            height: 2rem !important;
+            font-size: 0.75rem !important;
+        }
+        .section-title {
+            font-size: 1rem !important;
+            margin: 1rem 0 0.5rem !important;
+        }
+        div[data-testid="stDataFrame"] {
+            overflow-x: auto !important;
+            font-size: 0.75rem !important;
+        }
+        div[data-testid="stDataFrame"] table {
+            min-width: 500px !important;
+        }
+        .stTabs [data-baseweb="tab"] {
+            padding: 6px 12px !important;
+            font-size: 0.8rem !important;
+        }
+        div[data-testid="stMetric"] {
+            padding: 0.5rem !important;
+        }
+        div[data-testid="stMetricValue"] {
+            font-size: 1rem !important;
+        }
+        div[data-testid="stMetricLabel"] {
+            font-size: 0.7rem !important;
+        }
+        .freshness {
+            font-size: 0.75rem !important;
+            padding: 6px 10px !important;
+        }
+        div[data-testid="stPlotlyChart"] {
+            height: 280px !important;
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
