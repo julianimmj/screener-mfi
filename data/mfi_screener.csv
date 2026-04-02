@@ -1,202 +1,203 @@
 Ticker,Nome,Preço,MFI,Status,Zona,Trend,Signal,Signal Type,Signal Date,OB Cross,OS Cross,Volume Médio,Setor
-ENEV3.SA,ENEVA       ON      NM,24.54,88.31,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-23,True,False,20657785,Utilities
-PETR4.SA,PETROBRAS   PN  ATZ N2,48.67,88.11,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-13,True,False,63715515,Energy
-PETR3.SA,PETROBRAS   ON      N2,53.91,84.99,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-12-17,False,True,17231450,Energy
-ISAE4.SA,ISA ENERGIA PN      N1,29.09,84.97,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,2766470,Utilities
-SLCE3.SA,SLC AGRICOLAON      NM,18.71,84.65,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-10-06,False,True,3185110,Consumer Defensive
-RECV3.SA,PETRORECSA  ON      NM,14.03,83.52,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-11-21,False,True,4780510,Energy
-CMIG4.SA,CEMIG       PN  EJ  N1,12.61,81.32,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,13953505,Utilities
-PRIO3.SA,PETRORIO    ON      NM,66.21,76.83,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-10-22,False,True,21388425,Energy
-NEOE3.SA,NEOENERGIA  ON      NM,33.35,74.84,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-12-01,True,False,2147020,Utilities
-LWSA3.SA,LWSA        ON      NM,3.8,74.35,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-02-27,False,True,5332570,Technology
-SMTO3.SA,SAO MARTINHOON      NM,21.2,73.78,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-06,True,False,3010450,Basic Materials
-UGPA3.SA,ULTRAPAR    ON      NM,28.72,73.68,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,7125450,Energy
-TEND3.SA,TENDA       ON      NM,31.2,70.94,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-12-17,False,True,2280140,Real Estate
-DESK3.SA,DESKTOP     ON      NM,18.14,69.93,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-10-06,True,False,1399805,Communication Services
-CBAV3.SA,CBA         ON  ATZ NM,10.5,63.44,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,4085995,Basic Materials
-CSMG3.SA,COPASA      ON  EJ  NM,57.7,62.34,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,2960935,Utilities
-SAPR11.SA,SANEPAR     UNT     N2,44.53,61.12,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-06,False,True,2193265,Utilities
-BRKM5.SA,BRASKEM     PNA     N1,9.4,59.87,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-09-26,False,True,7701610,Basic Materials
-CPLE3.SA,COPEL       ON      NM,15.43,59.55,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-12-23,False,True,22382545,Utilities
-SBSP3.SA,SABESP      ON  EJB NM,158.24,58.89,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-12-17,False,True,3111681,Utilities
-ITSA4.SA,ITAUSA      PN  EJ  N1,13.98,57.95,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-13,False,True,31624625,Industrials
-WEGE3.SA,WEG         ON  EJ  NM,51.01,56.09,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-13,False,True,6372125,Industrials
-MOVI3.SA,MOVIDA      ON      NM,12.91,55.78,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-10-22,False,True,5258852,Industrials
-AZZA3.SA,AZZAS 2154  ON      NM,25.7,55.73,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-12-17,False,True,3791785,Consumer Cyclical
-SEQL3.SA,SEQUOIA LOG ON      NM,0.24,55.6,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-02-03,False,True,2588150,Industrials
-BRAV3.SA,BRAVA       ON      NM,20.57,54.37,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-12-09,False,True,11534080,Energy
-ALPA4.SA,ALPARGATAS  PN      N1,12.4,54.29,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-13,False,True,3323635,Consumer Cyclical
-AUAU3.SA,PETZCOBASI  ON      NM,3.47,54.26,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4318355,Consumer Cyclical
-ESPA3.SA,ESPACOLASER ON      NM,1.13,53.93,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-12-17,False,True,1106765,Consumer Cyclical
-HYPE3.SA,HYPERA      ON      NM,23.28,53.84,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,3267440,Healthcare
-CSNA3.SA,SID NACIONALON,6.33,52.8,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,19519485,Basic Materials
-RAIL3.SA,RUMO S.A.   ON      NM,16.25,52.34,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-01-02,False,True,10472370,Industrials
-RENT3.SA,LOCALIZA    ON      NM,46.98,51.06,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-13,False,True,9737445,Industrials
-USIM5.SA,USIMINAS    PNA     N1,6.74,50.64,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2025-12-17,True,False,9931895,Basic Materials
-CPFE3.SA,CPFL ENERGIAON      NM,48.76,50.25,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-02-27,False,True,1774790,Utilities
-VBBR3.SA,VIBRA       ON      NM,31.62,49.03,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-23,False,True,9418275,Consumer Cyclical
-LREN3.SA,LOJAS RENNERON  EJ  NM,14.96,49.02,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-12-23,False,True,17977760,Consumer Cyclical
-EQTL3.SA,EQUATORIAL  ON      NM,40.77,48.41,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-01-09,False,True,7536850,Utilities
-ONCO3.SA,ONCOCLINICASON      NM,1.54,48.0,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2025-12-23,True,False,10534290,Healthcare
-CXSE3.SA,CAIXA SEGURION      NM,18.35,47.99,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4771640,Financial Services
-RDOR3.SA,REDE D OR   ON  EJ  NM,38.97,47.72,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,7160470,Healthcare
-QUAL3.SA,QUALICORP   ON      NM,2.12,47.47,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,4431365,Healthcare
-CEAB3.SA,CEA MODAS   ON      NM,12.1,46.9,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-13,False,True,8623260,Consumer Cyclical
-ENGI11.SA,ENERGISA    UNT     N2,52.46,46.7,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-12-17,False,True,3617515,Utilities
-BBSE3.SA,BBSEGURIDADEON      NM,34.81,46.23,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-08-01,False,True,5189120,Financial Services
-BBDC3.SA,BRADESCO    ON      N1,16.71,46.07,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-12-17,False,True,9303480,Financial Services
-SEER3.SA,SER EDUCA   ON      NM,13.25,46.05,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-13,False,True,1390185,Consumer Defensive
-INTB3.SA,INTELBRAS   ON      NM,14.65,44.8,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-12-23,False,True,2807705,Technology
-JHSF3.SA,JHSF PART   ON      NM,9.27,43.12,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4398575,Real Estate
-AMBP3.SA,AMBIPAR     ON      NM,0.23,42.54,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,6738935,Industrials
-AURE3.SA,AUREN       ON      NM,11.94,42.52,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-01-09,False,True,3370110,Utilities
-CASH3.SA,MELIUZ      ON      NM,3.67,38.24,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-19,False,True,2090425,Communication Services
-PINE4.SA,PINE        PN      N2,13.28,37.64,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,1246855,Financial Services
-GRND3.SA,GRENDENE    ON      NM,4.74,36.97,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,6202725,Consumer Cyclical
-TTEN3.SA,3TENTOS     ON      NM,16.0,36.14,🔴 Sobrecompra,🟠 Tendência de Baixa,BAIXA,SAÍDA,SOBRECOMPRA,2025-12-23,True,False,1880225,Basic Materials
-POSI3.SA,POSITIVO TECON      NM,4.1,34.36,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-22,False,True,1527345,Technology
-AXIA6.SA,AXIA ENERGIAPNB     N1,64.18,34.19,🔴 Sobrecompra,🟠 Tendência de Baixa,BAIXA,SAÍDA,SOBRECOMPRA,2025-08-27,True,False,1565875,Utilities
-ASAI3.SA,ASSAI       ON      NM,9.48,32.29,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,13332675,Consumer Defensive
-CYRE3.SA,CYRELA REALTON      NM,27.32,30.82,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,7003625,Consumer Cyclical
-BMGB4.SA,BANCO BMG   PN      N1,5.0,29.95,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,1558005,Financial Services
-RAIZ4.SA,RAIZEN      PN      N2,0.51,29.74,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,46751935,Utilities
-JBSS32.SA,JBS N.V.    DR2,92.99,29.5,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,1601188,Consumer Defensive
-PSSA3.SA,PORTO SEGUROON      NM,50.51,28.95,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-06,False,True,1827610,Financial Services
-GMAT3.SA,GRUPO MATEUSON      NM,4.7,28.66,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,16170260,Consumer Cyclical
-TUPY3.SA,TUPY        ON      NM,13.47,28.11,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-01-16,False,True,1530560,Industrials
-VAMO3.SA,VAMOS       ON      NM,3.72,27.89,🔴 Sobrecompra,🟠 Tendência de Baixa,BAIXA,SAÍDA,SOBRECOMPRA,2025-11-21,True,False,19414861,Industrials
-CVCB3.SA,CVC BRASIL  ON      NM,1.98,27.89,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,13028135,Consumer Cyclical
-BRSR6.SA,BANRISUL    PNB     N1,17.25,27.08,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,2219815,Financial Services
-CURY3.SA,CURY S/A    ON      NM,35.38,26.86,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,3725480,Real Estate
-B3SA3.SA,B3          ON      NM,18.4,26.37,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-12-23,False,True,38412255,Financial Services
-ALOS3.SA,ALLOS       ON      NM,30.34,26.09,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,7025145,Real Estate
-KLBN11.SA,KLABIN S/A  UNT     N2,19.51,25.56,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-14,False,True,4497060,Basic Materials
-BPAC11.SA,BTGP BANCO  UNT     N2,56.29,24.9,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-08-01,False,True,10370000,Financial Services
-SMFT3.SA,SMART FIT   ON  EJ  NM,19.16,24.77,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,7354295,Consumer Cyclical
-KEPL3.SA,KEPLER WEBERON      NM,8.21,24.59,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,3259505,Industrials
-IGTI11.SA,IGUATEMI S.AUNT     N1,27.94,24.57,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-12-17,False,True,2209360,Real Estate
-MDNE3.SA,MOURA DUBEUXON      NM,32.25,24.44,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,1185495,Real Estate
-BBDC4.SA,BRADESCO    PN      N1,19.17,23.88,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,36201745,Financial Services
-YDUQ3.SA,YDUQS PART  ON      NM,12.11,23.79,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,5439440,Consumer Defensive
-MGLU3.SA,MAGAZ LUIZA ON      NM,8.77,23.76,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,20999295,Consumer Cyclical
-CMIN3.SA,CSNMINERACAOON      N2,4.95,23.25,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,11359430,Basic Materials
-RADL3.SA,RAIADROGASILON      NM,23.53,23.19,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,10829095,Healthcare
-COGN3.SA,COGNA ON    ON      NM,3.16,23.18,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,29285120,Consumer Defensive
-ITUB4.SA,ITAUUNIBANCOPN  EJ  N1,43.48,22.69,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,28309570,Financial Services
-VIVT3.SA,TELEF BRASILON  EJ,41.23,22.62,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,5115085,Communication Services
-MRVE3.SA,MRV         ON  ATZ NM,7.87,22.57,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,10397460,Real Estate
-EGIE3.SA,ENGIE BRASILON      NM,32.83,22.5,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,1774470,Utilities
-MULT3.SA,MULTIPLAN   ON      N2,31.81,22.46,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,3754730,Real Estate
-PMAM3.SA,PARANAPANEMAON      NM,0.5,22.18,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,2146465,Basic Materials
-AXIA3.SA,AXIA ENERGIAON      N1,58.56,21.82,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,9368815,Utilities
-TAEE11.SA,TAESA       UNT     N2,43.01,21.81,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,1937635,Utilities
-BEEF3.SA,MINERVA     ON      NM,4.25,21.75,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,21497105,Consumer Defensive
-TOTS3.SA,TOTVS       ON  EJ  NM,34.94,21.71,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-19,False,True,4211140,Technology
-ABEV3.SA,AMBEV S/A   ON,15.25,21.5,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,25874270,Consumer Defensive
-HBSA3.SA,HIDROVIAS   ON      NM,4.08,21.17,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,1718600,Industrials
-VALE3.SA,VALE        ON      NM,82.48,21.14,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,22097215,Basic Materials
-GOAU4.SA,GERDAU MET  PN      N1,8.54,20.99,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,10671000,Basic Materials
-FLRY3.SA,FLEURY      ON      NM,15.93,20.55,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,3382855,Healthcare
-ANIM3.SA,ANIMA       ON      NM,4.3,20.47,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,8399990,Consumer Defensive
-GGBR4.SA,GERDAU      PN      N1,19.0,20.31,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,11295325,Basic Materials
-TIMS3.SA,TIM         ON  EJ  NM,27.46,20.28,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,5113920,Communication Services
-DXCO3.SA,DEXCO       ON      NM,4.71,20.06,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,3331215,Basic Materials
-HAPV3.SA,HAPVIDA     ON  ATZ NM,10.1,19.93,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-03,False,True,13287760,Financial Services
-GGPS3.SA,GPS         ON      NM,16.7,19.55,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,3360280,Industrials
-SIMH3.SA,SIMPAR      ON      NM,11.5,19.44,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,3916140,Industrials
-EZTC3.SA,EZTEC       ON      NM,13.98,18.28,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,2349435,Real Estate
-VULC3.SA,VULCABRAS   ON      NM,17.52,17.95,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,1932060,Consumer Cyclical
-POMO4.SA,MARCOPOLO   PN      N2,6.2,17.94,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,12301150,Industrials
-PCAR3.SA,"P.ACUCAR,CBDON      NM",2.21,17.77,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,11637820,Consumer Cyclical
-SANB11.SA,SANTANDER BRUNT,30.64,17.71,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,2927580,Financial Services
-BRAP4.SA,BRADESPAR   PN      N1,23.06,17.46,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,2565910,Financial Services
-SBFG3.SA,GRUPO SBF   ON      NM,12.29,16.88,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,2513005,Consumer Cyclical
-PGMN3.SA,PAGUE MENOS ON      NM,6.21,15.7,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,6927640,Healthcare
-ODPV3.SA,ODONTOPREV  ON      NM,13.43,13.96,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,5428610,Healthcare
-SOJA3.SA,BOA SAFRA   ON      NM,7.13,13.74,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,1727145,Basic Materials
-LJQQ3.SA,"QUERO,QUERO ON      NM",2.0,13.35,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,4505975,Consumer Cyclical
-CSAN3.SA,COSAN       ON      NM,5.38,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,34991205,Energy
-DIRR3.SA,DIRECIONAL  ON      NM,13.3,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,8596820,Real Estate
-BBAS3.SA,BRASIL      ON      NM,23.0,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,24029560,Financial Services
-SUZB3.SA,SUZANO S.A. ON      NM,51.9,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,5381185,Basic Materials
-ECOR3.SA,ECORODOVIAS ON      NM,8.43,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,9985235,Industrials
-EMBJ3.SA,EMBRAER     ON  ATZ NM,76.95,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,6871585,Industrials
-DASA3.SA,DASA        ON      NM,2.92,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,2070430,Healthcare
-PLPL3.SA,PLANOEPLANO ON      NM,13.33,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,3087330,Real Estate
-MYPK3.SA,"IOCHP,MAXIONON      NM",9.14,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,1236955,Consumer Cyclical
-EXXO34.SA,EXXON MOBIL DRN,109.28,95.6,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-06,True,False,40997,Energy
-CHVX34.SA,CHEVRON     DRN,106.71,94.89,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-02-27,True,False,36367,Energy
-SCHW34.SA,SCHWAB      DRN,60.91,93.75,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-06,True,False,937,Financial Services
-V1RS34.SA,VERISK ANALYDRN,13.95,91.91,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-13,True,False,1,Industrials
-BKNG34.SA,BOOKING     DRN,125.0,89.15,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-31,True,False,3337,Consumer Cyclical
-TGTB34.SA,TARGET CORP DRN,624.5,86.97,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-31,True,False,15,Consumer Defensive
-COPH34.SA,COPHILLIPS  DRN,59.77,85.98,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-12-23,True,False,5242,Energy
-PFIZ34.SA,PFIZER      DRN,36.22,81.07,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-02-03,False,True,6744,Healthcare
-SBUB34.SA,STARBUCKS   DRN,454.0,76.04,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-06,True,False,104,Consumer Cyclical
-ORCL34.SA,ORACLE      DRN,127.35,72.87,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-01-09,False,True,88221,Technology
-AVGO34.SA,BROADCOM INCDRN ED,22.76,70.02,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-02-03,False,True,197845,Technology
-USBC34.SA,US BANCORP  DRN,70.05,69.87,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,108,Financial Services
-JNJB34.SA,JOHNSON     DRN,84.16,69.74,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-02-03,True,False,7408,Healthcare
-TMOS34.SA,THERMFISCHERDRN,53.17,65.63,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-11-07,True,False,5947,Healthcare
-A1MD34.SA,ADVANCED MICDRN,132.0,64.68,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-02-19,False,True,59350,Technology
-WALM34.SA,WAL MART    DRN ED,40.65,64.38,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-01-16,False,True,25517,Consumer Defensive
-CTGP34.SA,CITIGROUP   DRN,97.92,64.07,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,8927,Financial Services
-RIGG34.SA,TRANSOCEAN  DRN,35.49,61.52,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-02-03,True,False,4534,Energy
-INTU34.SA,INTUIT INC  DRN,50.75,60.2,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-01-16,False,True,2772,Technology
-NFLX34.SA,NETFLIX     DRN,9.92,59.39,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-10-30,False,True,1638756,Communication Services
-AMZO34.SA,AMAZON      DRN,53.88,58.25,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-02-19,False,True,617519,Consumer Cyclical
-LMTB34.SA,LOCKHEED    DRN,3130.09,58.05,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2025-12-17,True,False,15,Industrials
-IBMB34.SA,IBM         DRN,1242.5,57.26,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-02-03,False,True,79,Technology
-MRCK34.SA,MERCK       DRN,79.78,53.36,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-13,False,True,3098,Healthcare
-UPSS34.SA,UPS         DRN,31.37,53.17,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-02-19,False,True,1318,Industrials
-ASML34.SA,ASML HOLD   DRN,124.05,51.69,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-08-01,False,True,11885,Technology
-ITLC34.SA,INTEL       DRN,38.16,50.95,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-13,False,True,128720,Technology
-ACNB34.SA,ACCENTURE   DRN,1024.4,47.7,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-02-19,False,True,58,Technology
-GSGI34.SA,GOLDMANSACHSDRN,146.27,46.26,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-01-16,False,True,3302,Financial Services
-A1EP34.SA,AMERICAN ELEDRN,335.58,45.52,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-01-02,False,True,10,Utilities
-GOGL34.SA,ALPHABET    DRN,123.91,44.16,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,169549,Communication Services
-ADBE34.SA,ADOBE INC   DRN,25.23,43.12,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-01-16,False,True,54490,Technology
-ABBV34.SA,ABBVIE      DRN,70.42,42.42,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-11-14,False,True,778,Healthcare
-GILD34.SA,GILEAD      DRN,365.3,42.11,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,57,Healthcare
-CATP34.SA,CATERPILLAR DRN,228.5,36.18,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,1511,Industrials
-MSBR34.SA,MORGAN STAN DRN,170.05,33.94,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-11,False,True,734,Financial Services
-WFCO34.SA,WELLS FARGO DRN,102.98,32.96,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,2178,Financial Services
-MSFT34.SA,MICROSOFT   DRN,80.24,28.72,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-01-09,False,True,348668,Technology
-VISA34.SA,VISA INC    DRN,78.16,28.47,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-01-16,False,True,23135,Financial Services
-BIDU34.SA,BAIDU INC   DRN,41.4,28.38,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,9214,Communication Services
-PYPL34.SA,PAYPAL HOLD DRN,11.8,28.16,🔴 Sobrecompra,🟠 Tendência de Baixa,BAIXA,SAÍDA,SOBRECOMPRA,2026-03-13,True,False,33809,Financial Services
-PAGS34.SA,PAGSEGURO   DRN,10.39,28.09,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,169149,Technology
-COWC34.SA,COSTCO      DRN,128.63,27.72,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,3285,Consumer Defensive
-JPMC34.SA,JPMORGAN    DRN,152.1,25.2,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,34774,Financial Services
-NVDC34.SA,NVIDIA CORP DRN,18.79,21.87,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,4048085,Technology
-XPBR31.SA,XP INC      DR1,97.8,21.04,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,1097741,Financial Services
-ROXO34.SA,NU HOLDINGS DRN,12.45,19.55,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,6466434,Financial Services
-M1TA34.SA,META PLAT   DRN,105.33,18.78,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,172695,Communication Services
-BABA34.SA,ALIBABAGR   DRN,23.2,17.43,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,311419,Consumer Cyclical
-A1MT34.SA,APPLIED MATEDRN,176.1,15.17,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,4026,Technology
-ARMT34.SA,ARCELOR     DRN,133.38,13.79,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,1270,Basic Materials
-BOAC34.SA,BANK AMERICADRN,62.95,11.91,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,37433,Financial Services
-DEEC34.SA,DEERE CO    DRN,102.0,10.9,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,597,Industrials
-BLAK34.SA,BLACKROCK   DRN,75.03,10.79,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-19,False,True,5547,Financial Services
-A1ZN34.SA,ASTRAZENECA DRN,168.97,9.39,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,215,Healthcare
-UNHH34.SA,UNITEDHEALTHDRN,19.96,8.29,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,38396,Healthcare
-AXPB34.SA,AMERICAN EXPDRN,156.8,4.17,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,1255,Financial Services
-CMCS34.SA,COMCAST     DRN,30.11,3.66,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,12038,Communication Services
-AAPL34.SA,APPLE       DRN,66.1,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,288290,Technology
-TSLA34.SA,TESLA INC   DRN,60.09,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-01-26,False,True,1103177,Consumer Cyclical
-QCOM34.SA,QUALCOMM    DRN,55.53,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,6795,Technology
-MCDC34.SA,MCDONALDS   DRN,80.49,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,3034,Consumer Cyclical
-COCA34.SA,COCA COLA   DRN,65.61,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,32802,Consumer Defensive
-PEPB34.SA,PEPSICO INC DRN,53.56,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,9448,Consumer Defensive
-PGCO34.SA,PG          DRN,53.31,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,9584,Consumer Defensive
-LILY34.SA,LILLY       DRN,157.91,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,11935,Healthcare
-ABTT34.SA,ABBOTT      DRN,43.8,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,714,Healthcare
-AMGN34.SA,AMGEN       DRN,65.05,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,505,Healthcare
-NIKE34.SA,NIKE        DRN,27.5,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,40018,Consumer Cyclical
-HONB34.SA,HONEYWELL   DRN,1173.51,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,1,Industrials
-DISB34.SA,WALT DISNEY DRN,33.34,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,46388,Communication Services
+RECV3.SA,PETRORECSA  ON      NM,13.6,94.81,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-04-01,True,False,4711065,Energy
+PETR4.SA,PETROBRAS   PN  ATZ N2,47.37,94.08,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-13,True,False,64494155,Energy
+PRIO3.SA,PETRORIO    ON      NM,64.13,93.47,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-04-01,True,False,22169840,Energy
+PETR3.SA,PETROBRAS   ON      N2,51.93,91.08,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-04-01,True,False,18109445,Energy
+SLCE3.SA,SLC AGRICOLAON      NM,18.17,90.38,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-04-01,True,False,3401780,Consumer Defensive
+ENEV3.SA,ENEVA       ON      NM,24.99,88.31,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-23,True,False,20673845,Utilities
+FIQE3.SA,UNIFIQUE    ON      NM,7.03,85.48,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-12-01,True,False,1017560,Communication Services
+ISAE4.SA,ISA ENERGIA PN      N1,28.83,84.97,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,2831205,Utilities
+CMIG4.SA,CEMIG       PN  EJ  N1,12.63,81.32,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,13919925,Utilities
+WEGE3.SA,WEG         ON  EJ  NM,51.01,78.86,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,6691250,Industrials
+CSMG3.SA,COPASA      ON  EJ  NM,57.59,78.52,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,3046485,Utilities
+SAPR11.SA,SANEPAR     UNT     N2,45.8,78.0,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-06,False,True,2166995,Utilities
+SBSP3.SA,SABESP      ON  EJB NM,156.13,76.77,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-12-17,False,True,3117985,Utilities
+QUAL3.SA,QUALICORP   ON      NM,2.09,75.61,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-06,False,True,4604800,Healthcare
+CPLE3.SA,COPEL       ON      NM,15.83,75.44,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-12-23,False,True,22483885,Utilities
+MOVI3.SA,MOVIDA      ON      NM,13.56,75.3,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-10-22,False,True,5505943,Industrials
+NEOE3.SA,NEOENERGIA  ON      NM,33.36,74.84,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-12-01,True,False,2402975,Utilities
+ITSA4.SA,ITAUSA      PN  EJ  N1,14.18,73.94,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,32616795,Industrials
+CXSE3.SA,CAIXA SEGURION      NM,18.35,73.73,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,5279645,Financial Services
+UGPA3.SA,ULTRAPAR    ON      NM,29.27,73.68,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,7137390,Energy
+HYPE3.SA,HYPERA      ON      NM,23.2,72.42,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-06,False,True,3297495,Healthcare
+RENT3.SA,LOCALIZA    ON      NM,47.75,71.61,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,9922425,Industrials
+RDOR3.SA,REDE D OR   ON  EJ  NM,39.44,71.31,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-06,False,True,7164265,Healthcare
+TEND3.SA,TENDA       ON      NM,31.3,70.94,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-12-17,False,True,2281445,Real Estate
+ALPA4.SA,ALPARGATAS  PN      N1,12.26,70.24,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,3319315,Consumer Cyclical
+DESK3.SA,DESKTOP     ON      NM,17.89,69.93,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-10-06,True,False,1377185,Communication Services
+RAIL3.SA,RUMO S.A.   ON      NM,16.18,69.52,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-01-02,False,True,10920420,Industrials
+USIM5.SA,USIMINAS    PNA     N1,6.77,67.94,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-12-17,True,False,9869810,Basic Materials
+CPFE3.SA,CPFL ENERGIAON      NM,48.51,67.84,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-02-27,False,True,1786420,Utilities
+AURE3.SA,AUREN       ON      NM,12.03,67.58,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-01-09,False,True,3250590,Utilities
+SEQL3.SA,SEQUOIA LOG ON      NM,0.23,67.5,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-02-03,False,True,2670075,Industrials
+AZZA3.SA,AZZAS 2154  ON      NM,25.45,66.65,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-12-17,False,True,3804555,Consumer Cyclical
+CSNA3.SA,SID NACIONALON,6.52,65.91,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-06,False,True,19503585,Basic Materials
+BBSE3.SA,BBSEGURIDADEON      NM,35.1,65.75,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-08-01,False,True,5126730,Financial Services
+CEAB3.SA,CEA MODAS   ON      NM,12.21,65.73,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,8629310,Consumer Cyclical
+INTB3.SA,INTELBRAS   ON      NM,14.7,64.56,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-12-23,False,True,2828810,Technology
+VBBR3.SA,VIBRA       ON      NM,31.26,63.63,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-23,False,True,9564010,Consumer Cyclical
+CBAV3.SA,CBA         ON  ATZ NM,10.58,63.44,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,3972485,Basic Materials
+LREN3.SA,LOJAS RENNERON  EJ  NM,14.96,61.17,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-12-23,False,True,18496885,Consumer Cyclical
+ENGI11.SA,ENERGISA    UNT     N2,53.0,60.74,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-12-17,False,True,3848825,Utilities
+SEER3.SA,SER EDUCA   ON      NM,13.72,60.58,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,1439655,Consumer Defensive
+BBDC3.SA,BRADESCO    ON      N1,16.97,60.25,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-12-17,False,True,9484145,Financial Services
+SMTO3.SA,SAO MARTINHOON      NM,19.71,58.18,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2026-03-06,True,False,3077015,Basic Materials
+TTEN3.SA,3TENTOS     ON      NM,16.03,57.92,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2025-12-23,True,False,1824705,Basic Materials
+EQTL3.SA,EQUATORIAL  ON      NM,40.61,57.27,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-01-09,False,True,7623875,Utilities
+JHSF3.SA,JHSF PART   ON      NM,9.68,56.77,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4548695,Real Estate
+LWSA3.SA,LWSA        ON      NM,3.87,56.24,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-02-27,False,True,4742585,Technology
+ONCO3.SA,ONCOCLINICASON      NM,1.4,53.96,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2025-12-23,True,False,10615295,Healthcare
+AMBP3.SA,AMBIPAR     ON      NM,0.23,52.0,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,7086290,Industrials
+CASH3.SA,MELIUZ      ON      NM,3.75,50.42,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-02-19,False,True,1991480,Communication Services
+BMGB4.SA,BANCO BMG   PN      N1,5.28,50.31,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1619770,Financial Services
+GRND3.SA,GRENDENE    ON      NM,4.67,50.25,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,6155540,Consumer Cyclical
+ESPA3.SA,ESPACOLASER ON      NM,1.13,49.79,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-12-17,False,True,1115030,Consumer Cyclical
+MDNE3.SA,MOURA DUBEUXON      NM,32.85,46.99,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1326660,Real Estate
+BRAV3.SA,BRAVA       ON      NM,19.82,46.6,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-12-09,False,True,11947060,Energy
+AUAU3.SA,PETZCOBASI  ON      NM,3.51,46.18,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4413160,Consumer Cyclical
+AXIA6.SA,AXIA ENERGIAPNB     N1,65.21,45.7,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2025-08-27,True,False,1600215,Utilities
+POSI3.SA,POSITIVO TECON      NM,4.21,45.58,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-10-22,False,True,1577235,Technology
+ASAI3.SA,ASSAI       ON      NM,9.3,44.22,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-23,False,True,12904500,Consumer Defensive
+CYRE3.SA,CYRELA REALTON      NM,28.52,43.68,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-13,False,True,7226375,Consumer Cyclical
+RAIZ4.SA,RAIZEN      PN      N2,0.53,43.35,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,43666445,Utilities
+VAMO3.SA,VAMOS       ON      NM,3.77,43.04,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2025-11-21,True,False,20038619,Industrials
+B3SA3.SA,B3          ON      NM,18.52,41.74,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-12-23,False,True,38961215,Financial Services
+GMAT3.SA,GRUPO MATEUSON      NM,4.66,41.51,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-23,False,True,17484040,Consumer Cyclical
+JBSS32.SA,JBS N.V.    DR2,93.15,39.85,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,1578038,Consumer Defensive
+KEPL3.SA,KEPLER WEBERON      NM,8.21,39.51,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,3152295,Industrials
+BBDC4.SA,BRADESCO    PN      N1,19.43,39.48,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,35436415,Financial Services
+PSSA3.SA,PORTO SEGUROON      NM,49.85,39.45,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-06,False,True,1800770,Financial Services
+TUPY3.SA,TUPY        ON      NM,13.37,39.34,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-01-16,False,True,1563800,Industrials
+CURY3.SA,CURY S/A    ON      NM,36.91,38.96,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,3873520,Real Estate
+BPAC11.SA,BTGP BANCO  UNT     N2,57.6,38.28,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-08-01,False,True,10230010,Financial Services
+DXCO3.SA,DEXCO       ON      NM,4.85,38.12,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,3362890,Basic Materials
+MULT3.SA,MULTIPLAN   ON      N2,32.49,37.85,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,3864130,Real Estate
+SIMH3.SA,SIMPAR      ON      NM,11.83,37.75,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,4037487,Industrials
+BRSR6.SA,BANRISUL    PNB     N1,17.82,37.5,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,2253550,Financial Services
+KLBN11.SA,KLABIN S/A  UNT     N2,19.55,37.41,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-14,False,True,4448890,Basic Materials
+ALOS3.SA,ALLOS       ON      NM,30.98,36.69,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,7405130,Real Estate
+IGTI11.SA,IGUATEMI S.AUNT     N1,28.45,35.96,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-12-17,False,True,2219210,Real Estate
+HBSA3.SA,HIDROVIAS   ON      NM,4.1,35.87,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,1705250,Industrials
+BEEF3.SA,MINERVA     ON      NM,4.34,35.79,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,21877280,Consumer Defensive
+ITUB4.SA,ITAUUNIBANCOPN  EJ  N1,43.83,35.76,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,28286320,Financial Services
+SMFT3.SA,SMART FIT   ON  EJ  NM,19.49,35.64,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,7306845,Consumer Cyclical
+VALE3.SA,VALE        ON      NM,83.0,34.98,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,22642625,Basic Materials
+CVCB3.SA,CVC BRASIL  ON      NM,2.01,34.93,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,13017085,Consumer Cyclical
+COGN3.SA,COGNA ON    ON      NM,3.21,34.72,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,29707705,Consumer Defensive
+AXIA3.SA,AXIA ENERGIAON      N1,59.48,34.55,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,9340170,Utilities
+ODPV3.SA,ODONTOPREV  ON      NM,13.74,34.33,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,4842325,Healthcare
+TAEE11.SA,TAESA       UNT     N2,42.79,34.23,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,1973140,Utilities
+ANIM3.SA,ANIMA       ON      NM,4.55,34.22,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,8678545,Consumer Defensive
+EGIE3.SA,ENGIE BRASILON      NM,32.88,34.02,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,1806525,Utilities
+BRKM5.SA,BRASKEM     PNA     N1,9.05,33.84,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-09-26,False,True,7722630,Basic Materials
+MGLU3.SA,MAGAZ LUIZA ON      NM,8.84,33.73,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,21091345,Consumer Cyclical
+GOAU4.SA,GERDAU MET  PN      N1,8.83,33.62,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,11125150,Basic Materials
+GGBR4.SA,GERDAU      PN      N1,19.72,33.32,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,11783260,Basic Materials
+CMIN3.SA,CSNMINERACAOON      N2,4.95,33.32,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,11542275,Basic Materials
+VIVT3.SA,TELEF BRASILON  EJ,41.65,33.16,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,5161170,Communication Services
+MRVE3.SA,MRV         ON  ATZ NM,8.05,32.14,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,10611900,Real Estate
+ABEV3.SA,AMBEV S/A   ON,15.36,31.72,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,25758145,Consumer Defensive
+FLRY3.SA,FLEURY      ON      NM,16.03,31.27,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,3359470,Healthcare
+YDUQ3.SA,YDUQS PART  ON      NM,12.03,31.24,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,5527670,Consumer Defensive
+BRAP4.SA,BRADESPAR   PN      N1,23.25,31.21,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,2546570,Financial Services
+TOTS3.SA,TOTVS       ON  EJ  NM,34.91,30.4,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-19,False,True,4134630,Technology
+RADL3.SA,RAIADROGASILON      NM,22.76,30.33,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,10452660,Healthcare
+PCAR3.SA,"P.ACUCAR,CBDON      NM",2.07,29.36,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,10527675,Consumer Cyclical
+SANB11.SA,SANTANDER BRUNT,31.2,29.1,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,2941985,Financial Services
+HAPV3.SA,HAPVIDA     ON  ATZ NM,10.48,28.52,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-03,False,True,13148270,Financial Services
+POMO4.SA,MARCOPOLO   PN      N2,6.23,28.44,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,12111205,Industrials
+TIMS3.SA,TIM         ON  EJ  NM,27.58,28.37,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,5149345,Communication Services
+GGPS3.SA,GPS         ON      NM,16.51,27.5,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,3360575,Industrials
+PMAM3.SA,PARANAPANEMAON      NM,0.51,27.29,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,2132235,Basic Materials
+EZTC3.SA,EZTEC       ON      NM,14.22,27.06,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,2353690,Real Estate
+VULC3.SA,VULCABRAS   ON      NM,17.55,26.51,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,1825385,Consumer Cyclical
+LJQQ3.SA,"QUERO,QUERO ON      NM",2.05,25.16,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,4519305,Consumer Cyclical
+SBFG3.SA,GRUPO SBF   ON      NM,12.45,24.03,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,2501200,Consumer Cyclical
+PGMN3.SA,PAGUE MENOS ON      NM,5.99,17.41,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,7753340,Healthcare
+SOJA3.SA,BOA SAFRA   ON      NM,7.1,15.75,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,1763675,Basic Materials
+LAVV3.SA,LAVVI       ON      NM,14.33,11.23,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,1048340,Real Estate
+MYPK3.SA,"IOCHP,MAXIONON      NM",9.41,10.61,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,1274370,Consumer Cyclical
+ECOR3.SA,ECORODOVIAS ON      NM,9.05,8.43,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,10430235,Industrials
+DIRR3.SA,DIRECIONAL  ON      NM,13.58,8.4,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,8796005,Real Estate
+PLPL3.SA,PLANOEPLANO ON      NM,13.92,7.21,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,3227630,Real Estate
+EMBJ3.SA,EMBRAER     ON  ATZ NM,80.6,6.76,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,7110110,Industrials
+DASA3.SA,DASA        ON      NM,3.08,5.77,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,2099495,Healthcare
+BBAS3.SA,BRASIL      ON      NM,23.63,4.94,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,24402905,Financial Services
+CSAN3.SA,COSAN       ON      NM,5.43,4.45,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,35041870,Energy
+SUZB3.SA,SUZANO S.A. ON      NM,52.09,4.44,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,5314205,Basic Materials
+EXXO34.SA,EXXON MOBIL DRN,103.2,98.14,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-06,True,False,38829,Energy
+GILD34.SA,GILEAD      DRN,365.3,94.08,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-04-01,True,False,57,Healthcare
+USBC34.SA,US BANCORP  DRN,68.25,93.34,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-04-01,True,False,126,Financial Services
+COPH34.SA,COPHILLIPS  DRN,54.68,92.24,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-04-01,True,False,5441,Energy
+RIGG34.SA,TRANSOCEAN  DRN,33.48,87.77,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-04-01,True,False,4541,Energy
+CHVX34.SA,CHEVRON     DRN,101.5,81.47,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-02-27,True,False,42152,Energy
+PFIZ34.SA,PFIZER      DRN,36.7,77.62,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-02-03,False,True,6801,Healthcare
+CTGP34.SA,CITIGROUP   DRN,98.84,77.2,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,9182,Financial Services
+GSGI34.SA,GOLDMANSACHSDRN,147.3,75.85,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-01-16,False,True,3785,Financial Services
+ASML34.SA,ASML HOLD   DRN,127.3,72.33,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-08-01,False,True,12055,Technology
+SBUB34.SA,STARBUCKS   DRN,467.01,70.12,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-06,True,False,114,Consumer Cyclical
+MRCK34.SA,MERCK       DRN,78.32,70.11,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,3337,Healthcare
+UPSS34.SA,UPS         DRN,31.86,69.12,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-02-19,False,True,1325,Industrials
+ITLC34.SA,INTEL       DRN,41.21,68.98,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-03-13,False,True,130598,Technology
+JNJB34.SA,JOHNSON     DRN,83.66,67.32,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-02-03,True,False,9144,Healthcare
+TMOS34.SA,THERMFISCHERDRN,53.17,64.76,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-11-07,True,False,6074,Healthcare
+A1MD34.SA,ADVANCED MICDRN,135.11,64.68,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-02-19,False,True,57862,Technology
+ORCL34.SA,ORACLE      DRN,124.49,63.11,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-01-09,False,True,88209,Technology
+TGTB34.SA,TARGET CORP DRN,622.1,62.7,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-31,True,False,11,Consumer Defensive
+BKNG34.SA,BOOKING     DRN,127.5,59.33,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2026-03-31,True,False,2979,Consumer Cyclical
+GOGL34.SA,ALPHABET    DRN,127.97,59.09,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,174313,Communication Services
+BIDU34.SA,BAIDU INC   DRN,41.79,58.03,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-02-27,False,True,10186,Communication Services
+MSBR34.SA,MORGAN STAN DRN,171.81,55.95,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-02-11,False,True,717,Financial Services
+CATP34.SA,CATERPILLAR DRN,236.18,53.66,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-13,False,True,1581,Industrials
+PAGS34.SA,PAGSEGURO   DRN,10.8,53.07,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,156609,Technology
+AVGO34.SA,BROADCOM INCDRN ED,22.89,52.92,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-02-03,False,True,208317,Technology
+WFCO34.SA,WELLS FARGO DRN,104.44,48.36,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-06,False,True,2208,Financial Services
+A1ZN34.SA,ASTRAZENECA DRN,172.96,48.09,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-03-13,False,True,332,Healthcare
+WALM34.SA,WAL MART    DRN ED,40.2,46.63,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2026-01-16,False,True,27974,Consumer Defensive
+IBMB34.SA,IBM         DRN,1263.36,39.58,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-03,False,True,87,Technology
+INTU34.SA,INTUIT INC  DRN,49.76,39.06,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-01-16,False,True,3168,Technology
+AMZO34.SA,AMAZON      DRN,54.44,38.55,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-19,False,True,589746,Consumer Cyclical
+JPMC34.SA,JPMORGAN    DRN,152.21,38.17,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,34817,Financial Services
+NFLX34.SA,NETFLIX     DRN,9.87,37.46,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-30,False,True,1551755,Communication Services
+ROXO34.SA,NU HOLDINGS DRN,12.55,35.49,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,6569539,Financial Services
+NVDC34.SA,NVIDIA CORP DRN,18.91,31.72,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,4049875,Technology
+XPBR31.SA,XP INC      DR1,97.55,27.58,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,1087305,Financial Services
+BABA34.SA,ALIBABAGR   DRN,22.79,24.94,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,320245,Consumer Cyclical
+ABBV34.SA,ABBVIE      DRN,69.44,24.2,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-11-14,False,True,973,Healthcare
+A1MT34.SA,APPLIED MATEDRN,181.35,21.81,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,4115,Technology
+ARMT34.SA,ARCELOR     DRN,139.8,21.31,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,1337,Basic Materials
+BOAC34.SA,BANK AMERICADRN,63.3,17.36,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,38184,Financial Services
+DEEC34.SA,DEERE CO    DRN,99.05,16.09,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,812,Industrials
+V1RS34.SA,VERISK ANALYDRN,13.95,15.87,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-04-01,False,True,1,Industrials
+LILY34.SA,LILLY       DRN,163.5,15.02,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,12995,Healthcare
+BLAK34.SA,BLACKROCK   DRN,75.46,12.27,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-19,False,True,5663,Financial Services
+TSMC34.SA,TAIWANSMFAC DRN,220.77,10.64,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,69053,Technology
+SCHW34.SA,SCHWAB      DRN,60.11,10.49,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-04-01,False,True,3164,Financial Services
+AXPB34.SA,AMERICAN EXPDRN,155.76,9.98,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,1216,Financial Services
+GEOO34.SA,GEAEROSPACE DRN,1512.49,8.85,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,93,Industrials
+COWC34.SA,COSTCO      DRN,128.5,8.64,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-04-01,False,True,3351,Consumer Defensive
+M1TA34.SA,META PLAT   DRN,106.34,4.13,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-06,False,True,174428,Communication Services
+TSLA34.SA,TESLA INC   DRN,61.21,3.96,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-01-26,False,True,1073351,Consumer Cyclical
+UNHH34.SA,UNITEDHEALTHDRN,20.09,3.51,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,39612,Healthcare
+DISB34.SA,WALT DISNEY DRN,33.45,3.3,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,45504,Communication Services
+MELI34.SA,MERCADOLIBREDRN,74.29,2.71,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,1014077,Consumer Cyclical
+A1EP34.SA,AMERICAN ELEDRN,335.58,1.87,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-04-01,False,True,10,Utilities
+ADBE34.SA,ADOBE INC   DRN,24.84,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-04-01,False,True,57198,Technology
+MSFT34.SA,MICROSOFT   DRN,79.5,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-04-01,False,True,352224,Technology
+AAPL34.SA,APPLE       DRN,65.95,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,289843,Technology
+QCOM34.SA,QUALCOMM    DRN,54.9,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,6912,Technology
+NIKE34.SA,NIKE        DRN,23.24,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,68153,Consumer Cyclical
+COCA34.SA,COCA COLA   DRN,65.66,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,36070,Consumer Defensive
+PEPB34.SA,PEPSICO INC DRN,53.41,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,9627,Consumer Defensive
+PGCO34.SA,PG          DRN,52.93,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,9742,Consumer Defensive
+AMGN34.SA,AMGEN       DRN,63.74,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,500,Healthcare
+ABTT34.SA,ABBOTT      DRN,44.25,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,713,Healthcare
+PYPL34.SA,PAYPAL HOLD DRN,11.54,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-04-01,False,True,31654,Financial Services
+VISA34.SA,VISA INC    DRN,76.81,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-04-01,False,True,22818,Financial Services
+MCDC34.SA,MCDONALDS   DRN,79.6,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,3277,Consumer Cyclical
 LOWC34.SA,LOWES COMPA DRN,61.5,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-03,False,True,69,Consumer Cyclical
-GEOO34.SA,GEAEROSPACE DRN,1472.24,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-23,False,True,85,Industrials
-TSMC34.SA,TAIWANSMFAC DRN,219.0,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,66558,Technology
-MELI34.SA,MERCADOLIBREDRN,74.2,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-27,False,True,1041366,Consumer Cyclical
-MDTC34.SA,MEDTRONIC   DRN ED,227.69,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,4,Healthcare
+CMCS34.SA,COMCAST     DRN,28.91,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,12172,Communication Services
+LMTB34.SA,LOCKHEED    DRN,3145.0,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-04-01,False,True,12,Industrials
+HONB34.SA,HONEYWELL   DRN,1173.51,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-31,False,True,1,Industrials
+MDTC34.SA,MEDTRONIC   DRN ED,222.61,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-13,False,True,5,Healthcare
+ACNB34.SA,ACCENTURE   DRN,1002.0,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-04-01,False,True,59,Technology
