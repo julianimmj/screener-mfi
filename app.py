@@ -285,8 +285,8 @@ st.markdown(f"""
 # Load cached data
 # ─────────────────────────────────────────
 @st.cache_data(ttl=3600)
-def load_cached_data(csv_path: str) -> pd.DataFrame:
-    """Load pre-generated CSV data."""
+def load_cached_data(csv_path: str, mtime: float = 0.0) -> pd.DataFrame:
+    """Load pre-generated CSV data. mtime breaks the cache when file is updated."""
     if os.path.exists(csv_path):
         return pd.read_csv(csv_path)
     return pd.DataFrame()
@@ -484,7 +484,8 @@ if refresh_btn:
         status_text.error("❌ Erro ao buscar dados. Tente novamente em alguns minutos.")
         st.stop()
 else:
-    df_all = load_cached_data(csv_path)
+    mtime = os.path.getmtime(csv_path) if os.path.exists(csv_path) else 0.0
+    df_all = load_cached_data(csv_path, mtime)
 
     if df_all.empty:
         st.error(
