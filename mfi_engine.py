@@ -88,10 +88,14 @@ def _compute_mfi(ohlcv: pd.DataFrame, length: int = MFI_LENGTH) -> pd.Series:
     """
     Calculate Money Flow Index from OHLCV data.
 
-    Pine Script equivalent:
+    FAITHFUL translation do Pine Script (ACCUMULATOR method):
         rawMoneyFlow = hlc3 * volume
-        positiveMoneyFlow() => hlc3 > hlc3[1] ? rawMoneyFlow : 0
-        negativeMoneyFlow() => hlc3 < hlc3[1] ? rawMoneyFlow : 0
+        positiveMoneyFlow() =>
+            a = 0.0
+            a := hlc3 > hlc3[1] ? a + rawMoneyFlow : a    // ACUMULA, não zera!
+        negativeMoneyFlow() =>
+            b = 0.0
+            b := hlc3 < hlc3[1] ? b + rawMoneyFlow : b    // ACUMULA, não zera!
         moneyFlowRatio = sma(positiveMF, length) / sma(negativeMF, length)
         MFI = 100 - 100 / (1 + moneyFlowRatio)
     """
@@ -104,14 +108,28 @@ def _compute_mfi(ohlcv: pd.DataFrame, length: int = MFI_LENGTH) -> pd.Series:
     # Raw Money Flow
     raw_mf = hlc3 * ohlcv['Volume']
 
-    # Positive / Negative Money Flow (faithful to Pine Script)
-    # positiveMoneyFlow() => hlc3 > hlc3[1] ? rawMoneyFlow : 0
-    # negativeMoneyFlow() => hlc3 < hlc3[1] ? rawMoneyFlow : 0
-    direction = hlc3.diff()
-    positive_mf = raw_mf.where(direction > 0, 0.0)
-    negative_mf = raw_mf.where(direction < 0, 0.0)
+    # ACCUMULATOR method (EXATAMENTE como no Pine Script)
+    positive_mf = pd.Series(index=ohlcv.index, dtype=float)
+    negative_mf = pd.Series(index=ohlcv.index, dtype=float)
 
-    # SMA of positive and negative money flow over 'length' periods
+    pos_accum = 0.0
+    neg_accum = 0.0
+
+    for i in range(len(hlc3)):
+        if i == 0:
+            positive_mf.iloc[i] = 0.0
+            negative_mf.iloc[i] = 0.0
+        else:
+            # Positive: se hlc3 sobe, ACUMULA o valor
+            if hlc3.iloc[i] > hlc3.iloc[i-1]:
+                pos_accum = pos_accum + raw_mf.iloc[i]
+            # Negative: se hlc3 cai, ACUMULA o valor
+            if hlc3.iloc[i] < hlc3.iloc[i-1]:
+                neg_accum = neg_accum + raw_mf.iloc[i]
+            positive_mf.iloc[i] = pos_accum
+            negative_mf.iloc[i] = neg_accum
+
+    # SMA do acumulador (como no Pine Script)
     pos_sma = positive_mf.rolling(window=length).mean()
     neg_sma = negative_mf.rolling(window=length).mean()
 
