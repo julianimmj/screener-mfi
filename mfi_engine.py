@@ -119,38 +119,56 @@ def _compute_mfi(ohlcv: pd.DataFrame, length: int = MFI_LENGTH) -> pd.Series:
 
 def _find_crossover_signal(mfi_series: pd.Series,
                            ob: float = MFI_OVERBOUGHT,
-                           os_level: float = MFI_OVERSOLD) -> dict | None:
+                           os_level: float = MFI_OVERSOLD,
+                           max_age_days: int = SIGNAL_MAX_AGE_DAYS) -> dict | None:
     """
-    Scan the MFI series to find the most recent OB or OS crossover event.
+    Scan the MFI series to find genuine OB/OS crossover events
+    that occurred within the last `max_age_days` calendar days.
 
     Pine Script crossover conditions (faithful translation):
         overbought = moneyFlowIndex[1] < ob  AND  moneyFlowIndex > ob
         oversold   = moneyFlowIndex[1] > os  AND  moneyFlowIndex < os
 
-    Note: Pine uses strict inequalities (< and >), not ≤ / ≥.
+    IMPORTANT: Pine Script only plots the crossover circle on the bar where
+    it happens. It does NOT retroactively show old crossovers. Therefore we
+    only consider bars whose date falls within the recency window.
 
-    Returns dict with signal info or None if no crossover found.
+    Returns dict with signal info or None if no recent crossover found.
     """
     clean = mfi_series.dropna()
     if len(clean) < 2:
         return None
+
+    # Calculate the cutoff date — only bars on or after this date are eligible
+    cutoff = datetime.now(timezone.utc) - timedelta(days=max_age_days)
 
     # Walk backwards through the series to find the most recent crossover
     values = clean.values
     dates = clean.index
 
     for i in range(len(values) - 1, 0, -1):
+        bar_date = dates[i]
+
+        # Convert bar_date to timezone-aware for comparison
+        if hasattr(bar_date, 'tzinfo') and bar_date.tzinfo is not None:
+            bar_dt = bar_date
+        else:
+            bar_dt = pd.Timestamp(bar_date).tz_localize('UTC')
+
+        # Stop scanning if we've gone past the recency window
+        if bar_dt < cutoff:
+            break
+
         mfi_curr = values[i]
         mfi_prev = values[i - 1]
 
         # Overbought crossover: previous < OB AND current > OB (strict, as Pine)
         if mfi_prev < ob and mfi_curr > ob:
-            signal_date = dates[i]
             return {
                 'signal_type': 'SOBRECOMPRA',
                 'signal_label': '🔴 Sobrecompra',
                 'signal_flow': 'SAÍDA',
-                'signal_date': signal_date,
+                'signal_date': bar_date,
                 'mfi_at_signal': round(float(mfi_curr), 2),
                 'mfi_prev_at_signal': round(float(mfi_prev), 2),
                 'ob_cross': True,
@@ -159,12 +177,11 @@ def _find_crossover_signal(mfi_series: pd.Series,
 
         # Oversold crossover: previous > OS AND current < OS (strict, as Pine)
         if mfi_prev > os_level and mfi_curr < os_level:
-            signal_date = dates[i]
             return {
                 'signal_type': 'SOBREVENDA',
                 'signal_label': '🟢 Sobrevenda',
                 'signal_flow': 'ENTRADA',
-                'signal_date': signal_date,
+                'signal_date': bar_date,
                 'mfi_at_signal': round(float(mfi_curr), 2),
                 'mfi_prev_at_signal': round(float(mfi_prev), 2),
                 'ob_cross': False,
