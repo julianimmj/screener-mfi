@@ -47,6 +47,7 @@ TICKERS_BR = [
     # Mid / Small Caps com volume (incluindo novos tickers de alta liquidez)
     "RAPT4.SA", "KLBN4.SA", "KLBN3.SA", "GUAR3.SA", "LIGT3.SA",
     "ABCB4.SA", "BMGB4.SA", "BRSR6.SA", "GRND3.SA", "ALPA4.SA",
+    "AXIA3.SA",
     "MDIA3.SA", "BRAV3.SA", "RECV3.SA", "CMIN3.SA", "CMIG3.SA",
     "ENGI11.SA",
     "NEOE3.SA", "COCE5.SA", "RANI3.SA", "DXCO3.SA",
