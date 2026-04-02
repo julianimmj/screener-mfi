@@ -1,0 +1,31 @@
+﻿==========================================================================================
+COMPARING: Calendar Days vs Trading Days resampling
+==========================================================================================
+
+--- Method A: CALENDAR DAYS (current approach) ---
+  cal_offset=0: err=73.3 | VALE3=35.0, BBAS3=4.9, ITUB4=35.8
+  cal_offset=1: err=78.8 | VALE3=40.9, BBAS3=10.6, ITUB4=41.1
+  cal_offset=2: err=69.3 | VALE3=38.0, BBAS3=15.1, ITUB4=39.0
+  cal_offset=3: err=64.2 | VALE3=34.6, BBAS3=14.3, ITUB4=36.4
+  cal_offset=4: err=81.8 | VALE3=42.4, BBAS3=13.8, ITUB4=13.4
+  cal_offset=5: err=81.5 | VALE3=16.9, BBAS3=0.0, ITUB4=16.5
+  cal_offset=6: err=77.9 | VALE3=19.0, BBAS3=0.0, ITUB4=18.0
+  cal_offset=7: err=69.1 | VALE3=22.7, BBAS3=0.0, ITUB4=23.1
+
+--- Method B: TRADING DAYS (every 8 rows) ---
+  trd_offset=0: err=50.3 | VALE3=18.0, BBAS3=34.6, ITUB4=47.2
+  trd_offset=1: err=61.1 | VALE3=46.0, BBAS3=34.7, ITUB4=16.8
+  trd_offset=2: err=47.2 | VALE3=14.4, BBAS3=39.6, ITUB4=13.7
+  trd_offset=3: err=51.2 | VALE3=13.3, BBAS3=38.3, ITUB4=12.1
+  trd_offset=4: err=83.6 | VALE3=12.0, BBAS3=9.8, ITUB4=9.4
+  trd_offset=5: err=91.1 | VALE3=9.3, BBAS3=6.9, ITUB4=7.6
+  trd_offset=6: err=71.2 | VALE3=35.5, BBAS3=3.4, ITUB4=31.6
+  trd_offset=7: err=45.7 | VALE3=20.3, BBAS3=36.8, ITUB4=47.1
+
+--- Method C: pandas resample('8D') ---
+  origin=epoch     : err=73.3 | VALE3=35.0, BBAS3=4.9, ITUB4=35.8
+  origin=start     : err=73.3 | VALE3=35.0, BBAS3=4.9, ITUB4=35.8
+  origin=start_day : err=73.3 | VALE3=35.0, BBAS3=4.9, ITUB4=35.8
+
+==========================================================================================
+Look for the method+offset with the LOWEST total error

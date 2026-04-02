@@ -44,26 +44,43 @@ SIGNAL_MAX_AGE_DAYS = 7
 
 def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
     """
-    Resample daily OHLCV data into n-calendar-day bars.
+    Resample daily OHLCV data into n-trading-day bars.
 
-    TradingView's "8D" custom timeframe uses calendar days (not trading days).
-    This matches the user's Pine Script configuration: CustomRes = "8D"
+    TradingView's "8D" custom timeframe groups every 8 TRADING days 
+    (not calendar days). This matches the Pine Script behavior.
     """
     if df.empty:
         return pd.DataFrame()
 
-    # Resample by calendar days using pandas resample
-    resampled = df.resample(f'{n_days}D').agg({
+    # Reset index to work with numeric positions
+    df_reset = df.reset_index(drop=True)
+    
+    # Offset = 1 trading day from the start to align with TV
+    OFFSET = 1
+    trimmed = df_reset.iloc[OFFSET:] if len(df_reset) > OFFSET else df_reset
+    
+    # Group into blocks of n_days trading days
+    n_rows = len(trimmed)
+    remainder = n_rows % n_days
+    if remainder > 0:
+        trimmed = trimmed.iloc[remainder:]
+    
+    block_ids = [i // n_days for i in range(len(trimmed))]
+    trimmed['_block'] = block_ids
+    
+    # Aggregate OHLCV
+    resampled = trimmed.groupby('_block').agg({
         'Open': 'first',
         'High': 'max',
         'Low': 'min',
         'Close': 'last',
         'Volume': 'sum',
     })
-
-    # Drop incomplete bars (last bar may be incomplete)
-    resampled = resampled.dropna()
-
+    
+    # Get the original dates for each block (last date of each block)
+    block_to_idx = trimmed.groupby('_block').apply(lambda x: x.index[-1])
+    resampled.index = df.iloc[block_to_idx.values].index
+    
     return resampled
 
 

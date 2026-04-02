@@ -1,0 +1,28 @@
+﻿Fetching data...
+  VALE3.SA: 199 daily bars
+  BBAS3.SA: 199 daily bars
+  ITUB4.SA: 200 daily bars
+
+Ground truth: ALL tickers should have NO signal (0 false positives = correct)
+==========================================================================================
+
+--- Method A: CALENDAR DAYS ---
+python : Traceback (most recent call last):
+No linha:1 caractere:1
++ python diag_signals.py 2>&1 | Out-File -FilePath diag_signals_results ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::St 
+   ring) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "C:\Users\julia\OneDrive\Documentos\FCD\screener_mfi\diag_signals.py", line 
+65, in <module>
+    print(f"  cal_offset={offset}: {status}  {fp_detail}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"C:\Users\julia\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", 
+line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 
+16: character maps to <undefined>
