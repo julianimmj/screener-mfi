@@ -44,39 +44,16 @@ SIGNAL_MAX_AGE_DAYS = 7
 
 def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
     """
-    Resample daily OHLCV data into n-trading-day bars.
+    Resample daily OHLCV data into n-calendar-day bars.
 
-    TradingView's "8D" custom timeframe for stocks groups every 8 TRADING
-    days (rows) into one bar — NOT 8 calendar days.  This was confirmed
-    by exhaustive testing against live TV signals (trading-day offset=1
-    matched 3/3 ground-truth tickers; no calendar-day offset matched).
-
-    We align from the END of the series so the most recent bar always
-    contains the latest trading days.  An offset of 1 extra row is
-    trimmed from the start to match TradingView's internal alignment.
+    TradingView's "8D" custom timeframe uses calendar days (not trading days).
+    This matches the user's Pine Script configuration: CustomRes = "8D"
     """
     if df.empty:
         return pd.DataFrame()
 
-    # Offset = 1 trading day from the start to align with TV
-    OFFSET = 1
-    trimmed = df.iloc[OFFSET:] if len(df) > OFFSET else df
-
-    # Assign each row to a block of n_days trading days,
-    # counting backwards from the end so the last block is always full.
-    n_rows = len(trimmed)
-    remainder = n_rows % n_days
-    # Trim leading partial block so every block has exactly n_days rows
-    if remainder > 0:
-        trimmed = trimmed.iloc[remainder:]
-
-    n_rows = len(trimmed)
-    block_ids = [i // n_days for i in range(n_rows)]
-
-    df_grouped = trimmed.copy()
-    df_grouped['_block'] = block_ids
-
-    resampled = df_grouped.groupby('_block').agg({
+    # Resample by calendar days using pandas resample
+    resampled = df.resample(f'{n_days}D').agg({
         'Open': 'first',
         'High': 'max',
         'Low': 'min',
@@ -84,11 +61,8 @@ def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
         'Volume': 'sum',
     })
 
-    # Use the last trading date of each block as the bar's timestamp
-    last_dates = df_grouped.groupby('_block').apply(
-        lambda x: x.index[-1], include_groups=False
-    )
-    resampled.index = last_dates.values
+    # Drop incomplete bars (last bar may be incomplete)
+    resampled = resampled.dropna()
 
     return resampled
 
@@ -114,18 +88,18 @@ def _compute_mfi(ohlcv: pd.DataFrame, length: int = MFI_LENGTH) -> pd.Series:
     raw_mf = hlc3 * ohlcv['Volume']
 
     # Positive / Negative Money Flow (faithful to Pine Script)
+    # positiveMoneyFlow() => hlc3 > hlc3[1] ? rawMoneyFlow : 0
+    # negativeMoneyFlow() => hlc3 < hlc3[1] ? rawMoneyFlow : 0
     direction = hlc3.diff()
     positive_mf = raw_mf.where(direction > 0, 0.0)
     negative_mf = raw_mf.where(direction < 0, 0.0)
 
-    # SMA of positive and negative money flow
-    # Pine's sma() = rolling mean.  Since MFR = mean(pos)/mean(neg) = sum(pos)/sum(neg),
-    # we can use sum directly — the result is mathematically identical.
-    pos_sum = positive_mf.rolling(window=length).sum()
-    neg_sum = negative_mf.rolling(window=length).sum()
+    # SMA of positive and negative money flow over 'length' periods
+    pos_sma = positive_mf.rolling(window=length).mean()
+    neg_sma = negative_mf.rolling(window=length).mean()
 
     # Money Flow Ratio — avoid division by zero
-    mfr = pos_sum / neg_sum.replace(0, np.nan)
+    mfr = pos_sma / neg_sma.replace(0, np.nan)
 
     # MFI = 100 - 100 / (1 + MFR)
     mfi = 100 - 100 / (1 + mfr)

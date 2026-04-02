@@ -390,6 +390,8 @@ def filter_recent_signals(df: pd.DataFrame, max_age_days: int = SIGNAL_MAX_AGE_D
     """
     Filter DataFrame to only include rows with crossover signals
     that occurred within the last `max_age_days` calendar days.
+    
+    Uses timezone-aware datetime for accurate date comparison.
     """
     if df.empty or 'Signal Date' not in df.columns:
         return pd.DataFrame()
@@ -401,19 +403,24 @@ def filter_recent_signals(df: pd.DataFrame, max_age_days: int = SIGNAL_MAX_AGE_D
     if df_signals.empty:
         return pd.DataFrame()
 
-    # Filter by recency
-    cutoff = datetime.now(timezone.utc).date() - timedelta(days=max_age_days)
+    # Use timezone-aware cutoff
+    now_utc = datetime.now(timezone.utc)
+    cutoff = now_utc - timedelta(days=max_age_days)
 
-    def is_recent(date_str):
+    def is_recent(row):
+        date_str = row.get('Signal Date', '')
         if not date_str or pd.isna(date_str) or str(date_str).strip() == '':
             return False
         try:
-            sig_date = pd.to_datetime(str(date_str)).date()
+            # Parse date and make it timezone-aware
+            sig_date = pd.to_datetime(str(date_str))
+            if sig_date.tzinfo is None:
+                sig_date = sig_date.tz_localize('UTC')
             return sig_date >= cutoff
         except Exception:
             return False
 
-    recent_mask = df_signals['Signal Date'].apply(is_recent)
+    recent_mask = df_signals.apply(is_recent, axis=1)
     return df_signals[recent_mask].copy()
 
 
