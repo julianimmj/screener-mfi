@@ -25,7 +25,7 @@ from mfi_engine import calculate_mfi, _calculate_with_retry
 # ─────────────────────────────────────────────
 TICKERS_BR = [
     # Blue Chips / Ibovespa core
-    "PETR4.SA", "PETR3.SA", "VALE3.SA", "ITUB4.SA", "BBDC4.SA",
+    "PETR4.SA", "PETR3.SA", "VALE3.SA", "ITUB4.SA", "ITUB3.SA", "BBDC4.SA",
     "BBAS3.SA", "ABEV3.SA", "WEGE3.SA", "RENT3.SA", "SUZB3.SA",
     "B3SA3.SA", "HAPV3.SA", "RDOR3.SA", "RAIL3.SA", "SBSP3.SA",
     "GGBR4.SA", "CSNA3.SA", "CMIG4.SA", "RADL3.SA", "VIVT3.SA",
@@ -44,7 +44,8 @@ TICKERS_BR = [
     "MOVI3.SA", "VAMO3.SA", "SIMH3.SA", "SMTO3.SA", "SLCE3.SA",
     "COGN3.SA", "YDUQ3.SA", "ECOR3.SA", "EGIE3.SA",
 
-    # Mid / Small Caps com volume
+    # Mid / Small Caps com volume (incluindo novos tickers de alta liquidez)
+    "RAPT4.SA", "KLBN4.SA", "KLBN3.SA", "GUAR3.SA", "LIGT3.SA",
     "ABCB4.SA", "BMGB4.SA", "BRSR6.SA", "GRND3.SA", "ALPA4.SA",
     "MDIA3.SA", "BRAV3.SA", "RECV3.SA", "CMIN3.SA", "CMIG3.SA",
     "ENGI11.SA",
