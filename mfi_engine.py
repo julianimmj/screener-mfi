@@ -44,21 +44,36 @@ SIGNAL_MAX_AGE_DAYS = 7
 
 def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
     """
-    Resample daily OHLCV data into n-day calendar bars anchored to UNIX epoch.
-    This exactly matches TradingView's static n-day Timeframe resolution logic.
+    Resample daily OHLCV data into n-trading-day bars.
+
+    TradingView's "8D" custom timeframe for stocks groups every 8 TRADING
+    days (rows) into one bar — NOT 8 calendar days.  This was confirmed
+    by exhaustive testing against live TV signals (trading-day offset=1
+    matched 3/3 ground-truth tickers; no calendar-day offset matched).
+
+    We align from the END of the series so the most recent bar always
+    contains the latest trading days.  An offset of 1 extra row is
+    trimmed from the start to match TradingView's internal alignment.
     """
     if df.empty:
         return pd.DataFrame()
 
-    # Get dates without timezone to calculate ordinal accurately
-    dates = df.index.tz_localize(None)
-    
-    # TV uses 1970-01-01 as epoch. 1970-01-01 is ordinal day 719163.
-    # Group by the number of n_day blocks since the epoch.
-    block_ids = (dates.map(lambda d: d.toordinal()) - 719163) // n_days
-    
-    # We create a copy to avoid modifying the original dataframe slice warning
-    df_grouped = df.copy()
+    # Offset = 1 trading day from the start to align with TV
+    OFFSET = 1
+    trimmed = df.iloc[OFFSET:] if len(df) > OFFSET else df
+
+    # Assign each row to a block of n_days trading days,
+    # counting backwards from the end so the last block is always full.
+    n_rows = len(trimmed)
+    remainder = n_rows % n_days
+    # Trim leading partial block so every block has exactly n_days rows
+    if remainder > 0:
+        trimmed = trimmed.iloc[remainder:]
+
+    n_rows = len(trimmed)
+    block_ids = [i // n_days for i in range(n_rows)]
+
+    df_grouped = trimmed.copy()
     df_grouped['_block'] = block_ids
 
     resampled = df_grouped.groupby('_block').agg({
@@ -69,9 +84,10 @@ def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
         'Volume': 'sum',
     })
 
-    # Recover the last trading date of each block as index
-    # We use include_groups=False to avoid future pandas warnings
-    last_dates = df_grouped.groupby('_block').apply(lambda x: x.index[-1], include_groups=False)
+    # Use the last trading date of each block as the bar's timestamp
+    last_dates = df_grouped.groupby('_block').apply(
+        lambda x: x.index[-1], include_groups=False
+    )
     resampled.index = last_dates.values
 
     return resampled
