@@ -33,7 +33,7 @@ CSV_MFI = DATA_DIR / "mfi_screener.csv"
 METADATA_FILE = DATA_DIR / "metadata.json"
 
 # Signal recency filter (calendar days)
-SIGNAL_MAX_AGE_DAYS = 7
+SIGNAL_MAX_AGE_DAYS = 20
 
 # ─────────────────────────────────────────
 # Load bull/bear banner image as base64
@@ -477,7 +477,7 @@ with st.sidebar:
     | Período | **4** |
     | Sobrecompra | **> 86** |
     | Sobrevenda | **< 24** |
-    | Janela de Sinal | **7 dias** |
+    | Janela de Sinal | **20 dias** |
     """)
 
     st.markdown("---")

@@ -35,7 +35,7 @@ MFI_OVERBOUGHT = 86   # Nível de sobrecompra
 HISTORY_DAYS = 200
 
 # Maximum age of a signal (calendar days) to be included in the screener
-SIGNAL_MAX_AGE_DAYS = 7
+SIGNAL_MAX_AGE_DAYS = 20
 
 
 # ─────────────────────────────────────────────
