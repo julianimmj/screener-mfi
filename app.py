@@ -914,8 +914,7 @@ with tab_split:
 st.markdown("---")
 st.markdown(f"""
 <div style="text-align:center; opacity:0.4; font-size:0.8rem; padding: 1rem 0">
-    <b>Screener MFI "Fluxo Financeiro"</b> · Dados via Yahoo Finance (atualização diária) ·
-    <a href="https://github.com/julianimmj/screener-mfi" target="_blank" style="color:#00c8ff">github.com/julianimmj</a><br>
+    <b>Screener MFI "Fluxo Financeiro"</b> · Dados via Yahoo Finance (atualização diária)<br>
     Indicador: Money Flow Index (TF 8D · Per 4 · OB 86 · OS 24) ·
     Crossovers dos últimos {SIGNAL_MAX_AGE_DAYS} dias apenas
 </div>
