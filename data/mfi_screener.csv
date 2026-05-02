@@ -1,135 +1,135 @@
 Ticker,Nome,Preço,MFI,Status,Zona,Trend,Signal,Signal Type,Signal Date,OB Cross,OS Cross,Volume Médio,Setor
 FIQE3.SA,UNIFIQUE    ON      NM,6.85,92.65,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1139920,Communication Services
 NEOE3.SA,NEOENERGIA  ON,33.75,89.39,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-03-03,True,False,2224865,Utilities
-CSMG3.SA,COPASA      ON      NM,54.04,83.93,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,4221245,Utilities
-CXSE3.SA,CAIXA SEGURION      NM,18.09,83.18,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,4911040,Financial Services
-BRAP4.SA,BRADESPAR   PN      N1,22.94,80.85,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-11-25,True,False,2266390,Financial Services
+CSMG3.SA,COPASA      ON      NM,54.04,83.93,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,4221265,Utilities
+CXSE3.SA,CAIXA SEGURION      NM,18.09,83.18,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,4911115,Financial Services
+BRAP4.SA,BRADESPAR   PN      N1,22.94,80.85,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-11-25,True,False,2266415,Financial Services
 ALOS3.SA,ALLOS       ON  ED  NM,30.65,79.27,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-01-02,True,False,5585670,Real Estate
-SBSP3.SA,SABESP      ON      NM,33.15,78.85,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,19271010,Utilities
-PRIO3.SA,PRIO        ON      NM,66.41,78.71,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,13193380,Energy
+SBSP3.SA,SABESP      ON      NM,33.15,78.85,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,19271040,Utilities
+PRIO3.SA,PRIO        ON      NM,66.41,78.71,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,13193505,Energy
 ENGI11.SA,ENERGISA    UNT     N2,52.82,78.35,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,3440660,Utilities
-BRSR6.SA,BANRISUL    PNB     N1,15.62,77.42,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1891930,Financial Services
+BRSR6.SA,BANRISUL    PNB     N1,15.62,77.42,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1891935,Financial Services
 CBAV3.SA,CBA         ON      NM,10.59,77.01,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,2718700,Basic Materials
-ITSA4.SA,ITAUSA      PN      N1,13.92,76.87,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,30606170,Industrials
-VALE3.SA,VALE        ON      NM,81.18,75.98,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,19074795,Basic Materials
-PETR4.SA,PETROBRAS   PN  ERJ N2,49.08,75.19,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,50388210,Energy
+ITSA4.SA,ITAUSA      PN      N1,13.92,76.87,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,30606850,Industrials
+VALE3.SA,VALE        ON      NM,81.18,75.98,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,19074915,Basic Materials
+PETR4.SA,PETROBRAS   PN  ERJ N2,49.08,75.19,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,50389710,Energy
 JHSF3.SA,JHSF PART   ON      NM,12.55,74.74,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,6190210,Real Estate
-CPLE3.SA,COPEL       ON      NM,15.9,74.53,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,25106795,Utilities
-PETR3.SA,PETROBRAS   ON  ERJ N2,54.73,74.46,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,15867095,Energy
-ITUB3.SA,ITAUUNIBANCOON      N1,43.55,74.4,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1824260,Financial Services
-B3SA3.SA,B3          ON      NM,18.03,74.25,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,36880640,Financial Services
+CPLE3.SA,COPEL       ON      NM,15.9,74.53,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,25106800,Utilities
+PETR3.SA,PETROBRAS   ON  ERJ N2,54.73,74.46,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,15867165,Energy
+ITUB3.SA,ITAUUNIBANCOON      N1,43.55,74.4,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1824430,Financial Services
+B3SA3.SA,B3          ON      NM,18.03,74.25,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,36880725,Financial Services
 BMGB4.SA,BANCO BMG   PN      N1,5.35,73.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-11-25,True,False,1112025,Financial Services
-AURE3.SA,AUREN       ON      NM,13.89,72.83,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,4439435,Utilities
+AURE3.SA,AUREN       ON      NM,13.89,72.83,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,4439490,Utilities
 ALPA4.SA,ALPARGATAS  PN      N1,12.02,72.27,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-12-05,True,False,1898970,Consumer Cyclical
-TIMS3.SA,TIM         ON      NM,25.75,72.03,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-10-31,True,False,4967775,Communication Services
-AXIA3.SA,AXIA ENERGIAON      N1,62.05,71.86,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,10390200,Utilities
-RADL3.SA,RAIADROGASILON      NM,21.94,71.71,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-11-25,True,False,9616045,Healthcare
-CMIG4.SA,CEMIG       PN      N1,12.54,70.73,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,18198870,Utilities
+TIMS3.SA,TIM         ON      NM,25.75,72.03,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-10-31,True,False,4967825,Communication Services
+AXIA3.SA,AXIA ENERGIAON      N1,62.05,71.86,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,10390300,Utilities
+RADL3.SA,RAIADROGASILON      NM,21.94,71.71,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-11-25,True,False,9616080,Healthcare
+CMIG4.SA,CEMIG       PN      N1,12.54,70.73,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,18199070,Utilities
 IGTI11.SA,IGUATEMI S.AUNT ED  N1,27.5,70.34,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1843860,Real Estate
 MOVI3.SA,MOVIDA      ON      NM,12.14,69.92,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,7560685,Industrials
 MULT3.SA,MULTIPLAN   ON      N2,31.72,69.3,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,3409550,Real Estate
-VBBR3.SA,VIBRA       ON      NM,33.3,69.01,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,8839190,Consumer Cyclical
-EQTL3.SA,EQUATORIAL  ON      NM,42.32,68.45,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-12-05,True,False,8198040,Utilities
-ITUB4.SA,ITAUUNIBANCOPN      N1,43.19,68.25,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,23687275,Financial Services
-ENEV3.SA,ENEVA       ON      NM,27.08,68.16,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,11309015,Utilities
-BBAS3.SA,BRASIL      ON      NM,22.21,66.68,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,22064475,Financial Services
-RECV3.SA,PETRORECSA  ON      NM,12.96,66.6,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,3566500,Energy
-MDNE3.SA,MOURA DUBEUXON      NM,30.19,66.47,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1461385,Real Estate
+VBBR3.SA,VIBRA       ON      NM,33.3,69.01,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,8839195,Consumer Cyclical
+EQTL3.SA,EQUATORIAL  ON      NM,42.32,68.45,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-12-05,True,False,8198055,Utilities
+ITUB4.SA,ITAUUNIBANCOPN      N1,43.19,68.25,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,23698345,Financial Services
+ENEV3.SA,ENEVA       ON      NM,27.08,68.16,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,11309085,Utilities
+BBAS3.SA,BRASIL      ON      NM,22.21,66.68,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,22065785,Financial Services
+RECV3.SA,PETRORECSA  ON      NM,12.96,66.6,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,3566510,Energy
+MDNE3.SA,MOURA DUBEUXON      NM,30.19,66.47,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1461405,Real Estate
 SLCE3.SA,SLC AGRICOLAON      NM,17.0,66.18,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2025-10-21,False,True,3795215,Consumer Defensive
-BBSE3.SA,BBSEGURIDADEON      NM,33.88,65.87,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,5493655,Financial Services
-BBDC3.SA,BRADESCO    ON      N1,16.72,65.85,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,7054835,Financial Services
-WEGE3.SA,WEG         ON      NM,44.86,65.8,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,8708510,Industrials
+BBSE3.SA,BBSEGURIDADEON      NM,33.88,65.87,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,5493945,Financial Services
+BBDC3.SA,BRADESCO    ON      N1,16.72,65.85,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,7055110,Financial Services
+WEGE3.SA,WEG         ON      NM,44.86,65.8,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,8708575,Industrials
 ISAE4.SA,ISA ENERGIA PN  ED  N1,29.51,65.77,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,3474170,Utilities
-USIM5.SA,USIMINAS    PNA ATZ N1,8.29,65.6,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,16344520,Basic Materials
+USIM5.SA,USIMINAS    PNA ATZ N1,8.29,65.6,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,16344610,Basic Materials
 BPAC11.SA,BTGP BANCO  UNT     N2,59.34,65.43,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,7446285,Financial Services
 JBSS32.SA,JBS N.V.    DR2,79.16,64.17,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1105845,Consumer Defensive
-CPFE3.SA,CPFL ENERGIAON      NM,48.93,64.07,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-01-26,True,False,2369400,Utilities
-DASA3.SA,DASA        ON      NM,3.38,63.89,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-12-17,True,False,1560255,Healthcare
+CPFE3.SA,CPFL ENERGIAON      NM,48.93,64.07,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-01-26,True,False,2369435,Utilities
+DASA3.SA,DASA        ON      NM,3.38,63.89,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-12-17,True,False,1560960,Healthcare
 TAEE11.SA,TAESA       UNT     N2,42.52,63.79,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,2276975,Utilities
-GRND3.SA,GRENDENE    ON  EDJ NM,4.38,63.39,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,4118885,Consumer Cyclical
-GOAU4.SA,GERDAU MET  PN      N1,9.93,63.36,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,8614310,Basic Materials
-ABEV3.SA,AMBEV S/A   ON,14.51,63.15,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,25055595,Consumer Defensive
-CAML3.SA,CAMIL       ON      NM,6.35,63.07,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1130670,Consumer Defensive
+GRND3.SA,GRENDENE    ON  EDJ NM,4.38,63.39,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,4118895,Consumer Cyclical
+GOAU4.SA,GERDAU MET  PN      N1,9.93,63.36,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,8614545,Basic Materials
+ABEV3.SA,AMBEV S/A   ON,14.51,63.15,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,25055900,Consumer Defensive
+CAML3.SA,CAMIL       ON      NM,6.35,63.07,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1130860,Consumer Defensive
 MILS3.SA,MILLS       ON  ED  NM,12.71,62.97,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1011205,Industrials
 SEER3.SA,SER EDUCA   ON      NM,12.71,62.66,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1050360,Consumer Defensive
-VIVT3.SA,TELEF BRASILON,39.25,62.62,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,4293845,Communication Services
-UGPA3.SA,ULTRAPAR    ON      NM,29.94,62.55,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,4913460,Energy
-PINE4.SA,PINE        PN  EJ  N2,14.37,61.12,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1557350,Financial Services
-BBDC4.SA,BRADESCO    PN      N1,19.32,60.76,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,32631125,Financial Services
+VIVT3.SA,TELEF BRASILON,39.25,62.62,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,4293850,Communication Services
+UGPA3.SA,ULTRAPAR    ON      NM,29.94,62.55,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,4913465,Energy
+PINE4.SA,PINE        PN  EJ  N2,14.37,61.12,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1557375,Financial Services
+BBDC4.SA,BRADESCO    PN      N1,19.32,60.75,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,32643990,Financial Services
 KEPL3.SA,KEPLER WEBERON      NM,7.78,60.75,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1369090,Industrials
 SAPR11.SA,SANEPAR     UNT     N2,40.54,60.55,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,2523305,Utilities
-CMIN3.SA,CSNMINERACAOON  ED  N2,4.67,59.73,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2025-11-12,True,False,7123050,Basic Materials
-RENT3.SA,LOCALIZA    ON      NM,45.91,59.47,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,9148550,Industrials
-SBFG3.SA,GRUPO SBF   ON      NM,11.02,59.25,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1921445,Consumer Cyclical
+CMIN3.SA,CSNMINERACAOON  ED  N2,4.67,59.73,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2025-11-12,True,False,7123620,Basic Materials
+RENT3.SA,LOCALIZA    ON      NM,45.91,59.47,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,9148565,Industrials
+SBFG3.SA,GRUPO SBF   ON      NM,11.02,59.25,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1921450,Consumer Cyclical
 PGMN3.SA,PAGUE MENOS ON      NM,5.56,59.12,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2026-01-14,True,False,6478075,Healthcare
 SANB11.SA,SANTANDER BRUNT EJ,29.04,58.6,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,3371595,Financial Services
-ARML3.SA,ARMAC       ON      NM,4.77,58.47,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1156155,Industrials
+ARML3.SA,ARMAC       ON      NM,4.77,58.47,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1156230,Industrials
 DXCO3.SA,DEXCO       ON      NM,5.21,58.21,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2630795,Basic Materials
 POSI3.SA,POSITIVO TECON      NM,4.2,58.18,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1115155,Technology
 QUAL3.SA,QUALICORP   ON      NM,1.79,58.04,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4883995,Healthcare
-MGLU3.SA,MAGAZ LUIZA ON      NM,8.23,57.76,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,13883180,Consumer Cyclical
-INTB3.SA,INTELBRAS   ON      NM,14.27,57.76,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2527685,Technology
-HBSA3.SA,HIDROVIAS   ON      NM,3.34,57.72,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-09-29,False,True,2171680,Industrials
-VULC3.SA,VULCABRAS   ON      NM,15.78,57.65,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1257865,Consumer Cyclical
+MGLU3.SA,MAGAZ LUIZA ON      NM,8.23,57.76,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,13884480,Consumer Cyclical
+INTB3.SA,INTELBRAS   ON      NM,14.27,57.76,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2527685,Industrials
+HBSA3.SA,HIDROVIAS   ON      NM,3.34,57.72,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-09-29,False,True,2171810,Industrials
+VULC3.SA,VULCABRAS   ON      NM,15.78,57.65,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1257870,Consumer Cyclical
 KLBN11.SA,KLABIN S/A  UNT     N2,17.48,57.38,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,5755950,Basic Materials
-KLBN4.SA,KLABIN S/A  PN      N2,3.57,57.06,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,5106870,Basic Materials
-TTEN3.SA,3TENTOS     ON      NM,16.8,56.78,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1234675,Basic Materials
-VAMO3.SA,VAMOS       ON      NM,3.96,56.72,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,19048395,Industrials
+KLBN4.SA,KLABIN S/A  PN      N2,3.57,57.06,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,5110040,Basic Materials
+TTEN3.SA,3TENTOS     ON      NM,16.8,56.78,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1234790,Basic Materials
+VAMO3.SA,VAMOS       ON      NM,3.96,56.72,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,19048790,Industrials
 FLRY3.SA,FLEURY      ON      NM,16.08,56.7,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2578700,Healthcare
 SMAL11.SA,ISHARES SMALCI,115.76,56.68,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2360585,
-KLBN3.SA,KLABIN S/A  ON      N2,3.54,56.59,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1154780,Basic Materials
-LWSA3.SA,LWSA        ON      NM,3.79,56.19,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4211090,Technology
+KLBN3.SA,KLABIN S/A  ON      N2,3.54,56.59,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1155395,Basic Materials
+LWSA3.SA,LWSA        ON      NM,3.79,56.19,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4211880,Technology
 SIMH3.SA,SIMPAR      ON      NM,11.02,55.92,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4663535,Industrials
-MRVE3.SA,MRV         ON      NM,6.92,55.92,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,9796155,Real Estate
+MRVE3.SA,MRV         ON      NM,6.92,55.92,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,9796510,Real Estate
 MLAS3.SA,MULTILASER  ON      NM,1.57,55.84,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1023430,Technology
 TEND3.SA,TENDA       ON      NM,28.1,55.8,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2763615,Real Estate
-GGBR4.SA,GERDAU      PN      N1,22.61,55.19,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,12937510,Basic Materials
-YDUQ3.SA,YDUQS PART  ON      NM,9.86,55.09,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4020770,Consumer Defensive
+GGBR4.SA,GERDAU      PN      N1,22.61,55.19,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,12938045,Basic Materials
+YDUQ3.SA,YDUQS PART  ON      NM,9.86,55.09,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4020790,Consumer Defensive
 ODPV3.SA,ODONTOPREV  ON      NM,15.25,54.91,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4855615,Healthcare
-RDOR3.SA,REDE D OR   ON      NM,38.37,54.55,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,9989895,Healthcare
-SMTO3.SA,SAO MARTINHOON      NM,16.17,54.3,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-10-31,False,True,3148735,Basic Materials
-EZTC3.SA,EZTEC       ON      NM,13.95,54.26,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2050275,Real Estate
-COGN3.SA,COGNA ON    ON      NM,2.78,53.86,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,30984730,Consumer Defensive
-AUAU3.SA,PETZCOBASI  ON      NM,3.42,53.85,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,3827070,Consumer Cyclical
-GGPS3.SA,GPS         ON      NM,15.08,53.25,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2795045,Industrials
+RDOR3.SA,REDE D OR   ON      NM,38.37,54.55,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,9989960,Healthcare
+SMTO3.SA,SAO MARTINHOON      NM,16.17,54.3,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-10-31,False,True,3148775,Basic Materials
+EZTC3.SA,EZTEC       ON      NM,13.95,54.26,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2050425,Real Estate
+COGN3.SA,COGNA ON    ON      NM,2.78,53.86,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,30985835,Consumer Defensive
+AUAU3.SA,PETZCOBASI  ON      NM,3.42,53.85,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,3827520,Consumer Cyclical
+GGPS3.SA,GPS         ON      NM,15.08,53.25,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2795100,Industrials
 EGIE3.SA,ENGIE BRASILON      NM,35.31,52.95,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2487820,Utilities
-CSNA3.SA,SID NACIONALON,6.23,52.93,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,10472065,Basic Materials
-POMO4.SA,MARCOPOLO   PN      N2,6.48,52.86,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,10320385,Industrials
+CSNA3.SA,SID NACIONALON,6.23,52.93,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,10472590,Basic Materials
+POMO4.SA,MARCOPOLO   PN      N2,6.48,52.86,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,10320390,Industrials
 RAIL3.SA,RUMO S.A.   ON      NM,15.73,52.73,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,15039340,Industrials
-PLPL3.SA,PLANOEPLANO ON      NM,10.19,52.51,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,5496155,Real Estate
-BRKM5.SA,BRASKEM     PNA     N1,9.15,52.21,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,6324445,Basic Materials
-CURY3.SA,CURY S/A    ON      NM,30.06,51.66,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4152285,Real Estate
+PLPL3.SA,PLANOEPLANO ON      NM,10.19,52.51,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,5496160,Real Estate
+BRKM5.SA,BRASKEM     PNA     N1,9.15,52.21,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,6324940,Basic Materials
+CURY3.SA,CURY S/A    ON      NM,30.06,51.66,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4152290,Real Estate
 BRAV3.SA,BRAVA       ON  ED  NM,19.13,51.29,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-10-31,False,True,14304070,Energy
-ECOR3.SA,ECORODOVIAS ON      NM,8.79,51.19,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,6806595,Industrials
-RCSL4.SA,RECRUSUL    PN,0.6,50.8,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,3998565,Industrials
-CYRE3.SA,CYRELA REALTON      NM,23.49,50.7,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,6479345,Consumer Cyclical
-AZZA3.SA,AZZAS 2154  ON      NM,21.62,50.37,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4368215,Consumer Cyclical
-ANIM3.SA,ANIMA       ON      NM,3.97,50.17,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,6605975,Consumer Defensive
-HYPE3.SA,HYPERA      ON      NM,22.53,49.7,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,3445650,Healthcare
+ECOR3.SA,ECORODOVIAS ON      NM,8.79,51.19,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,6806600,Industrials
+RCSL4.SA,RECRUSUL    PN,0.6,50.8,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4002885,Industrials
+CYRE3.SA,CYRELA REALTON      NM,23.49,50.7,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,6479405,Consumer Cyclical
+AZZA3.SA,AZZAS 2154  ON      NM,21.62,50.37,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4368270,Consumer Cyclical
+ANIM3.SA,ANIMA       ON      NM,3.97,50.17,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,6606140,Consumer Defensive
+HYPE3.SA,HYPERA      ON      NM,22.53,49.7,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,3446015,Healthcare
 TUPY3.SA,TUPY        ON      NM,14.02,49.6,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1404210,Industrials
 LIGT3.SA,LIGHT S/A   ON      NM,4.82,49.08,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1230425,Utilities
-ASAI3.SA,ASSAI       ON      NM,8.85,48.59,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,13991580,Consumer Defensive
-CSAN3.SA,COSAN       ON      NM,5.04,48.27,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,28153415,Energy
+ASAI3.SA,ASSAI       ON      NM,8.85,48.59,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,13991690,Consumer Defensive
+CSAN3.SA,COSAN       ON      NM,5.04,48.27,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,28155380,Energy
 EMBJ3.SA,EMBRAER     ON      NM,77.04,46.81,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4884840,Industrials
-SUZB3.SA,SUZANO S.A. ON      NM,43.84,45.76,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-10-09,False,True,9402510,Basic Materials
-RAPT4.SA,RANDON PART PN      N1,5.31,45.63,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4115755,Industrials
-CVCB3.SA,CVC BRASIL  ON      NM,1.93,42.97,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,13751075,Consumer Cyclical
-DIRR3.SA,DIRECIONAL  ON      NM,12.85,42.28,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,7846090,Real Estate
+SUZB3.SA,SUZANO S.A. ON      NM,43.84,45.76,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-10-09,False,True,9402575,Basic Materials
+RAPT4.SA,RANDON PART PN      N1,5.31,45.63,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,4116005,Industrials
+CVCB3.SA,CVC BRASIL  ON      NM,1.93,42.97,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,13752545,Consumer Cyclical
+DIRR3.SA,DIRECIONAL  ON      NM,12.85,42.28,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,7846120,Real Estate
 LJQQ3.SA,"QUERO,QUERO ON      NM",1.8,41.89,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2555380,Consumer Cyclical
 OIBR3.SA,OI          ON      N1,0.1,41.29,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-11-25,False,True,1235440,Communication Services
-PSSA3.SA,PORTO SEGUROON      NM,49.79,39.89,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-21,False,True,1750645,Financial Services
-TOTS3.SA,TOTVS       ON      NM,31.86,38.46,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,4311675,Technology
-SMFT3.SA,SMART FIT   ON      NM,17.27,37.48,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,7013515,Consumer Cyclical
+PSSA3.SA,PORTO SEGUROON      NM,49.79,39.89,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-21,False,True,1750650,Financial Services
+TOTS3.SA,TOTVS       ON      NM,31.86,38.46,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,4311745,Technology
+SMFT3.SA,SMART FIT   ON      NM,17.27,37.48,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,7013620,Consumer Cyclical
 PMAM3.SA,PARANAPANEMAON  ES  NM,0.56,37.14,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-31,False,True,2925431,Basic Materials
-RAIZ4.SA,RAIZEN      PN      N2,0.47,36.88,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,17899390,Utilities
+RAIZ4.SA,RAIZEN      PN      N2,0.47,36.88,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,17902415,Utilities
 CASH3.SA,MELIUZ      ON      NM,4.08,36.26,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,1311105,Communication Services
-LREN3.SA,LOJAS RENNERON      NM,13.6,35.37,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,15298390,Consumer Cyclical
-GMAT3.SA,GRUPO MATEUSON      NM,4.34,34.07,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,11336540,Consumer Cyclical
-CEAB3.SA,CEA MODAS   ON      NM,11.32,33.59,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,8578575,Consumer Cyclical
-HAPV3.SA,HAPVIDA     ON      NM,12.39,32.88,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,12217250,Financial Services
+LREN3.SA,LOJAS RENNERON      NM,13.6,35.37,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,15298445,Consumer Cyclical
+GMAT3.SA,GRUPO MATEUSON      NM,4.34,34.07,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,11337085,Consumer Cyclical
+CEAB3.SA,CEA MODAS   ON      NM,11.32,33.59,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,8578650,Consumer Cyclical
+HAPV3.SA,HAPVIDA     ON      NM,12.39,32.88,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,12217715,Financial Services
 SEQL3.SA,SEQUOIA LOG ON      NM,0.11,29.99,🔴 Sobrecompra,🟠 Tendência de Baixa,BAIXA,SAÍDA,SOBRECOMPRA,2025-09-17,True,False,3630590,Industrials
-MYPK3.SA,"IOCHP,MAXIONON      NM",9.45,28.03,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,1513475,Consumer Cyclical
-ONCO3.SA,ONCOCLINICASON      NM,1.63,27.57,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-31,False,True,9607895,Healthcare
+MYPK3.SA,"IOCHP,MAXIONON      NM",9.45,28.03,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,1513480,Consumer Cyclical
+ONCO3.SA,ONCOCLINICASON      NM,1.63,27.57,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-31,False,True,9609300,Healthcare
 SOJA3.SA,BOA SAFRA   ON      NM,6.99,24.76,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,1019560,Basic Materials
 AMBP3.SA,AMBIPAR     ON      NM,0.22,11.32,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-09,False,True,5397535,Industrials
 EXXO34.SA,EXXON MOBIL DRN,95.43,92.11,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-12-05,True,False,28214,Energy
@@ -145,30 +145,30 @@ UNHH34.SA,UNITEDHEALTHDRN,26.17,67.47,🔵 Alta,🔵 Tendência de Alta,ALTA,NEU
 AMGN34.SA,AMGEN       DRN,61.4,67.15,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,409,Healthcare
 JNJB34.SA,JOHNSON     DRN,75.72,67.14,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,7060,Healthcare
 PFIZ34.SA,PFIZER      DRN,32.8,66.17,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,6845,Healthcare
-ITLC34.SA,INTEL       DRN,77.5,65.42,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-10-31,True,False,285924,Technology
+ITLC34.SA,INTEL       DRN,77.5,65.42,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2025-10-31,True,False,285994,Technology
 CHVX34.SA,CHEVRON     DRN,95.27,64.56,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,47796,Energy
 ARMT34.SA,ARCELOR     DRN,141.54,62.89,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-02-05,True,False,660,Basic Materials
 TSMC34.SA,TAIWANSMFAC DRN,245.17,61.85,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,75095,Technology
 ABBV34.SA,ABBVIE      DRN ED,68.0,60.52,🔵 Alta,🔵 Tendência de Alta,ALTA,NEUTRO,NENHUM,,False,False,1836,Healthcare
 WALM34.SA,WAL MART    DRN,40.6,59.86,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,33812,Consumer Defensive
 ASML34.SA,ASML HOLD   DRN ED,128.81,58.6,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,13197,Technology
-GOGL34.SA,ALPHABET    DRN,158.52,58.34,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,190850,Communication Services
+GOGL34.SA,ALPHABET    DRN,158.52,58.34,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,190861,Communication Services
 CTGP34.SA,CITIGROUP   DRN,104.56,57.62,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,11132,Financial Services
 DEEC34.SA,DEERE CO    DRN,94.87,57.19,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-09-29,False,True,2087,Industrials
 COWC34.SA,COSTCO      DRN,123.85,56.18,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1064,Consumer Defensive
-MCDC34.SA,MCDONALDS   DRN,73.27,54.73,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,5964,Consumer Cyclical
-PAGS34.SA,PAGSEGURO   DRN ED,10.06,54.44,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,310879,Technology
-AAPL34.SA,APPLE       DRN,66.72,52.13,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,282346,Technology
+MCDC34.SA,MCDONALDS   DRN,73.27,54.73,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,5965,Consumer Cyclical
+PAGS34.SA,PAGSEGURO   DRN ED,10.06,54.44,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,310930,Technology
+AAPL34.SA,APPLE       DRN,66.72,52.14,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,282565,Technology
 GILD34.SA,GILEAD      DRN,321.04,51.66,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,27,Healthcare
-XPBR31.SA,XP INC      DR1,94.28,51.64,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,902908,Financial Services
+XPBR31.SA,XP INC      DR1,94.28,51.64,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,902909,Financial Services
 WFCO34.SA,WELLS FARGO DRN,101.12,51.47,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2902,Financial Services
 GEOO34.SA,GEAEROSPACE DRN,1419.46,50.34,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2025-10-21,True,False,201,Industrials
-AMZO34.SA,AMAZON      DRN,65.43,49.61,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,680635,Consumer Cyclical
+AMZO34.SA,AMAZON      DRN,65.43,49.61,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,680665,Consumer Cyclical
 BIDU34.SA,BAIDU INC   DRN,44.92,49.17,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2025-10-09,True,False,12154,Communication Services
 BOAC34.SA,BANK AMERICADRN,65.81,48.56,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,21729,Financial Services
-TSLA34.SA,TESLA INC   DRN,59.54,48.5,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1352450,Consumer Cyclical
+TSLA34.SA,TESLA INC   DRN,59.54,48.5,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1352499,Consumer Cyclical
 V1RS34.SA,VERISK ANALYDRN,11.67,48.34,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,70,Industrials
-COCA34.SA,COCA COLA   DRN,65.69,47.03,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-10-09,False,True,53495,Consumer Defensive
+COCA34.SA,COCA COLA   DRN,65.69,47.03,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-10-09,False,True,53496,Consumer Defensive
 INTU34.SA,INTUIT INC  DRN,47.64,46.27,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,3548,Technology
 IBMB34.SA,IBM         DRN,1144.55,45.27,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,112,Technology
 BABA34.SA,ALIBABAGR   DRN,23.35,45.12,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,287552,Consumer Cyclical
@@ -176,28 +176,28 @@ PGCO34.SA,PG          DRN ED,53.0,44.54,⚪ Transição,⚪ Zona de Transição,
 BLAK34.SA,BLACKROCK   DRN,80.45,44.53,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,6814,Financial Services
 ROXO34.SA,NU HOLDINGS DRN,11.93,43.75,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,6892357,Financial Services
 MSBR34.SA,MORGAN STAN DRN,190.76,43.58,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,2199,Financial Services
-AVGO34.SA,BROADCOM INCDRN,28.83,43.3,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,191384,Technology
+AVGO34.SA,BROADCOM INCDRN,28.83,43.31,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,191434,Technology
 JPMC34.SA,JPMORGAN    DRN,154.5,42.94,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,28698,Financial Services
-A1MD34.SA,ADVANCED MICDRN,218.29,42.33,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,103034,Technology
+A1MD34.SA,ADVANCED MICDRN,218.29,42.33,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,103038,Technology
 USBC34.SA,US BANCORP  DRN,70.7,42.22,🟢 Sobrevenda,⚪ Zona de Transição,TRANSIÇÃO,ENTRADA,SOBREVENDA,2025-11-12,False,True,90,Financial Services
-DISB34.SA,WALT DISNEY DRN,34.7,41.79,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,25304,Communication Services
+DISB34.SA,WALT DISNEY DRN,34.7,41.79,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,25306,Communication Services
 ORCL34.SA,ORACLE      DRN,134.59,41.78,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,79093,Technology
 HONB34.SA,HONEYWELL   DRN,1053.64,41.43,⚪ Transição,⚪ Zona de Transição,TRANSIÇÃO,NEUTRO,NENHUM,,False,False,1,Industrials
 LILY34.SA,LILLY       DRN,154.5,39.77,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,12256,Healthcare
-M1TA34.SA,META PLAT   DRN,108.8,39.72,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,173104,Communication Services
+M1TA34.SA,META PLAT   DRN,108.8,39.72,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,173209,Communication Services
 PEPB34.SA,PEPSICO INC DRN,52.42,39.59,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,1557,Consumer Defensive
 A1EP34.SA,AMERICAN ELEDRN,335.79,39.31,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-09-17,False,True,1,Utilities
 QCOM34.SA,QUALCOMM    DRN,71.02,39.3,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,17775,Technology
 LOWC34.SA,LOWES COMPA DRN ED,62.64,36.79,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,0,Consumer Cyclical
 ADBE34.SA,ADOBE INC   DRN,24.11,35.81,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-09-17,False,True,30893,Technology
-NFLX34.SA,NETFLIX     DRN,9.26,35.43,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-19,False,True,1162664,Communication Services
+NFLX34.SA,NETFLIX     DRN,9.26,35.43,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-02-19,False,True,1162672,Communication Services
 AXPB34.SA,AMERICAN EXPDRN,160.16,33.07,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,1271,Financial Services
-NVDC34.SA,NVIDIA CORP DRN,20.77,30.54,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,3830928,Technology
-PYPL34.SA,PAYPAL HOLD DRN,12.71,28.22,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-09-17,False,True,46917,Financial Services
+NVDC34.SA,NVIDIA CORP DRN,20.77,30.54,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,3831372,Technology
+PYPL34.SA,PAYPAL HOLD DRN,12.71,28.22,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-09-17,False,True,47003,Financial Services
 NIKE34.SA,NIKE        DRN,21.93,27.92,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,134205,Consumer Cyclical
 ABTT34.SA,ABBOTT      DRN ED,37.45,27.5,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-31,False,True,1311,Healthcare
 MELI34.SA,MERCADOLIBREDRN ATZ,74.25,26.96,🟠 Baixa,🟠 Tendência de Baixa,BAIXA,NEUTRO,NENHUM,,False,False,546532,Consumer Cyclical
-MSFT34.SA,MICROSOFT   DRN,84.52,26.36,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-03,False,True,517650,Technology
+MSFT34.SA,MICROSOFT   DRN,84.52,26.36,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-03,False,True,517667,Technology
 VISA34.SA,VISA INC    DRN,82.98,23.71,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-25,False,True,20196,Financial Services
 BKNG34.SA,BOOKING     DRN,4.7,23.35,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2025-10-09,False,True,89402,Consumer Cyclical
 GSGI34.SA,GOLDMANSACHSDRN,154.0,22.87,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-03-03,False,True,6505,Financial Services
