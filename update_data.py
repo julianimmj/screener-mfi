@@ -135,30 +135,18 @@ ALL_TICKERS = TICKERS_BR + TICKERS_BDR
 
 
 def fetch_all(tickers: list[str], min_volume: int = 0) -> pd.DataFrame:
-    """Fetch data for all tickers with delays to avoid rate limiting."""
-    results = []
-    total = len(tickers)
+    """Fetch data for all tickers in parallel."""
+    from mfi_engine import run_mfi_screener
 
-    for i, ticker in enumerate(tickers, 1):
-        print(f"  [{i}/{total}] {ticker}...", end=" ", flush=True)
-        row = _calculate_with_retry(ticker, max_retries=3)
-        if row is not None:
-            if row['Volume Médio'] >= min_volume:
-                results.append(row)
-                print(f"✓ MFI={row['MFI']}")
-            else:
-                print(f"✗ (volume {row['Volume Médio']} < {min_volume})")
-        else:
-            print("✗ (skipped)")
-
-        # Rate limiting — 1.5s between each ticker
-        if i < total:
-            time.sleep(1.5)
-
-    if not results:
+    print(f"Starting parallel fetch for {len(tickers)} tickers...")
+    df = run_mfi_screener(tickers, max_workers=5)
+    if df.empty:
         return pd.DataFrame()
 
-    df = pd.DataFrame(results)
+    initial_len = len(df)
+    df = df[df['Volume Médio'] >= min_volume].copy()
+    print(f"Filtered by volume >= {min_volume}: kept {len(df)} out of {initial_len} tickers.")
+
     df.sort_values('MFI', ascending=False, inplace=True)
     df.reset_index(drop=True, inplace=True)
     return df

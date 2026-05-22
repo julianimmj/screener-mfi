@@ -63,6 +63,7 @@ def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
     if remainder > 0:
         trimmed = trimmed.iloc[remainder:]
     
+    trimmed = trimmed.copy()
     block_ids = [i // n_days for i in range(len(trimmed))]
     trimmed['_block'] = block_ids
     
@@ -227,6 +228,12 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
 
         if hist.empty or len(hist) < MFI_TIMEFRAME * (MFI_LENGTH + 2):
             return None
+
+        # Clean negative/zero values (common yfinance adjustment bug)
+        for col in ['Open', 'High', 'Low', 'Close']:
+            if col in hist.columns:
+                hist[col] = hist[col].apply(lambda x: np.nan if x <= 0 else x)
+        hist = hist.ffill().bfill()
 
         # Resample to MFI_TIMEFRAME-day bars
         resampled = _resample_ohlcv(hist, MFI_TIMEFRAME)
