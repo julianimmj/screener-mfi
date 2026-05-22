@@ -39,13 +39,13 @@ TICKERS_BR = [
     "EZTC3.SA", "DIRR3.SA", "EVEN3.SA", "TEND3.SA", "JHSF3.SA",
     "MULT3.SA", "IGTI11.SA", "ALOS3.SA",
     "LWSA3.SA", "CASH3.SA", "POSI3.SA", "INTB3.SA",
-    "FLRY3.SA", "DASA3.SA", "ODPV3.SA",
+    "FLRY3.SA", "DASA3.SA", "SAUD3.SA",
     "EMBJ3.SA", "HBSA3.SA",  # AZUL4/AZUL54 deslistado - removido
     "MOVI3.SA", "VAMO3.SA", "SIMH3.SA", "SMTO3.SA", "SLCE3.SA",
     "COGN3.SA", "YDUQ3.SA", "ECOR3.SA", "EGIE3.SA",
 
     # Mid / Small Caps com volume (incluindo novos tickers de alta liquidez)
-    "RAPT4.SA", "KLBN4.SA", "KLBN3.SA", "GUAR3.SA", "LIGT3.SA",
+    "RAPT4.SA", "KLBN4.SA", "KLBN3.SA", "RIAA3.SA", "LIGT3.SA",
     "ABCB4.SA", "BMGB4.SA", "BRSR6.SA", "GRND3.SA", "ALPA4.SA",
     "AXIA3.SA", "RCSL4.SA",
     
@@ -98,7 +98,7 @@ TICKERS_BDR = [
     # Financials high volume
     "JPMC34.SA", "BOAC34.SA", "WFCO34.SA", "GSGI34.SA", "MSBR34.SA",
     "CTGP34.SA", "BLAK34.SA", "SCHW34.SA", "AXPB34.SA", "USBC34.SA",
-    "VISA34.SA", "MAST34.SA", "PYPL34.SA",
+    "VISA34.SA", "MSCD34.SA", "PYPL34.SA",
 
     # Healthcare
     "UNHH34.SA", "JNJB34.SA", "PFIZ34.SA", "ABBV34.SA", "MRCK34.SA",
@@ -108,7 +108,7 @@ TICKERS_BDR = [
     # Consumer
     "PGCO34.SA", "COCA34.SA", "PEPB34.SA", "COWC34.SA", "WALM34.SA",
     "MCDC34.SA", "NIKE34.SA", "SBUB34.SA", "TGTB34.SA",
-    "HDTH34.SA", "LOWC34.SA",
+    "LOWC34.SA",
 
     # Media / Entertainment
     "DISB34.SA", "NFLX34.SA", "CMCS34.SA", "BKNG34.SA",
@@ -118,7 +118,7 @@ TICKERS_BDR = [
 
     # Materials / Industrials
     "CATP34.SA", "DEEC34.SA", "HONB34.SA", "UPSS34.SA",
-    "LMTB34.SA", "BOGE34.SA", "GEOO34.SA",
+    "LMTB34.SA", "BOEI34.SA", "GEOO34.SA",
 
     # Other popular BDRs (high volume)
     "BABA34.SA", "BIDU34.SA", "XPBR31.SA",
