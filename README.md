@@ -21,20 +21,20 @@ MFI = 100 - 100 / (1 + MFR)
 
 | Parâmetro | Valor |
 |-----------|-------|
-| Timeframe | 8 dias (resample) |
+| Timeframe | 5 dias (resample) |
 | Período | 4 |
-| Sobrecompra | ≥ 86 |
-| Sobrevenda | ≤ 24 |
+| Sobrecompra | ≥ 88 |
+| Sobrevenda | ≤ 18 |
 
 ### Classificação
 
 | MFI | Status | Sinal |
 |-----|--------|-------|
-| ≥ 86 | 🔴 Sobrecompra | SAÍDA |
+| ≥ 88 | 🔴 Sobrecompra | SAÍDA |
 | > 60 | 🔵 Alta | ENTRADA |
 | 40–60 | ⚪ Transição | NEUTRO |
 | < 40 | 🟠 Baixa | SAÍDA |
-| ≤ 24 | 🟢 Sobrevenda | ENTRADA |
+| ≤ 18 | 🟢 Sobrevenda | ENTRADA |
 
 ---
 
