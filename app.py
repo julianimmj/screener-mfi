@@ -526,7 +526,7 @@ MFI = 100 - 100 / (1 + MFR)
 csv_path = str(CSV_MFI)
 
 if refresh_btn:
-    from update_data import ALL_TICKERS
+    from update_data import ALL_TICKERS, update_rolling_history
     from mfi_engine import run_mfi_screener
     st.cache_data.clear()
 
@@ -544,6 +544,9 @@ if refresh_btn:
     if not df_all.empty:
         os.makedirs(str(DATA_DIR), exist_ok=True)
         df_all.to_csv(csv_path, index=False)
+        
+        # Update rolling history of signals
+        update_rolling_history(df_all)
 
         from datetime import datetime, timezone
         now = datetime.now(timezone.utc)
@@ -575,10 +578,25 @@ else:
 # Pre-process: Add type flag + filter to recent crossover signals ONLY
 # ─────────────────────────────────────────
 df_all['Tipo'] = df_all['Ticker'].apply(lambda t: 'BDR' if is_bdr(t) else 'Ação')
-
-# ★ CORE FILTER: Only keep assets with crossover signals from last 7 days
 total_analyzed = len(df_all)
-df = filter_recent_signals(df_all, max_age_days=SIGNAL_MAX_AGE_DAYS)
+
+# Load rolling history of signals
+mtime_hist = os.path.getmtime(str(CSV_HISTORY)) if os.path.exists(CSV_HISTORY) else 0.0
+df_history = load_cached_data(str(CSV_HISTORY), mtime_hist)
+
+if not df_history.empty:
+    # Filter to only keep signals from last 15 days
+    df = filter_recent_signals(df_history, max_age_days=SIGNAL_MAX_AGE_DAYS)
+    if not df.empty:
+        # Add Tipo column
+        df['Tipo'] = df['Ticker'].apply(lambda t: 'BDR' if is_bdr(t) else 'Ação')
+        # Map Ticker to current price and MFI from df_all
+        latest_price = df_all.set_index('Ticker')['Preço'].to_dict()
+        latest_mfi = df_all.set_index('Ticker')['MFI'].to_dict()
+        df['Preço'] = df['Ticker'].map(latest_price).fillna(df['Preço'])
+        df['MFI'] = df['Ticker'].map(latest_mfi).fillna(df['MFI'])
+else:
+    df = pd.DataFrame()
 
 if df.empty:
     last_updated = get_last_updated()
