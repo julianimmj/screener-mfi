@@ -1,7 +1,7 @@
 """
 app.py — Screener MFI "Fluxo Financeiro"
 Dashboard profissional para Streamlit Cloud.
-Mostra APENAS ativos com crossover de Sobrecompra ou Sobrevenda nos últimos 7 dias.
+Mostra APENAS ativos com crossover de Sobrecompra ou Sobrevenda nos últimos 15 dias.
 """
 
 import streamlit as st
@@ -30,10 +30,11 @@ st.set_page_config(
 # ─────────────────────────────────────────
 DATA_DIR = Path(__file__).parent / "data"
 CSV_MFI = DATA_DIR / "mfi_screener.csv"
+CSV_HISTORY = DATA_DIR / "mfi_history.csv"
 METADATA_FILE = DATA_DIR / "metadata.json"
 
 # Signal recency filter (calendar days)
-SIGNAL_MAX_AGE_DAYS = 20
+SIGNAL_MAX_AGE_DAYS = 15
 
 # ─────────────────────────────────────────
 # Load bull/bear banner image as base64
@@ -343,8 +344,8 @@ st.markdown(f"""
     <h1>{_banner_html} Screener MFI — Fluxo Financeiro</h1>
     <p class="subtitle">
         O <b>Money Flow Index (MFI)</b> combina preço e volume para medir a real pressão de compra e venda institucional no mercado.<br>
-        A aplicação monitora <b>ações brasileiras</b> e <b>BDRs</b> para identificar oportunidades com <b>crossover recente</b> (últimos 7 dias) em zonas extremas de <b>sobrecompra</b> e <b>sobrevenda</b>.<br>
-        <span style="opacity: 0.8; font-size: 0.9em;">Parâmetros: Timeframe 5D · Período 4 · OB 88 · OS 18</span>
+        A aplicação monitora <b>ações brasileiras</b> e <b>BDRs</b> para identificar oportunidades com <b>crossover recente</b> (últimos {SIGNAL_MAX_AGE_DAYS} dias) em zonas extremas de <b>sobrecompra</b> e <b>sobrevenda</b>.<br>
+        <span style="opacity: 0.8; font-size: 0.9em;">Parâmetros: Timeframe 14D · Período 7 · OB 84 · OS 16</span>
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -445,7 +446,7 @@ with st.sidebar:
 
     # ── Zone filter (sobrecompra / sobrevenda) ──
     st.subheader("📡 Zona de Sinal")
-    zone_options = ["Todos (OB + OS)", "🟢 Sobrevenda (MFI ≤ 18)", "🔴 Sobrecompra (MFI ≥ 88)"]
+    zone_options = ["Todos (OB + OS)", "🟢 Sobrevenda (MFI ≤ 16)", "🔴 Sobrecompra (MFI ≥ 84)"]
 
     if "zone_filter" not in st.session_state:
         st.session_state.zone_filter = "Todos (OB + OS)"
@@ -473,11 +474,11 @@ with st.sidebar:
     st.markdown("""
     | Parâmetro | Valor |
     |-----------|-------|
-    | Timeframe | **5 dias** |
-    | Período | **4** |
-    | Sobrecompra | **> 88** |
-    | Sobrevenda | **< 18** |
-    | Janela de Sinal | **20 dias** |
+    | Timeframe | **14 dias** |
+    | Período | **7** |
+    | Sobrecompra | **> 84** |
+    | Sobrevenda | **< 16** |
+    | Janela de Sinal | **15 dias** |
     """)
 
     st.markdown("---")
@@ -495,10 +496,10 @@ MFI = 100 - 100 / (1 + MFR)
 ```
 
 **Sinais de Crossover (fiel ao Pine Script):**
-- **OB Cross**: MFI anterior < 88 E MFI atual > 88 → 🔴 Sobrecompra
-- **OS Cross**: MFI anterior > 18 E MFI atual < 18 → 🟢 Sobrevenda
+- **OB Cross**: MFI anterior < 84 E MFI atual > 84 → 🔴 Sobrecompra
+- **OS Cross**: MFI anterior > 16 E MFI atual < 16 → 🟢 Sobrevenda
 
-⏰ Apenas sinais dos **últimos 7 dias** são exibidos.
+⏰ Apenas sinais dos **últimos 15 dias** são exibidos.
         """)
 
     st.markdown("---")
@@ -589,8 +590,8 @@ if df.empty:
     )
     st.info(
         "📊 **Nenhum sinal de crossover recente.**\n\n"
-        f"Nenhum ativo apresentou cruzamento de sobrecompra (MFI > 88) ou "
-        f"sobrevenda (MFI < 18) nos últimos {SIGNAL_MAX_AGE_DAYS} dias.\n\n"
+        f"Nenhum ativo apresentou cruzamento de sobrecompra (MFI > 84) ou "
+        f"sobrevenda (MFI < 16) nos últimos {SIGNAL_MAX_AGE_DAYS} dias.\n\n"
         "Os dados são atualizados diariamente — volte mais tarde para checar novos sinais."
     )
     st.stop()
@@ -673,9 +674,9 @@ def kpi_box(col, val, label, btn_label, state_val, color="#00c8ff", val_size="2.
 
 
 kpi_box(k1, total_analyzed, "Total Analisados", "🔍 Ver Sinais", "Todos (OB + OS)", "#6688aa", "2.6rem")
-kpi_box(k2, n_sobrecompra, "🔴 Sobrecompra", "🔴 Filtrar", "🔴 Sobrecompra (MFI ≥ 88)", "#ff1744")
-kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 18)", "#00e676")
-kpi_box(k4, n_total_signals, "Crossovers (7d)", "🔍 Ver Todos", "Todos (OB + OS)", "#ffab00")
+kpi_box(k2, n_sobrecompra, "🔴 Sobrecompra", "🔴 Filtrar", "🔴 Sobrecompra (MFI ≥ 84)", "#ff1744")
+kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 16)", "#00e676")
+kpi_box(k4, n_total_signals, f"Crossovers ({SIGNAL_MAX_AGE_DAYS}d)", "🔍 Ver Todos", "Todos (OB + OS)", "#ffab00")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -690,8 +691,8 @@ tab_ranking, tab_gauge, tab_split = st.tabs([
 with tab_ranking:
     zone_labels = {
         "Todos (OB + OS)": "Sobrecompra + Sobrevenda",
-        "🟢 Sobrevenda (MFI ≤ 18)": "Sobrevenda (Entrada de Fluxo)",
-        "🔴 Sobrecompra (MFI ≥ 88)": "Sobrecompra (Saída de Fluxo)",
+        "🟢 Sobrevenda (MFI ≤ 16)": "Sobrevenda (Entrada de Fluxo)",
+        "🔴 Sobrecompra (MFI ≥ 84)": "Sobrecompra (Saída de Fluxo)",
     }
     view_label = zone_labels.get(view_zone, view_zone)
     st.markdown(
@@ -738,7 +739,7 @@ with tab_ranking:
 
         st.caption(
             f"Exibindo {len(display)} crossovers recentes · "
-            f"{total_analyzed} ativos analisados · MFI TF 5D, Per 4 · "
+            f"{total_analyzed} ativos analisados · MFI TF 14D, Per 7 · "
             f"Janela: {SIGNAL_MAX_AGE_DAYS} dias"
         )
 
@@ -778,11 +779,11 @@ with tab_gauge:
                 'bgcolor': 'rgba(0,0,0,0)',
                 'borderwidth': 0,
                 'steps': [
-                    {'range': [0, 18], 'color': 'rgba(0,230,118,0.15)'},
-                    {'range': [18, 40], 'color': 'rgba(255,255,255,0.02)'},
+                    {'range': [0, 16], 'color': 'rgba(0,230,118,0.15)'},
+                    {'range': [16, 40], 'color': 'rgba(255,255,255,0.02)'},
                     {'range': [40, 60], 'color': 'rgba(255,255,255,0.02)'},
-                    {'range': [60, 88], 'color': 'rgba(255,255,255,0.02)'},
-                    {'range': [88, 100], 'color': 'rgba(255,23,68,0.15)'},
+                    {'range': [60, 84], 'color': 'rgba(255,255,255,0.02)'},
+                    {'range': [84, 100], 'color': 'rgba(255,23,68,0.15)'},
                 ],
                 'threshold': {
                     'line': {'color': '#fff', 'width': 3},
@@ -792,9 +793,9 @@ with tab_gauge:
             }
         ))
 
-        fig.add_annotation(x=0.13, y=0.08, text="OS 18", showarrow=False,
+        fig.add_annotation(x=0.13, y=0.08, text="OS 16", showarrow=False,
                           font=dict(color="#00e676", size=12, family="Inter"))
-        fig.add_annotation(x=0.87, y=0.08, text="OB 88", showarrow=False,
+        fig.add_annotation(x=0.87, y=0.08, text="OB 84", showarrow=False,
                           font=dict(color="#ff1744", size=12, family="Inter"))
 
         fig.update_layout(
@@ -816,12 +817,12 @@ with tab_gauge:
 
         if is_ob:
             st.error(
-                "🔴 **Sobrecompra (Crossover)** — MFI cruzou acima de 88. "
+                "🔴 **Sobrecompra (Crossover)** — MFI cruzou acima de 84. "
                 "Indica saída de fluxo financeiro. Possível topo ou distribuição."
             )
         else:
             st.success(
-                "🟢 **Sobrevenda (Crossover)** — MFI cruzou abaixo de 18. "
+                "🟢 **Sobrevenda (Crossover)** — MFI cruzou abaixo de 16. "
                 "Indica entrada de fluxo financeiro. Possível fundo ou acumulação."
             )
 
@@ -893,7 +894,7 @@ st.markdown("---")
 st.markdown(f"""
 <div style="text-align:center; opacity:0.4; font-size:0.8rem; padding: 1rem 0">
     <b>Screener MFI "Fluxo Financeiro"</b> · Dados via Yahoo Finance (atualização diária)<br>
-    Indicador: Money Flow Index (TF 5D · Per 4 · OB 88 · OS 18) ·
+    Indicador: Money Flow Index (TF 14D · Per 7 · OB 84 · OS 16) ·
     Crossovers dos últimos {SIGNAL_MAX_AGE_DAYS} dias apenas
 </div>
 """, unsafe_allow_html=True)

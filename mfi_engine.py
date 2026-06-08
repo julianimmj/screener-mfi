@@ -24,16 +24,16 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # ─────────────────────────────────────────────
 # Configuration — matches user's Pine Script parameters
 # ─────────────────────────────────────────────
-MFI_LENGTH = 4        # Período do MFI (rolling window)
-MFI_TIMEFRAME = 5     # Resample diário → blocos de N dias
-MFI_OVERSOLD = 18     # Nível de sobrevenda
-MFI_OVERBOUGHT = 88   # Nível de sobrecompra
+MFI_LENGTH = 7        # Período do MFI (rolling window) — 7 barras de 14 dias
+MFI_TIMEFRAME = 14    # Resample diário → blocos de 14 dias (2 semanas de trading)
+MFI_OVERSOLD = 16     # Nível de sobrevenda
+MFI_OVERBOUGHT = 84   # Nível de sobrecompra
 
 # How many calendar days of history to download (enough for resampling + warm-up)
-HISTORY_DAYS = 200
+HISTORY_DAYS = 400
 
 # Maximum age of a signal (calendar days) to be included in the screener
-SIGNAL_MAX_AGE_DAYS = 20
+SIGNAL_MAX_AGE_DAYS = 15
 
 
 # ─────────────────────────────────────────────
@@ -53,9 +53,8 @@ def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
     # Reset index to work with numeric positions
     df_reset = df.reset_index(drop=True)
     
-    # Offset = 1 trading day from the start to align with TV
-    OFFSET = 1
-    trimmed = df_reset.iloc[OFFSET:] if len(df_reset) > OFFSET else df_reset
+    # No offset — Pine Script security() simply pulls the closed time block
+    trimmed = df_reset
     
     # Group into blocks of n_days trading days
     n_rows = len(trimmed)

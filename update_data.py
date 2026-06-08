@@ -152,6 +152,79 @@ def fetch_all(tickers: list[str], min_volume: int = 0) -> pd.DataFrame:
     return df
 
 
+def update_rolling_history(df_today: pd.DataFrame, history_path: str = "data/mfi_history.csv", max_age_days: int = 15):
+    """
+    Maintain a rolling 15-day history of crossover signals.
+    
+    1. Extract today's crossover signals from the full scan.
+    2. Load existing history (if any).
+    3. Append new signals, deduplicating by (Ticker, Signal Date).
+    4. Prune entries older than max_age_days.
+    5. Save back to CSV.
+    """
+    from mfi_engine import SIGNAL_MAX_AGE_DAYS
+    
+    # 1. Extract today's crossovers from the full scan
+    if df_today.empty or 'Signal Type' not in df_today.columns:
+        new_signals = pd.DataFrame()
+    else:
+        has_signal = df_today['Signal Type'].isin(['SOBRECOMPRA', 'SOBREVENDA'])
+        has_date = df_today['Signal Date'].notna() & (df_today['Signal Date'].astype(str).str.strip() != '')
+        new_signals = df_today[has_signal & has_date].copy()
+    
+    today_count = len(new_signals)
+    
+    # 2. Load existing history
+    if os.path.exists(history_path):
+        try:
+            history = pd.read_csv(history_path)
+        except Exception:
+            history = pd.DataFrame()
+    else:
+        history = pd.DataFrame()
+    
+    # 3. Merge: append new, deduplicate by (Ticker, Signal Date)
+    if not new_signals.empty and not history.empty:
+        combined = pd.concat([history, new_signals], ignore_index=True)
+        combined.drop_duplicates(subset=['Ticker', 'Signal Date'], keep='last', inplace=True)
+    elif not new_signals.empty:
+        combined = new_signals.copy()
+    elif not history.empty:
+        combined = history.copy()
+    else:
+        combined = pd.DataFrame()
+    
+    # 4. Prune entries older than max_age_days
+    if not combined.empty and 'Signal Date' in combined.columns:
+        now_utc = datetime.now(timezone.utc)
+        cutoff = now_utc - pd.Timedelta(days=max_age_days)
+        
+        def is_recent(date_str):
+            try:
+                if not date_str or pd.isna(date_str) or str(date_str).strip() == '':
+                    return False
+                sig_date = pd.to_datetime(str(date_str))
+                if sig_date.tzinfo is None:
+                    sig_date = sig_date.tz_localize('UTC')
+                return sig_date >= cutoff
+            except Exception:
+                return False
+        
+        mask = combined['Signal Date'].apply(is_recent)
+        combined = combined[mask].copy()
+    
+    # 5. Save
+    if not combined.empty:
+        combined.sort_values('MFI', ascending=False, inplace=True)
+        combined.reset_index(drop=True, inplace=True)
+        combined.to_csv(history_path, index=False)
+        print(f"\n✓ Rolling history updated: {len(combined)} signals (added {today_count} today, pruned >{max_age_days}d)")
+    else:
+        # Save empty CSV with headers to avoid file-not-found errors
+        pd.DataFrame(columns=df_today.columns if not df_today.empty else []).to_csv(history_path, index=False)
+        print(f"\n⚠ No active signals in rolling history (all expired or none found)")
+
+
 def main():
     """Main entry point for the daily data update."""
     os.makedirs("data", exist_ok=True)
@@ -186,6 +259,9 @@ def main():
     else:
         print("\n✗ No data fetched")
 
+    # ── Rolling History (15-day window) ──
+    update_rolling_history(df)
+
     # ── Metadata ─────────────────────
     meta = {
         "last_updated": now.isoformat(),
@@ -201,3 +277,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
