@@ -1,3 +1,4 @@
 Ticker,Nome,Preço,MFI,Status,Zona,Trend,Signal,Signal Type,Signal Date,OB Cross,OS Cross,Volume Médio,Setor
 A1EP34.SA,AMERICAN ELEDRN,330.66,15.65,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-11,False,True,201,Utilities
 CMCS34.SA,COMCAST     DRN,24.57,14.88,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-15,False,True,2682,Communication Services
+CMCS34.SA,COMCAST     DRN,23.97,14.84,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-16,False,True,1306,Communication Services
