@@ -26,7 +26,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # ─────────────────────────────────────────────
 MFI_LENGTH = 3        # Período do MFI (rolling window) — 3 barras de 7 dias
 MFI_TIMEFRAME = 7     # Resample diário → blocos de 7 dias (semanal)
-MFI_OVERSOLD = 18     # Nível de sobrevenda
+MFI_OVERSOLD = 12     # Nível de sobrevenda
 MFI_OVERBOUGHT = 88   # Nível de sobrecompra
 
 # How many calendar days of history to download (enough for warm-up)

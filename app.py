@@ -345,7 +345,7 @@ st.markdown(f"""
     <p class="subtitle">
         O <b>Money Flow Index (MFI)</b> combina preço e volume para medir a real pressão de compra e venda institucional no mercado.<br>
         A aplicação monitora <b>ações brasileiras</b> e <b>BDRs</b> para identificar oportunidades com <b>crossover recente</b> (últimos {SIGNAL_MAX_AGE_DAYS} dias) em zonas extremas de <b>sobrecompra</b> e <b>sobrevenda</b>.<br>
-        <span style="opacity: 0.8; font-size: 0.9em;">Parâmetros: Timeframe Semanal (7D) · Período 3 · OB 88 · OS 18</span>
+        <span style="opacity: 0.8; font-size: 0.9em;">Parâmetros: Timeframe Semanal (7D) · Período 3 · OB 88 · OS 12</span>
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -446,7 +446,7 @@ with st.sidebar:
 
     # ── Zone filter (sobrecompra / sobrevenda) ──
     st.subheader("📡 Zona de Sinal")
-    zone_options = ["Todos (OB + OS)", "🟢 Sobrevenda (MFI ≤ 18)", "🔴 Sobrecompra (MFI ≥ 88)"]
+    zone_options = ["Todos (OB + OS)", "🟢 Sobrevenda (MFI ≤ 12)", "🔴 Sobrecompra (MFI ≥ 88)"]
 
     if "zone_filter" not in st.session_state:
         st.session_state.zone_filter = "Todos (OB + OS)"
@@ -477,7 +477,7 @@ with st.sidebar:
     | Timeframe | **Semanal (7D)** |
     | Período | **3** |
     | Sobrecompra | **> 88** |
-    | Sobrevenda | **< 18** |
+    | Sobrevenda | **< 12** |
     | Janela de Sinal | **7 dias** |
     """)
 
@@ -497,7 +497,7 @@ MFI = 100 - 100 / (1 + MFR)
 
 **Sinais de Crossover (fiel ao Pine Script):**
 - **OB Cross**: MFI anterior < 88 E MFI atual > 88 → 🔴 Sobrecompra
-- **OS Cross**: MFI anterior > 18 E MFI atual < 18 → 🟢 Sobrevenda
+- **OS Cross**: MFI anterior > 12 E MFI atual < 12 → 🟢 Sobrevenda
 
 ⏰ Sinais ativos dos **últimos 7 dias** + histórico de **15 dias**.
         """)
@@ -604,11 +604,47 @@ def _enrich_signal_df(sdf):
     )
     return sdf
 
+# 1. Filter recent crossovers from rolling history
 if not df_history.empty:
-    df = _enrich_signal_df(filter_recent_signals(df_history, max_age_days=SIGNAL_MAX_AGE_DAYS))
-    df_history_15d = _enrich_signal_df(filter_recent_signals(df_history, max_age_days=HISTORY_DISPLAY_DAYS))
+    recent_crossovers = filter_recent_signals(df_history, max_age_days=SIGNAL_MAX_AGE_DAYS)
+else:
+    recent_crossovers = pd.DataFrame()
+
+# 2. Extract current extremes from df_all (MFI >= 88 or MFI <= 12)
+if not df_all.empty:
+    current_extremes = df_all[(df_all['MFI'] >= 88) | (df_all['MFI'] <= 12)].copy()
+    # Normalize/Ensure signal type and date are populated
+    for idx, row in current_extremes.iterrows():
+        mfi_val = row['MFI']
+        sig_type = row.get('Signal Type', 'NENHUM')
+        if sig_type not in ['SOBRECOMPRA', 'SOBREVENDA']:
+            current_extremes.at[idx, 'Signal Type'] = 'SOBRECOMPRA' if mfi_val >= 88 else 'SOBREVENDA'
+        # If signal date is empty, default to today
+        if not row.get('Signal Date') or pd.isna(row.get('Signal Date')) or str(row.get('Signal Date')).strip() == '':
+            current_extremes.at[idx, 'Signal Date'] = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+else:
+    current_extremes = pd.DataFrame()
+
+# 3. Combine both sets of signals (recent crossovers + current extremes)
+if not recent_crossovers.empty and not current_extremes.empty:
+    combined_signals = pd.concat([recent_crossovers, current_extremes], ignore_index=True)
+    combined_signals.drop_duplicates(subset=['Ticker'], keep='first', inplace=True)
+elif not current_extremes.empty:
+    combined_signals = current_extremes.copy()
+elif not recent_crossovers.empty:
+    combined_signals = recent_crossovers.copy()
+else:
+    combined_signals = pd.DataFrame()
+
+# 4. Enrich both active signals and 15-day history
+if not combined_signals.empty:
+    df = _enrich_signal_df(combined_signals)
 else:
     df = pd.DataFrame()
+
+if not df_history.empty:
+    df_history_15d = _enrich_signal_df(filter_recent_signals(df_history, max_age_days=HISTORY_DISPLAY_DAYS))
+else:
     df_history_15d = pd.DataFrame()
 
 if df.empty:
@@ -616,13 +652,13 @@ if df.empty:
     st.markdown(
         f'<div class="freshness">📅 Dados de: <b>{last_updated}</b> · '
         f'{total_analyzed} ativos analisados · '
-        f'Nenhum crossover nos últimos {SIGNAL_MAX_AGE_DAYS} dias</div>',
+        f'Nenhum sinal ativo (crossover recente ou MFI extremo)</div>',
         unsafe_allow_html=True
     )
     st.info(
-        "📊 **Nenhum sinal de crossover recente.**\n\n"
+        "📊 **Nenhum sinal ativo.**\n\n"
         f"Nenhum ativo apresentou cruzamento de sobrecompra (MFI > 88) ou "
-        f"sobrevenda (MFI < 18) nos últimos {SIGNAL_MAX_AGE_DAYS} dias.\n\n"
+        f"sobrevenda (MFI < 12) nos últimos {SIGNAL_MAX_AGE_DAYS} dias, e nenhum ativo está atualmente em zona extrema.\n\n"
         "Os dados são atualizados diariamente — volte mais tarde para checar novos sinais."
     )
 
@@ -653,7 +689,7 @@ n_os = int((df['Signal Type'] == 'SOBREVENDA').sum())
 st.markdown(
     f'<div class="freshness">📅 Dados de: <b>{last_updated}</b> · '
     f'{total_analyzed} ativos analisados · '
-    f'<b>{len(df)}</b> crossovers nos últimos {SIGNAL_MAX_AGE_DAYS} dias '
+    f'<b>{len(df)}</b> sinais ativos (crossovers recentes e extremos) '
     f'({n_ob} sobrecompra + {n_os} sobrevenda)</div>',
     unsafe_allow_html=True
 )
@@ -667,7 +703,7 @@ elif universe == "Apenas BDRs":
     df = df[df['Tipo'] == 'BDR'].copy()
 
 if df.empty:
-    st.info("Nenhum ativo encontrado para esse universo com crossover recente.")
+    st.info("Nenhum ativo encontrado para esse universo com sinal ativo.")
     st.stop()
 
 # ─────────────────────────────────────────
@@ -712,8 +748,8 @@ def kpi_box(col, val, label, btn_label, state_val, color="#00c8ff", val_size="2.
 
 kpi_box(k1, total_analyzed, "Total Analisados", "🔍 Ver Sinais", "Todos (OB + OS)", "#6688aa", "2.6rem")
 kpi_box(k2, n_sobrecompra, "🔴 Sobrecompra", "🔴 Filtrar", "🔴 Sobrecompra (MFI ≥ 88)", "#ff1744")
-kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 18)", "#00e676")
-kpi_box(k4, n_total_signals, f"Crossovers ({SIGNAL_MAX_AGE_DAYS}d)", "🔍 Ver Todos", "Todos (OB + OS)", "#ffab00")
+kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 12)", "#00e676")
+kpi_box(k4, n_total_signals, "Sinais Ativos", "🔍 Ver Todos", "Todos (OB + OS)", "#ffab00")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -728,17 +764,17 @@ tab_ranking, tab_gauge, tab_split = st.tabs([
 with tab_ranking:
     zone_labels = {
         "Todos (OB + OS)": "Sobrecompra + Sobrevenda",
-        "🟢 Sobrevenda (MFI ≤ 18)": "Sobrevenda (Entrada de Fluxo)",
+        "🟢 Sobrevenda (MFI ≤ 12)": "Sobrevenda (Entrada de Fluxo)",
         "🔴 Sobrecompra (MFI ≥ 88)": "Sobrecompra (Saída de Fluxo)",
     }
     view_label = zone_labels.get(view_zone, view_zone)
     st.markdown(
-        f'<div class="section-title">Crossovers Recentes — {view_label} (últimos {SIGNAL_MAX_AGE_DAYS} dias)</div>',
+        f'<div class="section-title">Sinais Ativos — {view_label} (crossovers recentes e extremos)</div>',
         unsafe_allow_html=True
     )
 
     if filtered.empty:
-        st.info(f"Nenhum crossover encontrado na zona '{view_label}' nos últimos {SIGNAL_MAX_AGE_DAYS} dias.")
+        st.info(f"Nenhum sinal ativo na zona '{view_label}'.")
     else:
         display_cols = ['Ticker', 'Nome', 'Preço', 'MFI', 'Zona Signal', 'Data do Sinal', 'Tipo', 'Volume Médio']
         available = [c for c in display_cols if c in filtered.columns]
@@ -843,8 +879,8 @@ with tab_gauge:
                 'bgcolor': 'rgba(0,0,0,0)',
                 'borderwidth': 0,
                 'steps': [
-                    {'range': [0, 18], 'color': 'rgba(0,230,118,0.15)'},
-                    {'range': [18, 40], 'color': 'rgba(255,255,255,0.02)'},
+                    {'range': [0, 12], 'color': 'rgba(0,230,118,0.15)'},
+                    {'range': [12, 40], 'color': 'rgba(255,255,255,0.02)'},
                     {'range': [40, 60], 'color': 'rgba(255,255,255,0.02)'},
                     {'range': [60, 88], 'color': 'rgba(255,255,255,0.02)'},
                     {'range': [88, 100], 'color': 'rgba(255,23,68,0.15)'},
@@ -857,7 +893,7 @@ with tab_gauge:
             }
         ))
 
-        fig.add_annotation(x=0.10, y=0.08, text="OS 18", showarrow=False,
+        fig.add_annotation(x=0.10, y=0.08, text="OS 12", showarrow=False,
                           font=dict(color="#00e676", size=12, family="Inter"))
         fig.add_annotation(x=0.90, y=0.08, text="OB 88", showarrow=False,
                           font=dict(color="#ff1744", size=12, family="Inter"))
@@ -886,7 +922,7 @@ with tab_gauge:
             )
         else:
             st.success(
-                "🟢 **Sobrevenda (Crossover)** — MFI cruzou abaixo de 18. "
+                "🟢 **Sobrevenda (Crossover)** — MFI cruzou abaixo de 12. "
                 "Indica entrada de fluxo financeiro. Possível fundo ou acumulação."
             )
 
@@ -958,7 +994,7 @@ st.markdown("---")
 st.markdown(f"""
 <div style="text-align:center; opacity:0.4; font-size:0.8rem; padding: 1rem 0">
     <b>Screener MFI "Fluxo Financeiro"</b> · Dados via Yahoo Finance (atualização diária)<br>
-    Indicador: Money Flow Index (TF 7D · Per 3 · OB 88 · OS 18) ·
+    Indicador: Money Flow Index (TF 7D · Per 3 · OB 88 · OS 12) ·
     Sinais ativos ({SIGNAL_MAX_AGE_DAYS}d) + histórico (15d)
 </div>
 """, unsafe_allow_html=True)
