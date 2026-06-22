@@ -185,6 +185,18 @@ def update_rolling_history(df_today: pd.DataFrame, history_path: str = "data/mfi
     
     # 3. Merge: append new, deduplicate by (Ticker, Signal Date)
     if not new_signals.empty and not history.empty:
+        # Prevent stale/contaminated signals for today's/yesterday's dates
+        now_utc = datetime.now(timezone.utc)
+        today_str = now_utc.strftime('%Y-%m-%d')
+        yesterday_str = (now_utc - pd.Timedelta(days=1)).strftime('%Y-%m-%d')
+        
+        for d_str in [today_str, yesterday_str]:
+            # Find tickers that have an active signal on this date in the new scan
+            active_on_date = set(new_signals[new_signals['Signal Date'].astype(str).str.startswith(d_str)]['Ticker'])
+            # Remove any historical signals on this date for tickers that do NOT have a signal on this date in the new scan
+            mask = ~((history['Signal Date'].astype(str).str.startswith(d_str)) & (~history['Ticker'].isin(active_on_date)))
+            history = history[mask].copy()
+
         combined = pd.concat([history, new_signals], ignore_index=True)
         combined.drop_duplicates(subset=['Ticker', 'Signal Date'], keep='last', inplace=True)
     elif not new_signals.empty:
@@ -218,11 +230,11 @@ def update_rolling_history(df_today: pd.DataFrame, history_path: str = "data/mfi
         combined.sort_values('MFI', ascending=False, inplace=True)
         combined.reset_index(drop=True, inplace=True)
         combined.to_csv(history_path, index=False)
-        print(f"\n✓ Rolling history updated: {len(combined)} signals (added {today_count} today, pruned >{max_age_days}d)")
+        print(f"\n[OK] Rolling history updated: {len(combined)} signals (added {today_count} today, pruned >{max_age_days}d)")
     else:
         # Save empty CSV with headers to avoid file-not-found errors
         pd.DataFrame(columns=df_today.columns if not df_today.empty else []).to_csv(history_path, index=False)
-        print(f"\n⚠ No active signals in rolling history (all expired or none found)")
+        print(f"\n[WARNING] No active signals in rolling history (all expired or none found)")
 
 
 def main():
@@ -230,17 +242,17 @@ def main():
     os.makedirs("data", exist_ok=True)
 
     now = datetime.now(timezone.utc)
-    print(f"=== Screener MFI — Fluxo Financeiro ===")
+    print(f"=== Screener MFI - Fluxo Financeiro ===")
     print(f"    Date: {now.strftime('%Y-%m-%d %H:%M UTC')}")
     print(f"    Tickers: {len(ALL_TICKERS)} ({len(TICKERS_BR)} BR + {len(TICKERS_BDR)} BDR)")
     print()
 
-    # ── Fetch BR ──────────────────────
-    print("── Fetching MFI data (BR) ──")
+    # == Fetch BR ==
+    print("=== Fetching MFI data (BR) ===")
     df_br = fetch_all(TICKERS_BR, min_volume=1000000)
 
-    # ── Fetch BDR ─────────────────────
-    print("\\n── Fetching MFI data (BDR) ──")
+    # == Fetch BDR ==
+    print("\n=== Fetching MFI data (BDR) ===")
     df_bdr = fetch_all(TICKERS_BDR, min_volume=0)
 
     # Concatenate results
@@ -255,9 +267,9 @@ def main():
 
     if not df.empty:
         df.to_csv("data/mfi_screener.csv", index=False)
-        print(f"\n✓ Saved data/mfi_screener.csv ({len(df)} tickers)")
+        print(f"\n[OK] Saved data/mfi_screener.csv ({len(df)} tickers)")
     else:
-        print("\n✗ No data fetched")
+        print("\n[ERROR] No data fetched")
 
     # ── Rolling History (15-day window) ──
     update_rolling_history(df)
@@ -271,7 +283,7 @@ def main():
         "tickers_ok": len(df) if not df.empty else 0,
     }
     pd.Series(meta).to_json("data/metadata.json")
-    print(f"\n✓ Metadata saved to data/metadata.json")
+    print(f"\n[OK] Metadata saved to data/metadata.json")
     print(f"\n=== Done! ===")
 
 
