@@ -671,11 +671,11 @@ def _apply_zone_filter(sdf, zone_name):
 filtered = _apply_zone_filter(df_filtered, view_zone)
 filtered_hist = _apply_zone_filter(df_hist_filtered, view_zone)
 
-# 7. Calculate KPI card metrics based on 15-day history
-if not df_history_15d.empty:
-    n_total_signals = len(df_history_15d)
-    n_sobrecompra = int((df_history_15d['Signal Type'] == 'SOBRECOMPRA').sum())
-    n_sobrevenda = int((df_history_15d['Signal Type'] == 'SOBREVENDA').sum())
+# 7. Calculate KPI card metrics based on today's signals (df)
+if not df.empty:
+    n_total_signals = len(df)
+    n_sobrecompra = int((df['Signal Type'] == 'SOBRECOMPRA').sum())
+    n_sobrevenda = int((df['Signal Type'] == 'SOBREVENDA').sum())
 else:
     n_total_signals = 0
     n_sobrecompra = 0
