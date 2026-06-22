@@ -24,16 +24,16 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # ─────────────────────────────────────────────
 # Configuration — matches user's Pine Script parameters
 # ─────────────────────────────────────────────
-MFI_LENGTH = 7        # Período do MFI (rolling window) — 7 barras de 14 dias
-MFI_TIMEFRAME = 14    # Resample diário → blocos de 14 dias (2 semanas de trading)
-MFI_OVERSOLD = 16     # Nível de sobrevenda
-MFI_OVERBOUGHT = 84   # Nível de sobrecompra
+MFI_LENGTH = 3        # Período do MFI (rolling window) — 3 barras diárias
+MFI_TIMEFRAME = 1     # Timeframe diário (sem resample)
+MFI_OVERSOLD = 12     # Nível de sobrevenda
+MFI_OVERBOUGHT = 88   # Nível de sobrecompra
 
-# How many calendar days of history to download (enough for resampling + warm-up)
+# How many calendar days of history to download (enough for warm-up)
 HISTORY_DAYS = 400
 
 # Maximum age of a signal (calendar days) to be included in the screener
-SIGNAL_MAX_AGE_DAYS = 15
+SIGNAL_MAX_AGE_DAYS = 7
 
 
 # ─────────────────────────────────────────────
@@ -234,8 +234,11 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
                 hist[col] = hist[col].apply(lambda x: np.nan if x <= 0 else x)
         hist = hist.ffill().bfill()
 
-        # Resample to MFI_TIMEFRAME-day bars
-        resampled = _resample_ohlcv(hist, MFI_TIMEFRAME)
+        # Resample to MFI_TIMEFRAME-day bars (skip if daily)
+        if MFI_TIMEFRAME > 1:
+            resampled = _resample_ohlcv(hist, MFI_TIMEFRAME)
+        else:
+            resampled = hist[['Open', 'High', 'Low', 'Close', 'Volume']].copy()
 
         if resampled.empty or len(resampled) < MFI_LENGTH + 1:
             return None
