@@ -24,9 +24,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # ─────────────────────────────────────────────
 # Configuration — matches user's Pine Script parameters
 # ─────────────────────────────────────────────
-MFI_LENGTH = 3        # Período do MFI (rolling window) — 3 barras diárias
-MFI_TIMEFRAME = 1     # Timeframe diário (sem resample)
-MFI_OVERSOLD = 12     # Nível de sobrevenda
+MFI_LENGTH = 3        # Período do MFI (rolling window) — 3 barras de 7 dias
+MFI_TIMEFRAME = 7     # Resample diário → blocos de 7 dias (semanal)
+MFI_OVERSOLD = 18     # Nível de sobrevenda
 MFI_OVERBOUGHT = 88   # Nível de sobrecompra
 
 # How many calendar days of history to download (enough for warm-up)
@@ -42,18 +42,30 @@ SIGNAL_MAX_AGE_DAYS = 7
 
 def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
     """
-    Resample daily OHLCV data into n-trading-day bars.
-
-    TradingView's "8D" custom timeframe groups every 8 TRADING days 
-    (not calendar days). This matches the Pine Script behavior.
+    Resample daily OHLCV data.
+    
+    If n_days is 7, we resample by calendar week ('W'), aligning labels
+    to the Monday (start of the week) to match TradingView.
+    Otherwise, we group by n_days trading days.
     """
     if df.empty:
         return pd.DataFrame()
 
+    if n_days == 7:
+        # Standard calendar weekly resample (Sunday-anchored)
+        resampled = df.resample('W').agg({
+            'Open': 'first',
+            'High': 'max',
+            'Low': 'min',
+            'Close': 'last',
+            'Volume': 'sum',
+        }).dropna()
+        # Shift dates to Monday (start of week) to match TradingView
+        resampled.index = resampled.index - pd.to_timedelta(6, unit='d')
+        return resampled
+
     # Reset index to work with numeric positions
     df_reset = df.reset_index(drop=True)
-    
-    # No offset — Pine Script security() simply pulls the closed time block
     trimmed = df_reset
     
     # Group into blocks of n_days trading days
@@ -77,25 +89,23 @@ def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
     
     # Get the original dates for each block (last date of each block)
     block_to_idx = trimmed.groupby('_block').apply(lambda x: x.index[-1])
-    resampled.index = df.iloc[block_to_idx.values].index
+    resampled.index = df.index[block_to_idx.values]
     
     return resampled
+
 
 
 def _compute_mfi(ohlcv: pd.DataFrame, length: int = MFI_LENGTH) -> pd.Series:
     """
     Calculate Money Flow Index from OHLCV data.
 
-    FAITHFUL translation do Pine Script (ACCUMULATOR method):
-        rawMoneyFlow = hlc3 * volume
-        positiveMoneyFlow() =>
-            a = 0.0
-            a := hlc3 > hlc3[1] ? a + rawMoneyFlow : a    // ACUMULA, não zera!
-        negativeMoneyFlow() =>
-            b = 0.0
-            b := hlc3 < hlc3[1] ? b + rawMoneyFlow : b    // ACUMULA, não zera!
-        moneyFlowRatio = sma(positiveMF, length) / sma(negativeMF, length)
-        MFI = 100 - 100 / (1 + moneyFlowRatio)
+    FAITHFUL translation of standard MFI:
+        hlc3 = (High + Low + Close) / 3
+        rawMoneyFlow = hlc3 * Volume
+        positiveMoneyFlow = rawMoneyFlow if hlc3 > hlc3[1] else 0
+        negativeMoneyFlow = rawMoneyFlow if hlc3 < hlc3[1] else 0
+        MFR = SMA(positiveMoneyFlow, length) / SMA(negativeMoneyFlow, length)
+        MFI = 100 - 100 / (1 + MFR)
     """
     if len(ohlcv) < length + 1:
         return pd.Series(dtype=float)
@@ -106,38 +116,27 @@ def _compute_mfi(ohlcv: pd.DataFrame, length: int = MFI_LENGTH) -> pd.Series:
     # Raw Money Flow
     raw_mf = hlc3 * ohlcv['Volume']
 
-    # ACCUMULATOR method (EXATAMENTE como no Pine Script)
-    positive_mf = pd.Series(index=ohlcv.index, dtype=float)
-    negative_mf = pd.Series(index=ohlcv.index, dtype=float)
+    positive_mf = pd.Series(0.0, index=ohlcv.index)
+    negative_mf = pd.Series(0.0, index=ohlcv.index)
 
-    pos_accum = 0.0
-    neg_accum = 0.0
+    for i in range(1, len(hlc3)):
+        if hlc3.iloc[i] > hlc3.iloc[i-1]:
+            positive_mf.iloc[i] = raw_mf.iloc[i]
+        elif hlc3.iloc[i] < hlc3.iloc[i-1]:
+            negative_mf.iloc[i] = raw_mf.iloc[i]
 
-    for i in range(len(hlc3)):
-        if i == 0:
-            positive_mf.iloc[i] = 0.0
-            negative_mf.iloc[i] = 0.0
-        else:
-            # Positive: se hlc3 sobe, ACUMULA o valor
-            if hlc3.iloc[i] > hlc3.iloc[i-1]:
-                pos_accum = pos_accum + raw_mf.iloc[i]
-            # Negative: se hlc3 cai, ACUMULA o valor
-            if hlc3.iloc[i] < hlc3.iloc[i-1]:
-                neg_accum = neg_accum + raw_mf.iloc[i]
-            positive_mf.iloc[i] = pos_accum
-            negative_mf.iloc[i] = neg_accum
-
-    # SMA do acumulador (como no Pine Script)
+    # SMA of positive and negative money flows
     pos_sma = positive_mf.rolling(window=length).mean()
     neg_sma = negative_mf.rolling(window=length).mean()
 
-    # Money Flow Ratio — avoid division by zero
-    mfr = pos_sma / neg_sma.replace(0, np.nan)
-
-    # MFI = 100 - 100 / (1 + MFR)
-    mfi = 100 - 100 / (1 + mfr)
+    # Calculate MFI, handling division by zero (when neg_sma == 0)
+    mfi = 100.0 - 100.0 / (1.0 + (pos_sma / neg_sma))
+    mfi = np.where(neg_sma == 0, np.where(pos_sma > 0, 100.0, 50.0), mfi)
+    mfi = pd.Series(mfi, index=ohlcv.index)
+    mfi[pos_sma.isna() | neg_sma.isna()] = np.nan
 
     return mfi
+
 
 
 def _find_crossover_signal(mfi_series: pd.Series,

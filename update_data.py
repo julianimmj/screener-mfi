@@ -152,9 +152,9 @@ def fetch_all(tickers: list[str], min_volume: int = 0) -> pd.DataFrame:
     return df
 
 
-def update_rolling_history(df_today: pd.DataFrame, history_path: str = "data/mfi_history.csv", max_age_days: int = 15):
+def update_rolling_history(df_today: pd.DataFrame, history_path: str = "data/mfi_history.csv", max_age_days: int = 60):
     """
-    Maintain a rolling 15-day history of crossover signals.
+    Maintain a rolling history of crossover signals.
     
     1. Extract today's crossover signals from the full scan.
     2. Load existing history (if any).
