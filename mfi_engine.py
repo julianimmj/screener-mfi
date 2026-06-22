@@ -24,8 +24,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # ─────────────────────────────────────────────
 # Configuration — matches user's Pine Script parameters
 # ─────────────────────────────────────────────
-MFI_LENGTH = 3        # Período do MFI (rolling window) — 3 barras de 7 dias
-MFI_TIMEFRAME = 7     # Resample diário → blocos de 7 dias (semanal)
+MFI_LENGTH = 3        # Período do MFI (rolling window) — 3 barras
+MFI_TIMEFRAME = 1     # Timeframe diário (1D)
 MFI_OVERSOLD = 12     # Nível de sobrevenda
 MFI_OVERBOUGHT = 88   # Nível de sobrecompra
 

@@ -345,7 +345,7 @@ st.markdown(f"""
     <p class="subtitle">
         O <b>Money Flow Index (MFI)</b> combina preço e volume para medir a real pressão de compra e venda institucional no mercado.<br>
         A aplicação monitora <b>ações brasileiras</b> e <b>BDRs</b> para identificar oportunidades com <b>crossover recente</b> (últimos {SIGNAL_MAX_AGE_DAYS} dias) em zonas extremas de <b>sobrecompra</b> e <b>sobrevenda</b>.<br>
-        <span style="opacity: 0.8; font-size: 0.9em;">Parâmetros: Timeframe Semanal (7D) · Período 3 · OB 88 · OS 12</span>
+        <span style="opacity: 0.8; font-size: 0.9em;">Parâmetros: Timeframe Diário (1D) · Período 3 · OB 88 · OS 12</span>
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -474,7 +474,7 @@ with st.sidebar:
     st.markdown("""
     | Parâmetro | Valor |
     |-----------|-------|
-    | Timeframe | **Semanal (7D)** |
+    | Timeframe | **Diário (1D)** |
     | Período | **3** |
     | Sobrecompra | **> 88** |
     | Sobrevenda | **< 12** |
@@ -604,75 +604,108 @@ def _enrich_signal_df(sdf):
     )
     return sdf
 
-# 1. Filter recent crossovers from rolling history
+# 1. Determine the latest signal date in df_history
+if not df_history.empty and 'Signal Date' in df_history.columns:
+    valid_dates = df_history['Signal Date'].dropna()
+    valid_dates = valid_dates[valid_dates.astype(str).str.strip() != '']
+    if not valid_dates.empty:
+        latest_date_str = pd.to_datetime(valid_dates).max().strftime('%Y-%m-%d')
+    else:
+        latest_date_str = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+else:
+    latest_date_str = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+
+# 2. Extract current day signals (exactly on latest_date_str)
 if not df_history.empty:
-    recent_crossovers = filter_recent_signals(df_history, max_age_days=SIGNAL_MAX_AGE_DAYS)
+    df_today_raw = df_history[df_history['Signal Date'] == latest_date_str].copy()
 else:
-    recent_crossovers = pd.DataFrame()
+    df_today_raw = pd.DataFrame()
 
-# 2. Extract current extremes from df_all (MFI >= 88 or MFI <= 12)
-if not df_all.empty:
-    current_extremes = df_all[(df_all['MFI'] >= 88) | (df_all['MFI'] <= 12)].copy()
-    # Normalize/Ensure signal type and date are populated
-    for idx, row in current_extremes.iterrows():
-        mfi_val = row['MFI']
-        sig_type = row.get('Signal Type', 'NENHUM')
-        if sig_type not in ['SOBRECOMPRA', 'SOBREVENDA']:
-            current_extremes.at[idx, 'Signal Type'] = 'SOBRECOMPRA' if mfi_val >= 88 else 'SOBREVENDA'
-        # If signal date is empty, default to today
-        if not row.get('Signal Date') or pd.isna(row.get('Signal Date')) or str(row.get('Signal Date')).strip() == '':
-            current_extremes.at[idx, 'Signal Date'] = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-else:
-    current_extremes = pd.DataFrame()
-
-# 3. Combine both sets of signals (recent crossovers + current extremes)
-if not recent_crossovers.empty and not current_extremes.empty:
-    combined_signals = pd.concat([recent_crossovers, current_extremes], ignore_index=True)
-    combined_signals.drop_duplicates(subset=['Ticker'], keep='first', inplace=True)
-elif not current_extremes.empty:
-    combined_signals = current_extremes.copy()
-elif not recent_crossovers.empty:
-    combined_signals = recent_crossovers.copy()
-else:
-    combined_signals = pd.DataFrame()
-
-# 4. Enrich both active signals and 15-day history
-if not combined_signals.empty:
-    df = _enrich_signal_df(combined_signals)
-else:
-    df = pd.DataFrame()
+# 3. Enrich both DataFrames (using the helper function)
+df = _enrich_signal_df(df_today_raw) if not df_today_raw.empty else pd.DataFrame()
 
 if not df_history.empty:
     df_history_15d = _enrich_signal_df(filter_recent_signals(df_history, max_age_days=HISTORY_DISPLAY_DAYS))
 else:
     df_history_15d = pd.DataFrame()
 
-if df.empty:
-    last_updated = get_last_updated()
-    st.markdown(
-        f'<div class="freshness">📅 Dados de: <b>{last_updated}</b> · '
-        f'{total_analyzed} ativos analisados · '
-        f'Nenhum sinal ativo (crossover recente ou MFI extremo)</div>',
-        unsafe_allow_html=True
-    )
+# 4. Display data freshness message (always shown)
+last_updated = get_last_updated()
+if not df_history_15d.empty:
+    n_total_signals = len(df_history_15d)
+    n_sobrecompra = int((df_history_15d['Signal Type'] == 'SOBRECOMPRA').sum())
+    n_sobrevenda = int((df_history_15d['Signal Type'] == 'SOBREVENDA').sum())
+else:
+    n_total_signals = 0
+    n_sobrecompra = 0
+    n_sobrevenda = 0
+
+n_today_signals = len(df) if not df.empty else 0
+
+st.markdown(
+    f'<div class="freshness">📅 Dados de: <b>{last_updated}</b> · '
+    f'{total_analyzed} ativos analisados · '
+    f'<b>{n_today_signals}</b> crossovers no dia atual · '
+    f'<b>{n_total_signals}</b> crossovers nos últimos {HISTORY_DISPLAY_DAYS} dias</div>',
+    unsafe_allow_html=True
+)
+
+# 5. Apply Universe Filter to both df (today) and df_history_15d (15-day history)
+if not df.empty:
+    if universe == "Apenas Ações Brasileiras":
+        df_filtered = df[df['Tipo'] == 'Ação'].copy()
+    elif universe == "Apenas BDRs":
+        df_filtered = df[df['Tipo'] == 'BDR'].copy()
+    else:
+        df_filtered = df.copy()
+else:
+    df_filtered = pd.DataFrame()
+
+if not df_history_15d.empty:
+    if universe == "Apenas Ações Brasileiras":
+        df_hist_filtered = df_history_15d[df_history_15d['Tipo'] == 'Ação'].copy()
+    elif universe == "Apenas BDRs":
+        df_hist_filtered = df_history_15d[df_history_15d['Tipo'] == 'BDR'].copy()
+    else:
+        df_hist_filtered = df_history_15d.copy()
+else:
+    df_hist_filtered = pd.DataFrame()
+
+# 6. Apply Zone Filter to both filtered DataFrames
+def _apply_zone_filter(sdf, zone_name):
+    if sdf.empty:
+        return sdf
+    if "Sobrevenda" in zone_name:
+        res = sdf[sdf['Signal Type'] == 'SOBREVENDA'].copy()
+        res.sort_values('MFI', ascending=True, inplace=True)
+    elif "Sobrecompra" in zone_name:
+        res = sdf[sdf['Signal Type'] == 'SOBRECOMPRA'].copy()
+        res.sort_values('MFI', ascending=False, inplace=True)
+    else:
+        res = sdf.copy()
+        res.sort_values('MFI', ascending=True, inplace=True)
+    return res.reset_index(drop=True)
+
+filtered = _apply_zone_filter(df_filtered, view_zone)
+filtered_hist = _apply_zone_filter(df_hist_filtered, view_zone)
+
+if df_filtered.empty:
     st.info(
-        "📊 **Nenhum sinal ativo.**\n\n"
-        f"Nenhum ativo apresentou cruzamento de sobrecompra (MFI > 88) ou "
-        f"sobrevenda (MFI < 12) nos últimos {SIGNAL_MAX_AGE_DAYS} dias, e nenhum ativo está atualmente em zona extrema.\n\n"
+        "📊 **Nenhum sinal ativo no dia de hoje.**\n\n"
         "Os dados são atualizados diariamente — volte mais tarde para checar novos sinais."
     )
 
     # Show 15-day history if available even without active signals
-    if not df_history_15d.empty:
+    if not filtered_hist.empty:
         st.markdown(
             f'<div class="section-title">📜 Histórico de Sinais — Últimos {HISTORY_DISPLAY_DAYS} dias</div>',
             unsafe_allow_html=True
         )
         _hcols = ['Ticker', 'Nome', 'Preço', 'MFI', 'Zona Signal', 'Data do Sinal', 'Tipo']
-        _havail = [c for c in _hcols if c in df_history_15d.columns]
-        _hdisp = df_history_15d[_havail].copy()
-        _hdisp['Preço'] = df_history_15d['Preço'].map(lambda v: f"{v:,.2f}" if pd.notna(v) and v else "–")
-        _hdisp['MFI'] = df_history_15d['MFI'].map(lambda v: f"{v:.1f}" if pd.notna(v) else "–")
+        _havail = [c for c in _hcols if c in filtered_hist.columns]
+        _hdisp = filtered_hist[_havail].copy()
+        _hdisp['Preço'] = filtered_hist['Preço'].map(lambda v: f"{v:,.2f}" if pd.notna(v) and v else "–")
+        _hdisp['MFI'] = filtered_hist['MFI'].map(lambda v: f"{v:.1f}" if pd.notna(v) else "–")
         st.dataframe(_hdisp, use_container_width=True, hide_index=True,
                      height=min(500, 35 * len(_hdisp) + 38))
         st.caption(f"Histórico de {len(_hdisp)} crossovers nos últimos {HISTORY_DISPLAY_DAYS} dias")
@@ -847,16 +880,16 @@ with tab_ranking:
 with tab_gauge:
     st.markdown('<div class="section-title">Gauge MFI por Ativo</div>', unsafe_allow_html=True)
 
-    if filtered.empty:
-        st.info("Nenhum ativo com crossover recente disponível para exibição.")
+    if filtered_hist.empty:
+        st.info("Nenhum ativo com sinal disponível no histórico para exibição.")
     else:
         selected_ticker = st.selectbox(
             "Selecione um ativo com sinal:",
-            filtered['Ticker'].tolist(),
+            filtered_hist['Ticker'].tolist(),
             key="gauge_ticker"
         )
 
-        row = filtered[filtered['Ticker'] == selected_ticker].iloc[0]
+        row = filtered_hist[filtered_hist['Ticker'] == selected_ticker].iloc[0]
         mfi_val = row['MFI']
         is_ob = row.get('Signal Type', '') == 'SOBRECOMPRA'
 
@@ -929,12 +962,12 @@ with tab_gauge:
 # ── Tab 3: Split View ───────────────
 with tab_split:
     st.markdown(
-        f'<div class="section-title">Ações Brasileiras vs BDRs — Crossovers Recentes ({SIGNAL_MAX_AGE_DAYS}d)</div>',
+        f'<div class="section-title">Ações Brasileiras vs BDRs — Sinais Recentes ({HISTORY_DISPLAY_DAYS}d)</div>',
         unsafe_allow_html=True
     )
 
-    df_acoes = df[df['Tipo'] == 'Ação'].copy()
-    df_bdrs = df[df['Tipo'] == 'BDR'].copy()
+    df_acoes = df_history_15d[df_history_15d['Tipo'] == 'Ação'].copy() if not df_history_15d.empty else pd.DataFrame()
+    df_bdrs = df_history_15d[df_history_15d['Tipo'] == 'BDR'].copy() if not df_history_15d.empty else pd.DataFrame()
 
     col_a, col_b = st.columns(2)
 
@@ -994,7 +1027,7 @@ st.markdown("---")
 st.markdown(f"""
 <div style="text-align:center; opacity:0.4; font-size:0.8rem; padding: 1rem 0">
     <b>Screener MFI "Fluxo Financeiro"</b> · Dados via Yahoo Finance (atualização diária)<br>
-    Indicador: Money Flow Index (TF 7D · Per 3 · OB 88 · OS 12) ·
+    Indicador: Money Flow Index (TF 1D · Per 3 · OB 88 · OS 12) ·
     Sinais ativos ({SIGNAL_MAX_AGE_DAYS}d) + histórico (15d)
 </div>
 """, unsafe_allow_html=True)
