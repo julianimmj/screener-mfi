@@ -630,25 +630,7 @@ else:
     df_history_15d = pd.DataFrame()
 
 # 4. Display data freshness message (always shown)
-last_updated = get_last_updated()
-if not df_history_15d.empty:
-    n_total_signals = len(df_history_15d)
-    n_sobrecompra = int((df_history_15d['Signal Type'] == 'SOBRECOMPRA').sum())
-    n_sobrevenda = int((df_history_15d['Signal Type'] == 'SOBREVENDA').sum())
-else:
-    n_total_signals = 0
-    n_sobrecompra = 0
-    n_sobrevenda = 0
-
-n_today_signals = len(df) if not df.empty else 0
-
-st.markdown(
-    f'<div class="freshness">📅 Dados de: <b>{last_updated}</b> · '
-    f'{total_analyzed} ativos analisados · '
-    f'<b>{n_today_signals}</b> crossovers no dia atual · '
-    f'<b>{n_total_signals}</b> crossovers nos últimos {HISTORY_DISPLAY_DAYS} dias</div>',
-    unsafe_allow_html=True
-)
+view_zone = st.session_state.zone_filter
 
 # 5. Apply Universe Filter to both df (today) and df_history_15d (15-day history)
 if not df.empty:
@@ -689,80 +671,27 @@ def _apply_zone_filter(sdf, zone_name):
 filtered = _apply_zone_filter(df_filtered, view_zone)
 filtered_hist = _apply_zone_filter(df_hist_filtered, view_zone)
 
-if df_filtered.empty:
-    st.info(
-        "📊 **Nenhum sinal ativo no dia de hoje.**\n\n"
-        "Os dados são atualizados diariamente — volte mais tarde para checar novos sinais."
-    )
+# 7. Calculate KPI card metrics based on 15-day history
+if not df_history_15d.empty:
+    n_total_signals = len(df_history_15d)
+    n_sobrecompra = int((df_history_15d['Signal Type'] == 'SOBRECOMPRA').sum())
+    n_sobrevenda = int((df_history_15d['Signal Type'] == 'SOBREVENDA').sum())
+else:
+    n_total_signals = 0
+    n_sobrecompra = 0
+    n_sobrevenda = 0
 
-    # Show 15-day history if available even without active signals
-    if not filtered_hist.empty:
-        st.markdown(
-            f'<div class="section-title">📜 Histórico de Sinais — Últimos {HISTORY_DISPLAY_DAYS} dias</div>',
-            unsafe_allow_html=True
-        )
-        _hcols = ['Ticker', 'Nome', 'Preço', 'MFI', 'Zona Signal', 'Data do Sinal', 'Tipo']
-        _havail = [c for c in _hcols if c in filtered_hist.columns]
-        _hdisp = filtered_hist[_havail].copy()
-        _hdisp['Preço'] = filtered_hist['Preço'].map(lambda v: f"{v:,.2f}" if pd.notna(v) and v else "–")
-        _hdisp['MFI'] = filtered_hist['MFI'].map(lambda v: f"{v:.1f}" if pd.notna(v) else "–")
-        st.dataframe(_hdisp, use_container_width=True, hide_index=True,
-                     height=min(500, 35 * len(_hdisp) + 38))
-        st.caption(f"Histórico de {len(_hdisp)} crossovers nos últimos {HISTORY_DISPLAY_DAYS} dias")
+n_today_signals = len(df) if not df.empty else 0
 
-    st.stop()
-
-# Show data freshness
+# 8. Display data freshness message
 last_updated = get_last_updated()
-n_acoes = len(df[df['Tipo'] == 'Ação'])
-n_bdrs = len(df[df['Tipo'] == 'BDR'])
-n_ob = int((df['Signal Type'] == 'SOBRECOMPRA').sum())
-n_os = int((df['Signal Type'] == 'SOBREVENDA').sum())
-
 st.markdown(
     f'<div class="freshness">📅 Dados de: <b>{last_updated}</b> · '
     f'{total_analyzed} ativos analisados · '
-    f'<b>{len(df)}</b> sinais ativos (crossovers recentes e extremos) '
-    f'({n_ob} sobrecompra + {n_os} sobrevenda)</div>',
+    f'<b>{n_today_signals}</b> crossovers no dia atual · '
+    f'<b>{n_total_signals}</b> crossovers nos últimos {HISTORY_DISPLAY_DAYS} dias</div>',
     unsafe_allow_html=True
 )
-
-# ─────────────────────────────────────────
-# Apply Universe Filter
-# ─────────────────────────────────────────
-if universe == "Apenas Ações Brasileiras":
-    df = df[df['Tipo'] == 'Ação'].copy()
-elif universe == "Apenas BDRs":
-    df = df[df['Tipo'] == 'BDR'].copy()
-
-if df.empty:
-    st.info("Nenhum ativo encontrado para esse universo com sinal ativo.")
-    st.stop()
-
-# ─────────────────────────────────────────
-# Apply Zone Filter
-# ─────────────────────────────────────────
-view_zone = st.session_state.zone_filter
-
-if "Sobrevenda" in view_zone:
-    filtered = df[df['Signal Type'] == 'SOBREVENDA'].copy()
-    filtered.sort_values('MFI', ascending=True, inplace=True)
-elif "Sobrecompra" in view_zone:
-    filtered = df[df['Signal Type'] == 'SOBRECOMPRA'].copy()
-    filtered.sort_values('MFI', ascending=False, inplace=True)
-else:
-    # "Todos (OB + OS)"
-    filtered = df.copy()
-    filtered.sort_values('MFI', ascending=True, inplace=True)
-
-filtered.reset_index(drop=True, inplace=True)
-
-# ─────────────────────────────────────────
-# KPI Cards
-# ─────────────────────────────────────────
-n_total_signals = len(df)
-n_sobrecompra = int((df['Signal Type'] == 'SOBRECOMPRA').sum())
-n_sobrevenda = int((df['Signal Type'] == 'SOBREVENDA').sum())
 
 k1, k2, k3, k4 = st.columns(4)
 
