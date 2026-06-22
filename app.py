@@ -653,15 +653,15 @@ if not df_history_15d.empty:
 else:
     df_hist_filtered = pd.DataFrame()
 
-# 6. Apply Zone Filter to both filtered DataFrames
+# 6. Apply Zone Filter to both filtered DataFrames (by actual MFI value)
 def _apply_zone_filter(sdf, zone_name):
     if sdf.empty:
         return sdf
     if "Sobrevenda" in zone_name:
-        res = sdf[sdf['Signal Type'] == 'SOBREVENDA'].copy()
+        res = sdf[sdf['MFI'] <= 12].copy()
         res.sort_values('MFI', ascending=True, inplace=True)
     elif "Sobrecompra" in zone_name:
-        res = sdf[sdf['Signal Type'] == 'SOBRECOMPRA'].copy()
+        res = sdf[sdf['MFI'] >= 88].copy()
         res.sort_values('MFI', ascending=False, inplace=True)
     else:
         res = sdf.copy()
