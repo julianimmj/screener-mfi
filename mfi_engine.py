@@ -21,6 +21,22 @@ import time
 from datetime import datetime, timedelta, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+
+def _reset_yfinance_session():
+    """Limpa sessão/crumb do yfinance para forçar reautenticação."""
+    try:
+        import yfinance.data as _yfdata
+        if hasattr(_yfdata, '_crumb') and hasattr(_yfdata, '_cookie'):
+            _yfdata._crumb = None
+            _yfdata._cookie = None
+    except Exception:
+        pass
+    try:
+        if hasattr(yf, 'shared') and hasattr(yf.shared, '_CACHE'):
+            yf.shared._CACHE = {}
+    except Exception:
+        pass
+
 # ─────────────────────────────────────────────
 # Configuration — matches user's Pine Script parameters
 # ─────────────────────────────────────────────
@@ -222,7 +238,15 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
         tk = yf.Ticker(ticker_symbol)
 
         # Download daily OHLCV
-        hist = tk.history(period=f"{HISTORY_DAYS}d")
+        hist = pd.DataFrame()
+        for attempt in range(2):
+            try:
+                hist = tk.history(period=f"{HISTORY_DAYS}d")
+                if not hist.empty:
+                    break
+            except Exception:
+                _reset_yfinance_session()
+                time.sleep(0.5)
 
         if hist.empty or len(hist) < MFI_TIMEFRAME * (MFI_LENGTH + 2):
             return None
@@ -290,11 +314,21 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
         # Get volume (average daily volume from original data)
         avg_volume = hist['Volume'].tail(20).mean()
 
-        # Get price
-        info = tk.info
-        price = info.get('currentPrice', info.get('previousClose', 0))
-        name = info.get('shortName', ticker_symbol)
-        sector = info.get('sector', 'N/A')
+        # Get price and other info with fallback
+        price = 0.0
+        if not hist.empty and 'Close' in hist.columns:
+            price = float(hist['Close'].iloc[-1])
+
+        name = ticker_symbol
+        sector = 'N/A'
+        try:
+            info = tk.info
+            if isinstance(info, dict):
+                price = info.get('currentPrice', info.get('previousClose', price))
+                name = info.get('shortName', ticker_symbol)
+                sector = info.get('sector', 'N/A')
+        except Exception:
+            _reset_yfinance_session()
 
         return {
             'Ticker': ticker_symbol,
@@ -314,6 +348,7 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
         }
 
     except Exception as e:
+        _reset_yfinance_session()
         return None
 
 
