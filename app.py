@@ -841,11 +841,11 @@ with tab_gauge:
                 'bgcolor': 'rgba(0,0,0,0)',
                 'borderwidth': 0,
                 'steps': [
-                    {'range': [0, 12], 'color': 'rgba(0,230,118,0.15)'},
-                    {'range': [12, 40], 'color': 'rgba(255,255,255,0.02)'},
+                    {'range': [0, 20], 'color': 'rgba(0,230,118,0.15)'},
+                    {'range': [20, 40], 'color': 'rgba(255,255,255,0.02)'},
                     {'range': [40, 60], 'color': 'rgba(255,255,255,0.02)'},
-                    {'range': [60, 88], 'color': 'rgba(255,255,255,0.02)'},
-                    {'range': [88, 100], 'color': 'rgba(255,23,68,0.15)'},
+                    {'range': [60, 80], 'color': 'rgba(255,255,255,0.02)'},
+                    {'range': [80, 100], 'color': 'rgba(255,23,68,0.15)'},
                 ],
                 'threshold': {
                     'line': {'color': '#fff', 'width': 3},
@@ -855,9 +855,9 @@ with tab_gauge:
             }
         ))
 
-        fig.add_annotation(x=0.10, y=0.08, text="OS 12", showarrow=False,
+        fig.add_annotation(x=0.10, y=0.08, text="OS 20", showarrow=False,
                           font=dict(color="#00e676", size=12, family="Inter"))
-        fig.add_annotation(x=0.90, y=0.08, text="OB 88", showarrow=False,
+        fig.add_annotation(x=0.90, y=0.08, text="OB 80", showarrow=False,
                           font=dict(color="#ff1744", size=12, family="Inter"))
 
         fig.update_layout(
@@ -879,12 +879,12 @@ with tab_gauge:
 
         if is_ob:
             st.error(
-                "🔴 **Sobrecompra (Crossover)** — MFI cruzou acima de 88. "
+                "🔴 **Sobrecompra (Crossover)** — MFI cruzou acima de 80. "
                 "Indica saída de fluxo financeiro. Possível topo ou distribuição."
             )
         else:
             st.success(
-                "🟢 **Sobrevenda (Crossover)** — MFI cruzou abaixo de 12. "
+                "🟢 **Sobrevenda (Crossover)** — MFI cruzou abaixo de 20. "
                 "Indica entrada de fluxo financeiro. Possível fundo ou acumulação."
             )
 
@@ -956,7 +956,7 @@ st.markdown("---")
 st.markdown(f"""
 <div style="text-align:center; opacity:0.4; font-size:0.8rem; padding: 1rem 0">
     <b>Screener MFI "Fluxo Financeiro"</b> · Dados via Yahoo Finance (atualização diária)<br>
-    Indicador: Money Flow Index (TF 1D · Per 3 · OB 88 · OS 12) ·
+    Indicador: Money Flow Index (TF 1D · Per 14 · OB 80 · OS 20) ·
     Sinais ativos ({SIGNAL_MAX_AGE_DAYS}d) + histórico (15d)
 </div>
 """, unsafe_allow_html=True)

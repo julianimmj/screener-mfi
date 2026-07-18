@@ -4,10 +4,10 @@ mfi_engine.py — Motor de Cálculo do Money Flow Index (MFI)
 Tradução fiel do Pine Script v3 "Money Flow Index MTF + Alerts" para Python.
 
 Parâmetros configuráveis:
-  - Timeframe: 5 dias (resample de barras diárias em blocos de 5 dias)
-  - Período (length): 4
-  - Sobrecompra (OB): 88
-  - Sobrevenda (OS): 18
+  - Timeframe: Diário (1D)
+  - Período (length): 14
+  - Sobrecompra (OB): 80
+  - Sobrevenda (OS): 20
 
 Detecção de sinais (crossover, fiel ao Pine Script):
   OB Cross: mfi_prev < OB  AND  mfi_current > OB
@@ -40,10 +40,10 @@ def _reset_yfinance_session():
 # ─────────────────────────────────────────────
 # Configuration — matches user's Pine Script parameters
 # ─────────────────────────────────────────────
-MFI_LENGTH = 3        # Período do MFI (rolling window) — 3 barras
+MFI_LENGTH = 14       # Período do MFI (rolling window) — 14 barras (fiel ao Pine Script: length = input(14))
 MFI_TIMEFRAME = 1     # Timeframe diário (1D)
-MFI_OVERSOLD = 12     # Nível de sobrevenda
-MFI_OVERBOUGHT = 88   # Nível de sobrecompra
+MFI_OVERSOLD = 20     # Nível de sobrevenda (fiel ao Pine Script: os = input(20))
+MFI_OVERBOUGHT = 80   # Nível de sobrecompra (fiel ao Pine Script: ob = input(80))
 
 # How many calendar days of history to download (enough for warm-up)
 HISTORY_DAYS = 400
