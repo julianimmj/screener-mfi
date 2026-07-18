@@ -345,7 +345,7 @@ st.markdown(f"""
     <p class="subtitle">
         O <b>Money Flow Index (MFI)</b> combina preço e volume para medir a real pressão de compra e venda institucional no mercado.<br>
         A aplicação monitora <b>ações brasileiras</b> e <b>BDRs</b> para identificar oportunidades com <b>crossover recente</b> (últimos {SIGNAL_MAX_AGE_DAYS} dias) em zonas extremas de <b>sobrecompra</b> e <b>sobrevenda</b>.<br>
-        <span style="opacity: 0.8; font-size: 0.9em;">Parâmetros: Timeframe Diário (1D) · Período 14 · OB 80 · OS 20</span>
+        <span style="opacity: 0.8; font-size: 0.9em;">Parâmetros: Timeframe Semanal (7D) · Período 3 · OB 88 · OS 18</span>
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -393,11 +393,11 @@ def filter_recent_signals(df: pd.DataFrame, max_age_days: int = SIGNAL_MAX_AGE_D
     
     If validate_zone is True, also verifies that the asset's current MFI is STILL
     in the actual extreme zone:
-      - SOBREVENDA (Oversold): current MFI must still be <= 20 (OS threshold).
-      - SOBRECOMPRA (Overbought): current MFI must still be >= 80 (OB threshold).
+      - SOBREVENDA (Oversold): current MFI must still be <= 18 (OS threshold).
+      - SOBRECOMPRA (Overbought): current MFI must still be >= 88 (OB threshold).
     """
-    MFI_OB = 80  # Overbought threshold (must match mfi_engine)
-    MFI_OS = 20  # Oversold threshold (must match mfi_engine)
+    MFI_OB = 88  # Overbought threshold (must match mfi_engine)
+    MFI_OS = 18  # Oversold threshold (must match mfi_engine)
 
     if df.empty or 'Signal Date' not in df.columns:
         return pd.DataFrame()
@@ -462,7 +462,7 @@ with st.sidebar:
 
     # ── Zone filter (sobrecompra / sobrevenda) ──
     st.subheader("📡 Zona de Sinal")
-    zone_options = ["Todos (OB + OS)", "🟢 Sobrevenda (MFI ≤ 20)", "🔴 Sobrecompra (MFI ≥ 80)"]
+    zone_options = ["Todos (OB + OS)", "🟢 Sobrevenda (MFI ≤ 18)", "🔴 Sobrecompra (MFI ≥ 88)"]
 
     if "zone_filter" not in st.session_state:
         st.session_state.zone_filter = "Todos (OB + OS)"
@@ -490,10 +490,10 @@ with st.sidebar:
     st.markdown("""
     | Parâmetro | Valor |
     |-----------|-------|
-    | Timeframe | **Diário (1D)** |
-    | Período | **14** |
-    | Sobrecompra | **> 80** |
-    | Sobrevenda | **< 20** |
+    | Timeframe | **Semanal (7D)** |
+    | Período | **3** |
+    | Sobrecompra | **≥ 88** |
+    | Sobrevenda | **≤ 18** |
     | Janela de Sinal | **7 dias** |
     """)
 
@@ -512,8 +512,8 @@ MFI = 100 - 100 / (1 + MFR)
 ```
 
 **Sinais de Crossover (fiel ao Pine Script):**
-- **OB Cross**: MFI anterior < 80 E MFI atual > 80 → 🔴 Sobrecompra
-- **OS Cross**: MFI anterior > 20 E MFI atual < 20 → 🟢 Sobrevenda
+- **OB Cross**: MFI anterior < 88 E MFI atual > 88 → 🔴 Sobrecompra
+- **OS Cross**: MFI anterior > 18 E MFI atual < 18 → 🟢 Sobrevenda
 
 ⏰ Sinais ativos dos **últimos 7 dias** + histórico de **15 dias**.
         """)
@@ -713,8 +713,8 @@ def kpi_box(col, val, label, btn_label, state_val, color="#00c8ff", val_size="2.
 
 
 kpi_box(k1, total_analyzed, "Total Analisados", "🔍 Ver Sinais", "Todos (OB + OS)", "#6688aa", "2.6rem")
-kpi_box(k2, n_sobrecompra, "🔴 Sobrecompra", "🔴 Filtrar", "🔴 Sobrecompra (MFI ≥ 80)", "#ff1744")
-kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 20)", "#00e676")
+kpi_box(k2, n_sobrecompra, "🔴 Sobrecompra", "🔴 Filtrar", "🔴 Sobrecompra (MFI ≥ 88)", "#ff1744")
+kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 18)", "#00e676")
 kpi_box(k4, n_total_signals, "Sinais Ativos", "🔍 Ver Todos", "Todos (OB + OS)", "#ffab00")
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -778,7 +778,7 @@ with tab_ranking:
 
         st.caption(
             f"Exibindo {len(display)} crossovers recentes · "
-            f"{total_analyzed} ativos analisados · MFI TF 1D, Per 3 · "
+            f"{total_analyzed} ativos analisados · MFI TF 7D, Per 3 · "
             f"Janela: {SIGNAL_MAX_AGE_DAYS} dias"
         )
 

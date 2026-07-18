@@ -3,11 +3,11 @@ mfi_engine.py — Motor de Cálculo do Money Flow Index (MFI)
 
 Tradução fiel do Pine Script v3 "Money Flow Index MTF + Alerts" para Python.
 
-Parâmetros configuráveis:
-  - Timeframe: Diário (1D)
-  - Período (length): 14
-  - Sobrecompra (OB): 80
-  - Sobrevenda (OS): 20
+Parâmetros configuráveis (inputs do usuário no TradingView):
+  - Timeframe: Semanal (7D) — "Use Current Chart Resolution?" desmarcado, Custom = "7D"
+  - Período (length): 3
+  - Sobrecompra (OB): 88
+  - Sobrevenda (OS): 18
 
 Detecção de sinais (crossover, fiel ao Pine Script):
   OB Cross: mfi_prev < OB  AND  mfi_current > OB
@@ -40,10 +40,10 @@ def _reset_yfinance_session():
 # ─────────────────────────────────────────────
 # Configuration — matches user's Pine Script parameters
 # ─────────────────────────────────────────────
-MFI_LENGTH = 14       # Período do MFI (rolling window) — 14 barras (fiel ao Pine Script: length = input(14))
-MFI_TIMEFRAME = 1     # Timeframe diário (1D)
-MFI_OVERSOLD = 20     # Nível de sobrevenda (fiel ao Pine Script: os = input(20))
-MFI_OVERBOUGHT = 80   # Nível de sobrecompra (fiel ao Pine Script: ob = input(80))
+MFI_LENGTH = 3        # Período do MFI (rolling window) — 3 barras semanais (input do usuário: length = 3)
+MFI_TIMEFRAME = 7     # Timeframe semanal (7D) — "Use Current Chart Resolution?" desmarcado, Custom = "7D"
+MFI_OVERSOLD = 18     # Nível de sobrevenda (input do usuário: os = 18)
+MFI_OVERBOUGHT = 88   # Nível de sobrecompra (input do usuário: ob = 88)
 
 # How many calendar days of history to download (enough for warm-up)
 HISTORY_DAYS = 400
@@ -66,19 +66,6 @@ def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
     """
     if df.empty:
         return pd.DataFrame()
-
-    if n_days == 7:
-        # Standard calendar weekly resample (Sunday-anchored)
-        resampled = df.resample('W').agg({
-            'Open': 'first',
-            'High': 'max',
-            'Low': 'min',
-            'Close': 'last',
-            'Volume': 'sum',
-        }).dropna()
-        # Shift dates to Monday (start of week) to match TradingView
-        resampled.index = resampled.index - pd.to_timedelta(6, unit='d')
-        return resampled
 
     # Reset index to work with numeric positions
     df_reset = df.reset_index(drop=True)

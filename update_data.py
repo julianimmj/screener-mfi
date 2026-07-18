@@ -234,10 +234,10 @@ def update_rolling_history(df_today: pd.DataFrame, history_path: str = "data/mfi
             # Strict zone validation: prune if current MFI has left the actual extreme zone
             mfi_curr = current_mfi_map.get(ticker, None)
             if mfi_curr is not None and pd.notna(mfi_curr):
-                if sig_type == 'SOBREVENDA' and mfi_curr > 20:
-                    return False  # MFI rose back above 20, no longer oversold
-                if sig_type == 'SOBRECOMPRA' and mfi_curr < 80:
-                    return False  # MFI dropped back below 80, no longer overbought
+                if sig_type == 'SOBREVENDA' and mfi_curr > 18:
+                    return False  # MFI rose back above OS=18, no longer oversold
+                if sig_type == 'SOBRECOMPRA' and mfi_curr < 88:
+                    return False  # MFI dropped back below OB=88, no longer overbought
 
             return True
         
