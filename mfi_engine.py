@@ -38,17 +38,22 @@ def _reset_yfinance_session():
         pass
 
 # ─────────────────────────────────────────────
-# Configuration — matches user's Pine Script parameters
+# Configuration — MFI Primário (matches user's Pine Script parameters)
 # ─────────────────────────────────────────────
-MFI_LENGTH = 3        # Período do MFI (rolling window) — 3 barras semanais (input do usuário: length = 3)
-MFI_TIMEFRAME = 7     # Timeframe semanal (7D) — "Use Current Chart Resolution?" desmarcado, Custom = "7D"
-MFI_OVERSOLD = 18     # Nível de sobrevenda para crossover (input do usuário: os = 18)
-MFI_OVERBOUGHT = 88   # Nível de sobrecompra para crossover (input do usuário: ob = 88)
+MFI_LENGTH = 3        # Período do MFI (rolling window) — 3 barras (input: length = 3)
+MFI_TIMEFRAME = 7     # Timeframe semanal (7D) — Custom = "7D"
+MFI_OVERSOLD = 18     # Nível de sobrevenda para crossover (input: os = 18)
+MFI_OVERBOUGHT = 88   # Nível de sobrecompra para crossover (input: ob = 88)
+MFI_ZONE_OS = 12      # Zona ativa sobrevenda: MFI ≤ 12
+MFI_ZONE_OB = 88      # Zona ativa sobrecompra: MFI ≥ 88
 
-# Zone validation thresholds — stricter than crossover thresholds.
-# A signal is only ACTIVE if MFI is still in the extreme zone:
-MFI_ZONE_OS = 12      # Sobrevenda: sinal ativo somente se MFI ≤ 12
-MFI_ZONE_OB = 88      # Sobrecompra: sinal ativo somente se MFI ≥ 88
+# ─────────────────────────────────────────────
+# Configuration — MFI Secundário (filtro de confirmação)
+# ─────────────────────────────────────────────
+MFI2_LENGTH = 5       # Período do MFI2 (rolling window) — 5 barras (input: length = 5)
+MFI2_TIMEFRAME = 5    # Timeframe 5D — Custom = "5D"
+MFI2_OVERSOLD = 20    # Nível de sobrevenda MFI2 (input: os = 20)
+MFI2_OVERBOUGHT = 80  # Nível de sobrecompra MFI2 (input: ob = 80)
 
 # How many calendar days of history to download (enough for warm-up)
 HISTORY_DAYS = 400
@@ -117,6 +122,11 @@ def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
     
     block_to_idx = trimmed.groupby('_block').apply(lambda x: x.index[-1])
     resampled.index = df.index[block_to_idx.values]
+    
+    # Drop last bar to match TradingView's security() behavior
+    # (same logic as weekly: only use completed bars)
+    if len(resampled) > 1:
+        resampled = resampled.iloc[:-1]
     
     return resampled
 
@@ -277,38 +287,49 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
                 hist[col] = hist[col].apply(lambda x: np.nan if x <= 0 else x)
         hist = hist.ffill().bfill()
 
-        # Resample to MFI_TIMEFRAME-day bars (skip if daily)
+        # ── MFI Primário (Period=3, 7D) ──
         if MFI_TIMEFRAME > 1:
             resampled = _resample_ohlcv(hist, MFI_TIMEFRAME)
         else:
-            resampled = hist[['Open', 'High', 'Low', 'Close', 'Volume']].copy()
+            resampled = hist.copy()
 
         if resampled.empty or len(resampled) < MFI_LENGTH + 1:
             return None
 
-        # Compute MFI series
         mfi_series = _compute_mfi(resampled, MFI_LENGTH)
-
         if mfi_series.empty or mfi_series.dropna().empty:
             return None
 
-        # Get the latest MFI value
         mfi_clean = mfi_series.dropna()
         mfi_current = mfi_clean.iloc[-1]
 
-        # Find the most recent crossover signal
+        # ── MFI Secundário (Period=5, 5D) — filtro de confirmação ──
+        if MFI2_TIMEFRAME > 1:
+            resampled2 = _resample_ohlcv(hist, MFI2_TIMEFRAME)
+        else:
+            resampled2 = hist.copy()
+
+        mfi2_current = float('nan')
+        if not resampled2.empty and len(resampled2) >= MFI2_LENGTH + 1:
+            mfi2_series = _compute_mfi(resampled2, MFI2_LENGTH)
+            if not mfi2_series.empty and not mfi2_series.dropna().empty:
+                mfi2_current = mfi2_series.dropna().iloc[-1]
+
+        # ── Crossover detection (primary MFI) ──
         signal = _find_crossover_signal(mfi_series)
 
-        # Strict zone validation: signal is only active if current MFI
-        # is STILL in the actual extreme zone.
-        # Uses MFI_ZONE_OS (12) and MFI_ZONE_OB (88) — stricter than
-        # the crossover thresholds (OS=18, OB=88).
+        # ── Dual-indicator zone validation ──
+        # Signal is only active if BOTH MFIs confirm the extreme zone:
+        #   SOBREVENDA:  MFI1 ≤ 12 AND MFI2 ≤ 20
+        #   SOBRECOMPRA: MFI1 ≥ 88 AND MFI2 ≥ 80
         if signal is not None:
             sig_type = signal['signal_type']
-            if sig_type == 'SOBREVENDA' and mfi_current > MFI_ZONE_OS:
-                signal = None  # MFI rose above 12 — no longer in extreme oversold
-            elif sig_type == 'SOBRECOMPRA' and mfi_current < MFI_ZONE_OB:
-                signal = None  # MFI dropped below 88 — no longer in extreme overbought
+            if sig_type == 'SOBREVENDA':
+                if mfi_current > MFI_ZONE_OS or (pd.notna(mfi2_current) and mfi2_current > MFI2_OVERSOLD):
+                    signal = None  # At least one MFI is NOT in oversold zone
+            elif sig_type == 'SOBRECOMPRA':
+                if mfi_current < MFI_ZONE_OB or (pd.notna(mfi2_current) and mfi2_current < MFI2_OVERBOUGHT):
+                    signal = None  # At least one MFI is NOT in overbought zone
 
         # Trend zone classification (based on current MFI)
         trend = _classify_trend(mfi_current)
@@ -320,14 +341,12 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
             signal_flow = signal['signal_flow']
             ob_cross = signal['ob_cross']
             os_cross = signal['os_cross']
-            # Convert signal date to string for serialization
             sig_date = signal['signal_date']
             if hasattr(sig_date, 'strftime'):
                 signal_date_str = sig_date.strftime('%Y-%m-%d')
             else:
                 signal_date_str = str(sig_date)[:10]
         else:
-            # No crossover found — classify by current value only (no signal)
             if mfi_current > 60:
                 status = "🔵 Alta"
                 signal_flow = "NEUTRO"
@@ -366,6 +385,7 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
             'Nome': name,
             'Preço': price,
             'MFI': round(mfi_current, 2),
+            'MFI2': round(mfi2_current, 2) if pd.notna(mfi2_current) else None,
             'Status': status,
             'Zona': trend['Zona'],
             'Trend': trend['Trend'],

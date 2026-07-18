@@ -212,8 +212,11 @@ def update_rolling_history(df_today: pd.DataFrame, history_path: str = "data/mfi
         cutoff = now_utc - pd.Timedelta(days=max_age_days)
 
         current_mfi_map = {}
+        current_mfi2_map = {}
         if not df_today.empty and 'Ticker' in df_today.columns and 'MFI' in df_today.columns:
             current_mfi_map = df_today.set_index('Ticker')['MFI'].to_dict()
+            if 'MFI2' in df_today.columns:
+                current_mfi2_map = df_today.set_index('Ticker')['MFI2'].to_dict()
         
         def is_valid_history(row):
             date_str = row.get('Signal Date', '')
@@ -231,14 +234,20 @@ def update_rolling_history(df_today: pd.DataFrame, history_path: str = "data/mfi
             except Exception:
                 return False
 
-            # Strict zone validation: prune if current MFI has left the actual extreme zone
-            # Uses MFI_ZONE_OS=12 and MFI_ZONE_OB=88 (stricter than crossover thresholds)
+            # Dual-indicator zone validation: prune if either MFI has left its zone
             mfi_curr = current_mfi_map.get(ticker, None)
-            if mfi_curr is not None and pd.notna(mfi_curr):
-                if sig_type == 'SOBREVENDA' and mfi_curr > 12:
-                    return False  # MFI rose above 12, no longer in extreme oversold
-                if sig_type == 'SOBRECOMPRA' and mfi_curr < 88:
-                    return False  # MFI dropped below 88, no longer in extreme overbought
+            mfi2_curr = current_mfi2_map.get(ticker, None)
+            
+            if sig_type == 'SOBREVENDA':
+                if mfi_curr is not None and pd.notna(mfi_curr) and mfi_curr > 12:
+                    return False  # MFI1 left oversold zone
+                if mfi2_curr is not None and pd.notna(mfi2_curr) and mfi2_curr > 20:
+                    return False  # MFI2 left oversold zone
+            if sig_type == 'SOBRECOMPRA':
+                if mfi_curr is not None and pd.notna(mfi_curr) and mfi_curr < 88:
+                    return False  # MFI1 left overbought zone
+                if mfi2_curr is not None and pd.notna(mfi2_curr) and mfi2_curr < 80:
+                    return False  # MFI2 left overbought zone
 
             return True
         

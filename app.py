@@ -391,13 +391,14 @@ def filter_recent_signals(df: pd.DataFrame, max_age_days: int = SIGNAL_MAX_AGE_D
     """
     Filter DataFrame to include crossover signals that occurred within max_age_days.
     
-    If validate_zone is True, also verifies that the asset's current MFI is STILL
-    in the actual extreme zone (stricter than crossover thresholds):
-      - SOBREVENDA (Oversold): current MFI must still be <= 12.
-      - SOBRECOMPRA (Overbought): current MFI must still be >= 88.
+    If validate_zone is True, also verifies dual-indicator confirmation:
+      - SOBREVENDA: MFI1 <= 12 AND MFI2 <= 20
+      - SOBRECOMPRA: MFI1 >= 88 AND MFI2 >= 80
     """
-    MFI_OB = 88  # Zone validation: overbought (must match mfi_engine.MFI_ZONE_OB)
-    MFI_OS = 12  # Zone validation: oversold (must match mfi_engine.MFI_ZONE_OS)
+    MFI_OB = 88   # Zone validation MFI1: overbought
+    MFI_OS = 12   # Zone validation MFI1: oversold
+    MFI2_OB = 80  # Zone validation MFI2: overbought
+    MFI2_OS = 20  # Zone validation MFI2: oversold
 
     if df.empty or 'Signal Date' not in df.columns:
         return pd.DataFrame()
@@ -415,6 +416,7 @@ def filter_recent_signals(df: pd.DataFrame, max_age_days: int = SIGNAL_MAX_AGE_D
         date_str = row.get('Signal Date', '')
         sig_type = row.get('Signal Type', '')
         mfi_curr = row.get('MFI', 50.0)
+        mfi2_curr = row.get('MFI2', None)
 
         if not date_str or pd.isna(date_str) or str(date_str).strip() == '':
             return False
@@ -428,12 +430,18 @@ def filter_recent_signals(df: pd.DataFrame, max_age_days: int = SIGNAL_MAX_AGE_D
         except Exception:
             return False
 
-        # Strict zone validation: current MFI must STILL be in the extreme zone
-        if validate_zone and pd.notna(mfi_curr):
-            if sig_type == 'SOBREVENDA' and mfi_curr > MFI_OS:
-                return False  # MFI rose back above 20, no longer oversold
-            if sig_type == 'SOBRECOMPRA' and mfi_curr < MFI_OB:
-                return False  # MFI dropped back below 80, no longer overbought
+        # Dual-indicator zone validation
+        if validate_zone:
+            if sig_type == 'SOBREVENDA':
+                if pd.notna(mfi_curr) and mfi_curr > MFI_OS:
+                    return False  # MFI1 not in oversold zone
+                if mfi2_curr is not None and pd.notna(mfi2_curr) and mfi2_curr > MFI2_OS:
+                    return False  # MFI2 not in oversold zone
+            if sig_type == 'SOBRECOMPRA':
+                if pd.notna(mfi_curr) and mfi_curr < MFI_OB:
+                    return False  # MFI1 not in overbought zone
+                if mfi2_curr is not None and pd.notna(mfi2_curr) and mfi2_curr < MFI2_OB:
+                    return False  # MFI2 not in overbought zone
 
         return True
 
@@ -488,15 +496,25 @@ with st.sidebar:
     # MFI Parameters (read-only display)
     st.subheader("⚙️ Parâmetros MFI")
     st.markdown("""
+    **MFI Primário (7D)**
     | Parâmetro | Valor |
     |-----------|-------|
-    | Timeframe | **Semanal (7D)** |
+    | Timeframe | **7D** |
     | Período | **3** |
     | Sobrecompra | **≥ 88** |
     | Sobrevenda | **≤ 18** |
     | Zona Ativa OB | **≥ 88** |
     | Zona Ativa OS | **≤ 12** |
-    | Janela de Sinal | **7 dias** |
+    
+    **MFI Confirmação (5D)**
+    | Parâmetro | Valor |
+    |-----------|-------|
+    | Timeframe | **5D** |
+    | Período | **5** |
+    | Sobrecompra | **≥ 80** |
+    | Sobrevenda | **≤ 20** |
+    
+    ⚠️ Sinal ativo somente se **ambos** confirmarem.
     """)
 
     st.markdown("---")
