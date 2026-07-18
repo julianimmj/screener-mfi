@@ -392,12 +392,12 @@ def filter_recent_signals(df: pd.DataFrame, max_age_days: int = SIGNAL_MAX_AGE_D
     Filter DataFrame to include crossover signals that occurred within max_age_days.
     
     If validate_zone is True, also verifies that the asset's current MFI is STILL
-    in the actual extreme zone:
-      - SOBREVENDA (Oversold): current MFI must still be <= 18 (OS threshold).
-      - SOBRECOMPRA (Overbought): current MFI must still be >= 88 (OB threshold).
+    in the actual extreme zone (stricter than crossover thresholds):
+      - SOBREVENDA (Oversold): current MFI must still be <= 12.
+      - SOBRECOMPRA (Overbought): current MFI must still be >= 88.
     """
-    MFI_OB = 88  # Overbought threshold (must match mfi_engine)
-    MFI_OS = 18  # Oversold threshold (must match mfi_engine)
+    MFI_OB = 88  # Zone validation: overbought (must match mfi_engine.MFI_ZONE_OB)
+    MFI_OS = 12  # Zone validation: oversold (must match mfi_engine.MFI_ZONE_OS)
 
     if df.empty or 'Signal Date' not in df.columns:
         return pd.DataFrame()
@@ -462,7 +462,7 @@ with st.sidebar:
 
     # ── Zone filter (sobrecompra / sobrevenda) ──
     st.subheader("📡 Zona de Sinal")
-    zone_options = ["Todos (OB + OS)", "🟢 Sobrevenda (MFI ≤ 18)", "🔴 Sobrecompra (MFI ≥ 88)"]
+    zone_options = ["Todos (OB + OS)", "🟢 Sobrevenda (MFI ≤ 12)", "🔴 Sobrecompra (MFI ≥ 88)"]
 
     if "zone_filter" not in st.session_state:
         st.session_state.zone_filter = "Todos (OB + OS)"
@@ -494,6 +494,8 @@ with st.sidebar:
     | Período | **3** |
     | Sobrecompra | **≥ 88** |
     | Sobrevenda | **≤ 18** |
+    | Zona Ativa OB | **≥ 88** |
+    | Zona Ativa OS | **≤ 12** |
     | Janela de Sinal | **7 dias** |
     """)
 
@@ -714,7 +716,7 @@ def kpi_box(col, val, label, btn_label, state_val, color="#00c8ff", val_size="2.
 
 kpi_box(k1, total_analyzed, "Total Analisados", "🔍 Ver Sinais", "Todos (OB + OS)", "#6688aa", "2.6rem")
 kpi_box(k2, n_sobrecompra, "🔴 Sobrecompra", "🔴 Filtrar", "🔴 Sobrecompra (MFI ≥ 88)", "#ff1744")
-kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 18)", "#00e676")
+kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 12)", "#00e676")
 kpi_box(k4, n_total_signals, "Sinais Ativos", "🔍 Ver Todos", "Todos (OB + OS)", "#ffab00")
 
 st.markdown("<br>", unsafe_allow_html=True)

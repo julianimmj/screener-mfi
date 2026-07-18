@@ -42,8 +42,13 @@ def _reset_yfinance_session():
 # ─────────────────────────────────────────────
 MFI_LENGTH = 3        # Período do MFI (rolling window) — 3 barras semanais (input do usuário: length = 3)
 MFI_TIMEFRAME = 7     # Timeframe semanal (7D) — "Use Current Chart Resolution?" desmarcado, Custom = "7D"
-MFI_OVERSOLD = 18     # Nível de sobrevenda (input do usuário: os = 18)
-MFI_OVERBOUGHT = 88   # Nível de sobrecompra (input do usuário: ob = 88)
+MFI_OVERSOLD = 18     # Nível de sobrevenda para crossover (input do usuário: os = 18)
+MFI_OVERBOUGHT = 88   # Nível de sobrecompra para crossover (input do usuário: ob = 88)
+
+# Zone validation thresholds — stricter than crossover thresholds.
+# A signal is only ACTIVE if MFI is still in the extreme zone:
+MFI_ZONE_OS = 12      # Sobrevenda: sinal ativo somente se MFI ≤ 12
+MFI_ZONE_OB = 88      # Sobrecompra: sinal ativo somente se MFI ≥ 88
 
 # How many calendar days of history to download (enough for warm-up)
 HISTORY_DAYS = 400
@@ -58,20 +63,44 @@ SIGNAL_MAX_AGE_DAYS = 7
 
 def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
     """
-    Resample daily OHLCV data.
+    Resample daily OHLCV data into multi-day bars.
     
-    If n_days is 7, we resample by calendar week ('W'), aligning labels
-    to the Monday (start of the week) to match TradingView.
-    Otherwise, we group by n_days trading days.
+    For n_days == 7 (weekly), uses calendar-week resampling ('W') to match
+    TradingView's "7D" custom timeframe. The incomplete current week is
+    DROPPED because TradingView's security() only uses completed candles.
+    
+    For other values of n_days, groups by n_days trading days.
     """
     if df.empty:
         return pd.DataFrame()
 
-    # Reset index to work with numeric positions
+    if n_days == 7:
+        # Calendar-week resample (Mon-Sun, label=Sunday, then shift to Monday)
+        resampled = df.resample('W').agg({
+            'Open': 'first',
+            'High': 'max',
+            'Low': 'min',
+            'Close': 'last',
+            'Volume': 'sum',
+        }).dropna()
+        
+        # Drop the incomplete current week (last bar) if it doesn't contain
+        # a full trading week. TradingView only shows completed candles.
+        if len(resampled) > 1:
+            # Check if the last bar's week is still in progress
+            last_bar_date = resampled.index[-1]
+            latest_data_date = df.index[-1]
+            # If the latest data date is not on a Friday (weekday 4),
+            # the current week is incomplete — drop it
+            if latest_data_date.weekday() < 4:  # Mon=0..Thu=3 means week not done
+                resampled = resampled.iloc[:-1]
+        
+        return resampled
+
+    # For non-weekly: group by n_days trading days
     df_reset = df.reset_index(drop=True)
     trimmed = df_reset
     
-    # Group into blocks of n_days trading days
     n_rows = len(trimmed)
     remainder = n_rows % n_days
     if remainder > 0:
@@ -81,7 +110,6 @@ def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
     block_ids = [i // n_days for i in range(len(trimmed))]
     trimmed['_block'] = block_ids
     
-    # Aggregate OHLCV
     resampled = trimmed.groupby('_block').agg({
         'Open': 'first',
         'High': 'max',
@@ -90,7 +118,6 @@ def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
         'Volume': 'sum',
     })
     
-    # Get the original dates for each block (last date of each block)
     block_to_idx = trimmed.groupby('_block').apply(lambda x: x.index[-1])
     resampled.index = df.index[block_to_idx.values]
     
@@ -276,15 +303,15 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
         signal = _find_crossover_signal(mfi_series)
 
         # Strict zone validation: signal is only active if current MFI
-        # is STILL in the actual extreme zone (>= OB for overbought, <= OS for oversold).
-        # This prevents false signals where a stock crossed a threshold days ago
-        # but has since returned to neutral territory.
+        # is STILL in the actual extreme zone.
+        # Uses MFI_ZONE_OS (12) and MFI_ZONE_OB (88) — stricter than
+        # the crossover thresholds (OS=18, OB=88).
         if signal is not None:
             sig_type = signal['signal_type']
-            if sig_type == 'SOBREVENDA' and mfi_current > MFI_OVERSOLD:
-                signal = None  # MFI has risen back above the oversold threshold
-            elif sig_type == 'SOBRECOMPRA' and mfi_current < MFI_OVERBOUGHT:
-                signal = None  # MFI has dropped back below the overbought threshold
+            if sig_type == 'SOBREVENDA' and mfi_current > MFI_ZONE_OS:
+                signal = None  # MFI rose above 12 — no longer in extreme oversold
+            elif sig_type == 'SOBRECOMPRA' and mfi_current < MFI_ZONE_OB:
+                signal = None  # MFI dropped below 88 — no longer in extreme overbought
 
         # Trend zone classification (based on current MFI)
         trend = _classify_trend(mfi_current)
