@@ -345,7 +345,7 @@ st.markdown(f"""
     <p class="subtitle">
         O <b>Money Flow Index (MFI)</b> combina preço e volume para medir a real pressão de compra e venda institucional no mercado.<br>
         A aplicação monitora <b>ações brasileiras</b> e <b>BDRs</b> para identificar oportunidades com <b>crossover recente</b> (últimos {SIGNAL_MAX_AGE_DAYS} dias) em zonas extremas de <b>sobrecompra</b> e <b>sobrevenda</b>.<br>
-        <span style="opacity: 0.8; font-size: 0.9em;">Parâmetros: Timeframe Diário (1D) · Período 3 · OB 88 · OS 12</span>
+        <span style="opacity: 0.8; font-size: 0.9em;">Parâmetros: Timeframe Diário (1D) · Período 14 · OB 80 · OS 20</span>
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -446,7 +446,7 @@ with st.sidebar:
 
     # ── Zone filter (sobrecompra / sobrevenda) ──
     st.subheader("📡 Zona de Sinal")
-    zone_options = ["Todos (OB + OS)", "🟢 Sobrevenda (MFI ≤ 12)", "🔴 Sobrecompra (MFI ≥ 88)"]
+    zone_options = ["Todos (OB + OS)", "🟢 Sobrevenda (MFI ≤ 20)", "🔴 Sobrecompra (MFI ≥ 80)"]
 
     if "zone_filter" not in st.session_state:
         st.session_state.zone_filter = "Todos (OB + OS)"
@@ -475,9 +475,9 @@ with st.sidebar:
     | Parâmetro | Valor |
     |-----------|-------|
     | Timeframe | **Diário (1D)** |
-    | Período | **3** |
-    | Sobrecompra | **> 88** |
-    | Sobrevenda | **< 12** |
+    | Período | **14** |
+    | Sobrecompra | **> 80** |
+    | Sobrevenda | **< 20** |
     | Janela de Sinal | **7 dias** |
     """)
 
@@ -496,8 +496,8 @@ MFI = 100 - 100 / (1 + MFR)
 ```
 
 **Sinais de Crossover (fiel ao Pine Script):**
-- **OB Cross**: MFI anterior < 88 E MFI atual > 88 → 🔴 Sobrecompra
-- **OS Cross**: MFI anterior > 12 E MFI atual < 12 → 🟢 Sobrevenda
+- **OB Cross**: MFI anterior < 80 E MFI atual > 80 → 🔴 Sobrecompra
+- **OS Cross**: MFI anterior > 20 E MFI atual < 20 → 🟢 Sobrevenda
 
 ⏰ Sinais ativos dos **últimos 7 dias** + histórico de **15 dias**.
         """)
@@ -604,35 +604,25 @@ def _enrich_signal_df(sdf):
     )
     return sdf
 
-# 1. Determine the latest signal date in df_history
-if not df_history.empty and 'Signal Date' in df_history.columns:
-    valid_dates = df_history['Signal Date'].dropna()
-    valid_dates = valid_dates[valid_dates.astype(str).str.strip() != '']
-    if not valid_dates.empty:
-        latest_date_str = pd.to_datetime(valid_dates).max().strftime('%Y-%m-%d')
-    else:
-        latest_date_str = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-else:
-    latest_date_str = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-
-# 2. Extract current day signals (exactly on latest_date_str)
+# 1. Extract active signals (last 7 days) and history (last 15 days)
 if not df_history.empty:
-    df_today_raw = df_history[df_history['Signal Date'] == latest_date_str].copy()
+    df_active_raw = filter_recent_signals(df_history, max_age_days=SIGNAL_MAX_AGE_DAYS)
+    if not df_active_raw.empty:
+        df_active_raw.sort_values('Signal Date', ascending=True, inplace=True)
+        df_active_raw = df_active_raw.groupby('Ticker').last().reset_index()
+    df_history_15d_raw = filter_recent_signals(df_history, max_age_days=HISTORY_DISPLAY_DAYS)
 else:
-    df_today_raw = pd.DataFrame()
+    df_active_raw = pd.DataFrame()
+    df_history_15d_raw = pd.DataFrame()
 
-# 3. Enrich both DataFrames (using the helper function)
-df = _enrich_signal_df(df_today_raw) if not df_today_raw.empty else pd.DataFrame()
+# 2. Enrich DataFrames
+df = _enrich_signal_df(df_active_raw) if not df_active_raw.empty else pd.DataFrame()
+df_history_15d = _enrich_signal_df(df_history_15d_raw) if not df_history_15d_raw.empty else pd.DataFrame()
 
-if not df_history.empty:
-    df_history_15d = _enrich_signal_df(filter_recent_signals(df_history, max_age_days=HISTORY_DISPLAY_DAYS))
-else:
-    df_history_15d = pd.DataFrame()
-
-# 4. Display data freshness message (always shown)
+# 3. Display data freshness message
 view_zone = st.session_state.zone_filter
 
-# 5. Apply Universe Filter to both df (today) and df_history_15d (15-day history)
+# 4. Apply Universe Filter to active signals (df) and history (df_history_15d)
 if not df.empty:
     if universe == "Apenas Ações Brasileiras":
         df_filtered = df[df['Tipo'] == 'Ação'].copy()
@@ -653,15 +643,15 @@ if not df_history_15d.empty:
 else:
     df_hist_filtered = pd.DataFrame()
 
-# 6. Apply Zone Filter to both filtered DataFrames (by actual MFI value)
+# 5. Apply Zone Filter (OB 80 / OS 20)
 def _apply_zone_filter(sdf, zone_name):
     if sdf.empty:
         return sdf
     if "Sobrevenda" in zone_name:
-        res = sdf[sdf['MFI'] <= 12].copy()
+        res = sdf[sdf['Signal Type'] == 'SOBREVENDA'].copy()
         res.sort_values('MFI', ascending=True, inplace=True)
     elif "Sobrecompra" in zone_name:
-        res = sdf[sdf['MFI'] >= 88].copy()
+        res = sdf[sdf['Signal Type'] == 'SOBRECOMPRA'].copy()
         res.sort_values('MFI', ascending=False, inplace=True)
     else:
         res = sdf.copy()
@@ -671,7 +661,7 @@ def _apply_zone_filter(sdf, zone_name):
 filtered = _apply_zone_filter(df_filtered, view_zone)
 filtered_hist = _apply_zone_filter(df_hist_filtered, view_zone)
 
-# 7. Calculate KPI card metrics based on today's signals (df)
+# 6. Calculate KPI card metrics based on active 7-day signals (df)
 if not df.empty:
     n_total_signals = len(df)
     n_sobrecompra = int((df['Signal Type'] == 'SOBRECOMPRA').sum())
@@ -681,15 +671,13 @@ else:
     n_sobrecompra = 0
     n_sobrevenda = 0
 
-n_today_signals = len(df) if not df.empty else 0
-
-# 8. Display data freshness message
+# 7. Display data freshness message
 last_updated = get_last_updated()
 st.markdown(
     f'<div class="freshness">📅 Dados de: <b>{last_updated}</b> · '
     f'{total_analyzed} ativos analisados · '
-    f'<b>{n_today_signals}</b> crossovers no dia atual · '
-    f'<b>{n_total_signals}</b> crossovers nos últimos {HISTORY_DISPLAY_DAYS} dias</div>',
+    f'<b>{n_total_signals}</b> sinais ativos nos últimos {SIGNAL_MAX_AGE_DAYS} dias · '
+    f'<b>{len(df_history_15d)}</b> histórico {HISTORY_DISPLAY_DAYS} dias</div>',
     unsafe_allow_html=True
 )
 
@@ -709,8 +697,8 @@ def kpi_box(col, val, label, btn_label, state_val, color="#00c8ff", val_size="2.
 
 
 kpi_box(k1, total_analyzed, "Total Analisados", "🔍 Ver Sinais", "Todos (OB + OS)", "#6688aa", "2.6rem")
-kpi_box(k2, n_sobrecompra, "🔴 Sobrecompra", "🔴 Filtrar", "🔴 Sobrecompra (MFI ≥ 88)", "#ff1744")
-kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 12)", "#00e676")
+kpi_box(k2, n_sobrecompra, "🔴 Sobrecompra", "🔴 Filtrar", "🔴 Sobrecompra (MFI ≥ 80)", "#ff1744")
+kpi_box(k3, n_sobrevenda, "🟢 Sobrevenda", "🟢 Filtrar", "🟢 Sobrevenda (MFI ≤ 20)", "#00e676")
 kpi_box(k4, n_total_signals, "Sinais Ativos", "🔍 Ver Todos", "Todos (OB + OS)", "#ffab00")
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -726,8 +714,8 @@ tab_ranking, tab_gauge, tab_split = st.tabs([
 with tab_ranking:
     zone_labels = {
         "Todos (OB + OS)": "Sobrecompra + Sobrevenda",
-        "🟢 Sobrevenda (MFI ≤ 12)": "Sobrevenda (Entrada de Fluxo)",
-        "🔴 Sobrecompra (MFI ≥ 88)": "Sobrecompra (Saída de Fluxo)",
+        "🟢 Sobrevenda (MFI ≤ 20)": "Sobrevenda (Entrada de Fluxo)",
+        "🔴 Sobrecompra (MFI ≥ 80)": "Sobrecompra (Saída de Fluxo)",
     }
     view_label = zone_labels.get(view_zone, view_zone)
     st.markdown(
