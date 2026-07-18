@@ -75,7 +75,7 @@ def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
         return pd.DataFrame()
 
     if n_days == 7:
-        # Calendar-week resample (Mon-Sun, label=Sunday, then shift to Monday)
+        # Calendar-week resample (standard Sunday-end anchor)
         resampled = df.resample('W').agg({
             'Open': 'first',
             'High': 'max',
@@ -84,16 +84,13 @@ def _resample_ohlcv(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
             'Volume': 'sum',
         }).dropna()
         
-        # Drop the incomplete current week (last bar) if it doesn't contain
-        # a full trading week. TradingView only shows completed candles.
+        # ALWAYS drop the last bar to match TradingView's security() behavior.
+        # Pine Script's security() with a higher timeframe only shows the value
+        # from the last COMPLETED bar. On a daily chart with "7D" security(),
+        # the MFI value displayed is from the PREVIOUS completed week, not
+        # the current (in-progress or just-closed) week.
         if len(resampled) > 1:
-            # Check if the last bar's week is still in progress
-            last_bar_date = resampled.index[-1]
-            latest_data_date = df.index[-1]
-            # If the latest data date is not on a Friday (weekday 4),
-            # the current week is incomplete — drop it
-            if latest_data_date.weekday() < 4:  # Mon=0..Thu=3 means week not done
-                resampled = resampled.iloc[:-1]
+            resampled = resampled.iloc[:-1]
         
         return resampled
 
