@@ -206,23 +206,42 @@ def update_rolling_history(df_today: pd.DataFrame, history_path: str = "data/mfi
     else:
         combined = pd.DataFrame()
     
-    # 4. Prune entries older than max_age_days
+    # 4. Prune entries older than max_age_days or whose current MFI has left the zone
     if not combined.empty and 'Signal Date' in combined.columns:
         now_utc = datetime.now(timezone.utc)
         cutoff = now_utc - pd.Timedelta(days=max_age_days)
+
+        current_mfi_map = {}
+        if not df_today.empty and 'Ticker' in df_today.columns and 'MFI' in df_today.columns:
+            current_mfi_map = df_today.set_index('Ticker')['MFI'].to_dict()
         
-        def is_recent(date_str):
+        def is_valid_history(row):
+            date_str = row.get('Signal Date', '')
+            sig_type = row.get('Signal Type', '')
+            ticker = row.get('Ticker', '')
+
+            if not date_str or pd.isna(date_str) or str(date_str).strip() == '':
+                return False
             try:
-                if not date_str or pd.isna(date_str) or str(date_str).strip() == '':
-                    return False
                 sig_date = pd.to_datetime(str(date_str))
                 if sig_date.tzinfo is None:
                     sig_date = sig_date.tz_localize('UTC')
-                return sig_date >= cutoff
+                if sig_date < cutoff:
+                    return False
             except Exception:
                 return False
+
+            # Pine Script 40/60 rule: prune if current MFI has exited the signal zone
+            mfi_curr = current_mfi_map.get(ticker, None)
+            if mfi_curr is not None and pd.notna(mfi_curr):
+                if sig_type == 'SOBREVENDA' and mfi_curr > 40:
+                    return False  # No longer oversold
+                if sig_type == 'SOBRECOMPRA' and mfi_curr < 60:
+                    return False  # No longer overbought
+
+            return True
         
-        mask = combined['Signal Date'].apply(is_recent)
+        mask = combined.apply(is_valid_history, axis=1)
         combined = combined[mask].copy()
     
     # 5. Save
@@ -230,11 +249,16 @@ def update_rolling_history(df_today: pd.DataFrame, history_path: str = "data/mfi
         combined.sort_values('MFI', ascending=False, inplace=True)
         combined.reset_index(drop=True, inplace=True)
         combined.to_csv(history_path, index=False)
-        print(f"\n[OK] Rolling history updated: {len(combined)} signals (added {today_count} today, pruned >{max_age_days}d)")
+        print(f"[OK] Rolling history updated: {len(combined)} signals (added {today_count} today, pruned invalid/stale)")
     else:
-        # Save empty CSV with headers to avoid file-not-found errors
-        pd.DataFrame(columns=df_today.columns if not df_today.empty else []).to_csv(history_path, index=False)
-        print(f"\n[WARNING] No active signals in rolling history (all expired or none found)")
+        # Create empty file with headers
+        empty_df = pd.DataFrame(columns=[
+            'Ticker', 'Nome', 'Preço', 'MFI', 'Status', 'Zona', 'Trend',
+            'Signal', 'Signal Type', 'Signal Date', 'OB Cross', 'OS Cross',
+            'Volume Médio', 'Setor'
+        ])
+        empty_df.to_csv(history_path, index=False)
+        print("[OK] Rolling history cleared (no active valid signals).")
 
 
 def main():

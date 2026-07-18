@@ -387,42 +387,55 @@ def is_bdr(ticker: str) -> bool:
     return False
 
 
-def filter_recent_signals(df: pd.DataFrame, max_age_days: int = SIGNAL_MAX_AGE_DAYS) -> pd.DataFrame:
+def filter_recent_signals(df: pd.DataFrame, max_age_days: int = SIGNAL_MAX_AGE_DAYS, validate_zone: bool = True) -> pd.DataFrame:
     """
-    Filter DataFrame to only include rows with crossover signals
-    that occurred within the last `max_age_days` calendar days.
+    Filter DataFrame to include crossover signals that occurred within max_age_days.
     
-    Uses timezone-aware datetime for accurate date comparison.
+    If validate_zone is True, also verifies that the asset's current MFI still reflects
+    the signal zone (Pine Script 40/60 trend line rule):
+      - SOBREVENDA (Oversold): current MFI must still be <= 40.
+      - SOBRECOMPRA (Overbought): current MFI must still be >= 60.
     """
     if df.empty or 'Signal Date' not in df.columns:
         return pd.DataFrame()
 
-    # Only keep rows that have a signal (OB or OS crossover)
     has_signal = df['Signal Type'].isin(['SOBRECOMPRA', 'SOBREVENDA'])
     df_signals = df[has_signal].copy()
 
     if df_signals.empty:
         return pd.DataFrame()
 
-    # Use timezone-aware cutoff
     now_utc = datetime.now(timezone.utc)
     cutoff = now_utc - timedelta(days=max_age_days)
 
-    def is_recent(row):
+    def is_valid_active_signal(row):
         date_str = row.get('Signal Date', '')
+        sig_type = row.get('Signal Type', '')
+        mfi_curr = row.get('MFI', 50.0)
+
         if not date_str or pd.isna(date_str) or str(date_str).strip() == '':
             return False
+
         try:
-            # Parse date and make it timezone-aware
             sig_date = pd.to_datetime(str(date_str))
             if sig_date.tzinfo is None:
                 sig_date = sig_date.tz_localize('UTC')
-            return sig_date >= cutoff
+            if sig_date < cutoff:
+                return False
         except Exception:
             return False
 
-    recent_mask = df_signals.apply(is_recent, axis=1)
-    return df_signals[recent_mask].copy()
+        # If zone validation is requested (Pine Script 40/60 rule)
+        if validate_zone and pd.notna(mfi_curr):
+            if sig_type == 'SOBREVENDA' and mfi_curr > 40:
+                return False  # Asset has left the oversold/recovery zone
+            if sig_type == 'SOBRECOMPRA' and mfi_curr < 60:
+                return False  # Asset has left the overbought/distribution zone
+
+        return True
+
+    valid_mask = df_signals.apply(is_valid_active_signal, axis=1)
+    return df_signals[valid_mask].copy()
 
 
 # ─────────────────────────────────────────
@@ -604,13 +617,13 @@ def _enrich_signal_df(sdf):
     )
     return sdf
 
-# 1. Extract active signals (last 7 days) and history (last 15 days)
+# 1. Extract active signals (last 7 days, validated by current MFI zone) and history (last 15 days)
 if not df_history.empty:
-    df_active_raw = filter_recent_signals(df_history, max_age_days=SIGNAL_MAX_AGE_DAYS)
+    df_active_raw = filter_recent_signals(df_history, max_age_days=SIGNAL_MAX_AGE_DAYS, validate_zone=True)
     if not df_active_raw.empty:
         df_active_raw.sort_values('Signal Date', ascending=True, inplace=True)
         df_active_raw = df_active_raw.groupby('Ticker').last().reset_index()
-    df_history_15d_raw = filter_recent_signals(df_history, max_age_days=HISTORY_DISPLAY_DAYS)
+    df_history_15d_raw = filter_recent_signals(df_history, max_age_days=HISTORY_DISPLAY_DAYS, validate_zone=False)
 else:
     df_active_raw = pd.DataFrame()
     df_history_15d_raw = pd.DataFrame()

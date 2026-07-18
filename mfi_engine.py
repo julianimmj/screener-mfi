@@ -157,12 +157,10 @@ def _compute_mfi(ohlcv: pd.DataFrame, length: int = MFI_LENGTH) -> pd.Series:
 
 def _find_crossover_signal(mfi_series: pd.Series,
                             ob: float = MFI_OVERBOUGHT,
-                            os_level: float = MFI_OVERSOLD) -> dict | None:
+                            os_level: float = MFI_OVERSOLD,
+                            max_age_days: int = SIGNAL_MAX_AGE_DAYS) -> dict | None:
     """
-    Scan the MFI series to find ALL crossover events (OB/OS).
-    
-    NÃO filtra por idade aqui - armazena TODOS os sinais.
-    O filtro de 7 dias será aplicado no frontend (app.py).
+    Scan the MFI series to find the MOST RECENT crossover event within max_age_days.
     
     Pine Script crossover conditions (faithful translation):
         overbought = moneyFlowIndex[1] < ob  AND  moneyFlowIndex > ob
@@ -174,10 +172,21 @@ def _find_crossover_signal(mfi_series: pd.Series,
 
     values = clean.values
     dates = clean.index
+    latest_date = dates[-1]
 
-    # Walk backwards to find the MOST RECENT crossover (any date)
+    # Walk backwards to find recent crossover within max_age_days
     for i in range(len(values) - 1, 0, -1):
         bar_date = dates[i]
+
+        # Stop searching if date is older than max_age_days from latest bar
+        try:
+            dt_bar = pd.to_datetime(bar_date)
+            dt_latest = pd.to_datetime(latest_date)
+            if (dt_latest - dt_bar).days > max_age_days:
+                break
+        except Exception:
+            pass
+
         mfi_curr = values[i]
         mfi_prev = values[i - 1]
 
@@ -278,6 +287,14 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
 
         # Find the most recent crossover signal
         signal = _find_crossover_signal(mfi_series)
+
+        # Pine Script 40/60 rule: signal is only active if current MFI remains in signal zone
+        if signal is not None:
+            sig_type = signal['signal_type']
+            if sig_type == 'SOBREVENDA' and mfi_current > 40:
+                signal = None  # Asset recovered and left the oversold zone
+            elif sig_type == 'SOBRECOMPRA' and mfi_current < 60:
+                signal = None  # Asset dropped and left the overbought zone
 
         # Trend zone classification (based on current MFI)
         trend = _classify_trend(mfi_current)
