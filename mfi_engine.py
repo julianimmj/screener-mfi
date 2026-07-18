@@ -288,13 +288,16 @@ def calculate_mfi(ticker_symbol: str) -> dict | None:
         # Find the most recent crossover signal
         signal = _find_crossover_signal(mfi_series)
 
-        # Pine Script 40/60 rule: signal is only active if current MFI remains in signal zone
+        # Strict zone validation: signal is only active if current MFI
+        # is STILL in the actual extreme zone (>= OB for overbought, <= OS for oversold).
+        # This prevents false signals where a stock crossed a threshold days ago
+        # but has since returned to neutral territory.
         if signal is not None:
             sig_type = signal['signal_type']
-            if sig_type == 'SOBREVENDA' and mfi_current > 40:
-                signal = None  # Asset recovered and left the oversold zone
-            elif sig_type == 'SOBRECOMPRA' and mfi_current < 60:
-                signal = None  # Asset dropped and left the overbought zone
+            if sig_type == 'SOBREVENDA' and mfi_current > MFI_OVERSOLD:
+                signal = None  # MFI has risen back above the oversold threshold
+            elif sig_type == 'SOBRECOMPRA' and mfi_current < MFI_OVERBOUGHT:
+                signal = None  # MFI has dropped back below the overbought threshold
 
         # Trend zone classification (based on current MFI)
         trend = _classify_trend(mfi_current)

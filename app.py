@@ -391,11 +391,14 @@ def filter_recent_signals(df: pd.DataFrame, max_age_days: int = SIGNAL_MAX_AGE_D
     """
     Filter DataFrame to include crossover signals that occurred within max_age_days.
     
-    If validate_zone is True, also verifies that the asset's current MFI still reflects
-    the signal zone (Pine Script 40/60 trend line rule):
-      - SOBREVENDA (Oversold): current MFI must still be <= 40.
-      - SOBRECOMPRA (Overbought): current MFI must still be >= 60.
+    If validate_zone is True, also verifies that the asset's current MFI is STILL
+    in the actual extreme zone:
+      - SOBREVENDA (Oversold): current MFI must still be <= 20 (OS threshold).
+      - SOBRECOMPRA (Overbought): current MFI must still be >= 80 (OB threshold).
     """
+    MFI_OB = 80  # Overbought threshold (must match mfi_engine)
+    MFI_OS = 20  # Oversold threshold (must match mfi_engine)
+
     if df.empty or 'Signal Date' not in df.columns:
         return pd.DataFrame()
 
@@ -425,12 +428,12 @@ def filter_recent_signals(df: pd.DataFrame, max_age_days: int = SIGNAL_MAX_AGE_D
         except Exception:
             return False
 
-        # If zone validation is requested (Pine Script 40/60 rule)
+        # Strict zone validation: current MFI must STILL be in the extreme zone
         if validate_zone and pd.notna(mfi_curr):
-            if sig_type == 'SOBREVENDA' and mfi_curr > 40:
-                return False  # Asset has left the oversold/recovery zone
-            if sig_type == 'SOBRECOMPRA' and mfi_curr < 60:
-                return False  # Asset has left the overbought/distribution zone
+            if sig_type == 'SOBREVENDA' and mfi_curr > MFI_OS:
+                return False  # MFI rose back above 20, no longer oversold
+            if sig_type == 'SOBRECOMPRA' and mfi_curr < MFI_OB:
+                return False  # MFI dropped back below 80, no longer overbought
 
         return True
 
