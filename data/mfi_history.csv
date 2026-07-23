@@ -16,9 +16,11 @@ POSI3.SA,POSITIVO TECON      NM,4.13,100.0,🔴 Sobrecompra,🔵 Tendência de A
 VIVT3.SA,TELEF BRASILON,35.52,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-06,True,False,4787055,Communication Services,
 SAUD3.SA,BRADSAUDE   ON      NM,15.2,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-05,True,False,4592040,Healthcare,81.69
 PYPL34.SA,PAYPAL HOLD DRN,14.45,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-05,True,False,34136,Financial Services,81.0
-UGPA3.SA,ULTRAPAR    ON      NM,31.82,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-12,True,False,10450885,Energy,86.84
-VIVT3.SA,TELEF BRASILON,35.8,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-12,True,False,4539465,Communication Services,100.0
-SMFT3.SA,SMART FIT   ON      NM,19.97,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-12,True,False,4709625,Consumer Cyclical,100.0
+CBAV3.SA,CBA         ON      NM,10.86,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-19,True,False,1801630,Basic Materials,100.0
+UGPA3.SA,ULTRAPAR    ON      NM,32.83,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-12,True,False,10615520,Energy,87.55
+AMZO34.SA,AMAZON      DRN,61.87,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-19,True,False,925594,Consumer Cyclical,82.93
+SMFT3.SA,SMART FIT   ON      NM,20.62,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-12,True,False,4729815,Consumer Cyclical,81.9
+VIVT3.SA,TELEF BRASILON,35.38,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-12,True,False,4577790,Communication Services,86.29
 SCHW34.SA,SCHWAB      DRN,55.95,98.93,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-06-01,True,False,2713,Financial Services,
 MSCD34.SA,MASTERCARD  DRN ED,89.72,96.04,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-05,True,False,27089,Financial Services,88.34
 SEQL3.SA,SEQUOIA LOG ON      NM,0.12,94.84,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-05-29,True,False,1392365,Industrials,
@@ -55,12 +57,13 @@ EVEN3.SA,EVEN        ON      NM,5.39,0.0,🟢 Sobrevenda,🟠 Tendência de Baix
 KLBN3.SA,KLABIN S/A  ON      N2,3.34,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-01,False,True,1618620,Basic Materials,
 MYPK3.SA,"IOCHP,MAXIONON      NM",9.05,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-01,False,True,976810,Consumer Cyclical,
 SOJA3.SA,BOA SAFRA   ON      NM,5.8,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-12,False,True,1010095,Basic Materials,
-POSI3.SA,POSITIVO TECON      NM,3.74,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-07-03,False,True,1039695,Technology,
 DASA3.SA,DASA        ON      NM,2.66,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-08,False,True,1830540,Healthcare,
-EVEN3.SA,EVEN        ON      NM,5.62,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-05-29,False,True,1336290,Real Estate,
-KEPL3.SA,KEPLER WEBERON      NM,7.07,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-05-28,False,True,996105,Industrials,
-POSI3.SA,POSITIVO TECON      NM,3.66,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-05,False,True,1116575,Technology,
-SEQL3.SA,SEQUOIA LOG ON      NM,0.07,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-03,False,True,1869550,Industrials,
+POSI3.SA,POSITIVO TECON      NM,3.74,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-07-03,False,True,1039695,Technology,
 MYPK3.SA,"IOCHP,MAXIONON      NM",8.94,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-08,False,True,928510,Consumer Cyclical,
+SEQL3.SA,SEQUOIA LOG ON      NM,0.07,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-03,False,True,1869550,Industrials,
+POSI3.SA,POSITIVO TECON      NM,3.66,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-05,False,True,1116575,Technology,
+KEPL3.SA,KEPLER WEBERON      NM,7.07,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-05-28,False,True,996105,Industrials,
+EVEN3.SA,EVEN        ON      NM,5.62,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-05-29,False,True,1336290,Real Estate,
 MILS3.SA,MILLS       ON      NM,15.26,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-05,False,True,1666340,Industrials,
-VALE3.SA,VALE        ON      NM,72.24,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-07-12,False,True,16175510,Basic Materials,19.69
+PLPL3.SA,PLANOEPLANO ON      NM,7.7,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-07-19,False,True,2008960,Real Estate,10.43
+ONCO3.SA,ONCOCLINICASON      NM,0.61,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-07-19,False,True,14872825,Healthcare,16.65
