@@ -3,12 +3,13 @@ SEQL3.SA,SEQUOIA LOG ON      NM,0.08,100.0,🔴 Sobrecompra,🔵 Tendência de A
 PYPL34.SA,PAYPAL HOLD DRN,14.45,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-05,True,False,34136,Financial Services,81.0
 UPSS34.SA,UPS         DRN,36.36,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-12,True,False,5939,Industrials,82.02
 GGBR4.SA,GERDAU      PN      N1,25.25,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-26,True,False,8402745,Basic Materials,83.8
-JPMC34.SA,JPMORGAN    DRN,186.4,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,52628,Financial Services,82.92
-BOAC34.SA,BANK AMERICADRN,82.2,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-02,True,False,10463,Financial Services,80.31
-AUAU3.SA,PETZCOBASI  ON      NM,3.32,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,2910075,Consumer Cyclical,83.63
-SCHW34.SA,SCHWAB      DRN,69.08,98.17,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,13995,Financial Services,99.13
-MSCD34.SA,MASTERCARD  DRN,92.42,92.82,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-02,True,False,24932,Financial Services,100.0
-WFCO34.SA,WELLS FARGO DRN ED,112.74,90.53,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,1376,Financial Services,81.28
+JPMC34.SA,JPMORGAN    DRN,188.56,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,54179,Financial Services,83.68
+EMBJ3.SA,EMBRAER     ON      NM,96.18,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,4389155,Industrials,85.44
+AUAU3.SA,PETZCOBASI  ON      NM,3.36,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,3031715,Consumer Cyclical,84.34
+BOAC34.SA,BANK AMERICADRN,84.01,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-02,True,False,10762,Financial Services,80.77
+SCHW34.SA,SCHWAB      DRN,67.0,98.16,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,14007,Financial Services,99.15
+MSCD34.SA,MASTERCARD  DRN,93.29,92.39,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-02,True,False,30722,Financial Services,100.0
+WFCO34.SA,WELLS FARGO DRN ED,115.77,91.4,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,1433,Financial Services,85.27
 KEPL3.SA,KEPLER WEBERON      NM,6.61,65.49,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-06-18,False,True,1289555,Industrials,
 SEQL3.SA,SEQUOIA LOG ON      NM,0.08,62.92,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-06-22,False,True,2439055,Industrials,
 LOGG3.SA,LOG COM PROPON      NM,28.0,59.07,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2026-06-15,True,False,1091285,Real Estate,
