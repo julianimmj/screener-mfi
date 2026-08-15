@@ -1,13 +1,11 @@
 Ticker,Nome,Preço,MFI,Status,Zona,Trend,Signal,Signal Type,Signal Date,OB Cross,OS Cross,Volume Médio,Setor,MFI2
 PYPL34.SA,PAYPAL HOLD DRN,14.45,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-05,True,False,34136,Financial Services,81.0
 GGBR4.SA,GERDAU      PN      N1,25.25,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-07-26,True,False,8402745,Basic Materials,83.8
-AUAU3.SA,PETZCOBASI  ON      NM,3.45,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,3146205,Consumer Cyclical,84.3
-JPMC34.SA,JPMORGAN    DRN,188.12,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,53970,Financial Services,100.0
-BOAC34.SA,BANK AMERICADRN,83.4,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-02,True,False,8026,Financial Services,100.0
-SCHW34.SA,SCHWAB      DRN,69.92,98.18,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,13949,Financial Services,99.34
-MSCD34.SA,MASTERCARD  DRN,93.14,92.82,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-02,True,False,37153,Financial Services,95.46
-WFCO34.SA,WELLS FARGO DRN ED,114.62,91.72,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,1544,Financial Services,84.12
-MSFT34.SA,MICROSOFT   DRN,107.79,89.38,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,542183,Technology,89.46
+EMBJ3.SA,EMBRAER     ON      NM,99.02,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,5385585,Industrials,86.01
+INTB3.SA,INTELBRAS   ON  ED  NM,14.11,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-02,True,False,1778475,Industrials,87.1
+JPMC34.SA,JPMORGAN    DRN,188.8,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,49521,Financial Services,84.04
+SCHW34.SA,SCHWAB      DRN,71.11,98.17,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-09,True,False,13906,Financial Services,98.32
+MSCD34.SA,MASTERCARD  DRN,94.49,92.82,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-02,True,False,36610,Financial Services,88.92
 KEPL3.SA,KEPLER WEBERON      NM,6.61,65.49,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-06-18,False,True,1289555,Industrials,
 SEQL3.SA,SEQUOIA LOG ON      NM,0.08,62.92,🟢 Sobrevenda,🔵 Tendência de Alta,ALTA,ENTRADA,SOBREVENDA,2026-06-22,False,True,2439055,Industrials,
 SEQL3.SA,SEQUOIA LOG ON      NM,0.08,50.0,🔴 Sobrecompra,⚪ Zona de Transição,TRANSIÇÃO,SAÍDA,SOBRECOMPRA,2026-06-26,True,False,1337215,Industrials,
@@ -18,5 +16,10 @@ KLBN3.SA,KLABIN S/A  ON      N2,3.43,25.95,🟢 Sobrevenda,🟠 Tendência de Ba
 KEPL3.SA,KEPLER WEBERON      NM,6.61,21.86,🔴 Sobrecompra,🟠 Tendência de Baixa,BAIXA,SAÍDA,SOBRECOMPRA,2026-06-23,True,False,1009390,Industrials,
 SEQL3.SA,SEQUOIA LOG ON      NM,0.07,13.22,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-07-02,False,True,1081975,Industrials,
 PNVL3.SA,DIMED       ON      NM,10.83,12.73,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-06-30,False,True,1021490,Healthcare,
+BIDU34.SA,BAIDU INC   DRN,38.56,6.85,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-02,False,True,4053,Communication Services,19.55
 EVEN3.SA,EVEN        ON      NM,5.39,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-07-07,False,True,1007395,Real Estate,
 POSI3.SA,POSITIVO TECON      NM,3.74,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-07-03,False,True,1039695,Technology,
+ISAE4.SA,ISA ENERGIA PN      N1,25.55,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-02,False,True,3709450,Utilities,13.09
+AURE3.SA,AUREN       ON      NM,10.05,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-02,False,True,3274115,Utilities,17.75
+TTEN3.SA,3TENTOS     ON      NM,9.93,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-02,False,True,2759250,Basic Materials,16.55
+SBSP3.SA,SABESP      ON      NM,23.79,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-02,False,True,19619375,Utilities,17.26
