@@ -5,10 +5,18 @@ FLRY3.SA,FLEURY      ON      NM,18.87,100.0,🔴 Sobrecompra,🔵 Tendência de 
 PFIZ34.SA,PFIZER      DRN,36.17,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-16,True,False,9730,Healthcare,100.0
 NFLX34.SA,NETFLIX     DRN,8.48,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-16,True,False,797210,Communication Services,80.51
 ACNB34.SA,ACCENTURE   DRN,986.49,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-16,True,False,155,Technology,100.0
-JNJB34.SA,JOHNSON     DRN ED,94.39,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,9803,Healthcare,80.15
-MRCK34.SA,MERCK       DRN,96.87,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,4764,Healthcare,94.27
-VISA34.SA,VISA INC    DRN,96.62,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,37022,Financial Services,90.95
-COCA34.SA,COCA COLA   DRN,75.65,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,27826,Consumer Defensive,100.0
-LREN3.SA,LOJAS RENNERON      NM,11.4,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-23,False,True,22809760,Consumer Cyclical,11.9
-HAPV3.SA,HAPVIDA     ON      NM,7.33,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-23,False,True,12381095,Financial Services,11.9
-NIKE34.SA,NIKE        DRN,19.8,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-23,False,True,54374,Consumer Cyclical,0.0
+MLAS3.SA,MULTILASER  ON      NM,1.86,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,2670420,Technology,89.75
+LIGT3.SA,LIGHT S/A   ON      NM,3.57,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,4060500,Utilities,86.88
+LWSA3.SA,LWSA        ON      NM,4.22,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,4026870,Technology,86.29
+PETR4.SA,PETROBRAS   PN      N2,47.11,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,52384550,Energy,80.98
+SLCE3.SA,SLC AGRICOLAON      NM,16.41,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,3599125,Consumer Defensive,85.73
+GMAT3.SA,GRUPO MATEUSON      NM,4.87,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,7572350,Consumer Cyclical,89.97
+MRVE3.SA,MRV         ON      NM,5.55,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,14500620,Real Estate,84.51
+COCA34.SA,COCA COLA   DRN,75.71,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,29012,Consumer Defensive,81.95
+MRCK34.SA,MERCK       DRN,97.04,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,7857,Healthcare,94.75
+DEEC34.SA,DEERE CO    DRN,117.69,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,3491,Industrials,92.66
+VISA34.SA,VISA INC    DRN,95.52,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,37867,Financial Services,92.24
+LOWC34.SA,LOWES COMPA DRN,52.45,0.48,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-30,False,True,74,Consumer Cyclical,3.84
+LREN3.SA,LOJAS RENNERON      NM,11.35,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-23,False,True,18612955,Consumer Cyclical,14.41
+NIKE34.SA,NIKE        DRN ED,19.98,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-23,False,True,58091,Consumer Cyclical,11.51
+HONB34.SA,HONEYWELL   DRN,1077.5,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-23,False,True,214,Industrials,12.74
