@@ -1,19 +1,17 @@
 Ticker,Nome,Preço,MFI,Status,Zona,Trend,Signal,Signal Type,Signal Date,OB Cross,OS Cross,Volume Médio,Setor,MFI2
-ONCO3.SA,ONCOCLINICASON      NM,1.24,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-16,True,False,35818320,Healthcare,86.7
 TGTB34.SA,TARGET CORP DRN,846.24,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-16,True,False,32,Consumer Defensive,100.0
 PFIZ34.SA,PFIZER      DRN,36.17,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-16,True,False,9730,Healthcare,100.0
-NFLX34.SA,NETFLIX     DRN,8.48,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-16,True,False,797210,Communication Services,80.51
 ACNB34.SA,ACCENTURE   DRN,986.49,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-16,True,False,155,Technology,100.0
 SLCE3.SA,SLC AGRICOLAON      NM,16.41,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,3549340,Consumer Defensive,85.68
-MLAS3.SA,MULTILASER  ON      NM,1.86,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,2654375,Technology,89.91
-LIGT3.SA,LIGHT S/A   ON      NM,3.57,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,4060500,Utilities,86.88
-LWSA3.SA,LWSA        ON      NM,4.22,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,4027540,Technology,87.13
-DEEC34.SA,DEERE CO    DRN,117.69,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,3491,Industrials,92.66
-COCA34.SA,COCA COLA   DRN,75.71,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,29012,Consumer Defensive,81.95
-VISA34.SA,VISA INC    DRN,95.52,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,37867,Financial Services,92.24
-MRCK34.SA,MERCK       DRN,97.04,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,7857,Healthcare,94.75
-LOWC34.SA,LOWES COMPA DRN,52.45,0.48,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-30,False,True,74,Consumer Cyclical,3.84
-LREN3.SA,LOJAS RENNERON      NM,11.35,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-23,False,True,22514575,Consumer Cyclical,13.6
-HAPV3.SA,HAPVIDA     ON      NM,7.26,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-23,False,True,12670980,Financial Services,11.53
-NIKE34.SA,NIKE        DRN ED,19.98,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-23,False,True,59604,Consumer Cyclical,10.07
+SMTO3.SA,SAO MARTINHOON      NM,20.58,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,2571190,Basic Materials,85.76
+WEGE3.SA,WEG         ON      NM,52.65,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-06,True,False,7441270,Industrials,81.05
+RECV3.SA,PETRORECSA  ON      NM,11.25,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,2320400,Energy,100.0
+MRVE3.SA,MRV         ON      NM,5.81,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,14293790,Real Estate,83.68
+TOTS3.SA,TOTVS       ON      NM,34.29,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-06,True,False,4124175,Technology,81.09
+ANIM3.SA,ANIMA       ON      NM,3.05,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-06,True,False,9774275,Consumer Defensive,83.31
+GMAT3.SA,GRUPO MATEUSON      NM,4.79,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-30,True,False,7551985,Consumer Cyclical,88.84
+CYRE3.SA,CYRELA REALTON      NM,25.54,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-06,True,False,8643285,Consumer Cyclical,82.93
+CMIN3.SA,CSNMINERACAOON      N2,6.72,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-06,True,False,7437395,Basic Materials,85.17
 HONB34.SA,HONEYWELL   DRN,1077.5,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-23,False,True,214,Industrials,12.74
+LOWC34.SA,LOWES COMPA DRN,51.6,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-30,False,True,98,Consumer Cyclical,3.93
+GEOO34.SA,GEAEROSPACE DRN,85.22,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-06,False,True,3355,Industrials,10.42
