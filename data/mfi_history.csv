@@ -2,16 +2,18 @@ Ticker,Nome,Preço,MFI,Status,Zona,Trend,Signal,Signal Type,Signal Date,OB Cross
 SLCE3.SA,SLC AGRICOLAON      NM,16.41,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-08-23,True,False,3549340,Consumer Defensive,85.68
 CYRE3.SA,CYRELA REALTON      NM,26.67,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-06,True,False,9273530,Consumer Cyclical,85.58
 UGPA3.SA,ULTRAPAR    ON      NM,39.13,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-06,True,False,10082610,Energy,82.5
-QCOM34.SA,QUALCOMM    DRN,83.68,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-13,True,False,24541,Technology,85.57
-M1TA34.SA,META PLAT   DRN ED,135.5,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-13,True,False,409900,Communication Services,86.01
-PRIO3.SA,PRIO        ON      NM,61.05,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-20,True,False,8000495,Energy,85.06
-HYPE3.SA,HYPERA      ON      NM,24.12,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-13,True,False,3168380,Healthcare,84.65
-SEQL3.SA,SEQUOIA LOG ON      NM,0.07,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-13,True,False,2071110,Industrials,91.74
+PRIO3.SA,PRIO        ON      NM,60.46,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-20,True,False,8133755,Energy,84.17
+PETR3.SA,PETROBRAS   ON      N2,53.2,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-20,True,False,11626920,Energy,81.17
+SEER3.SA,SER EDUCA   ON      NM,14.27,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-13,True,False,1541910,Consumer Defensive,89.14
+TSLA34.SA,TESLA INC   DRN,60.52,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-20,True,False,1493291,Consumer Cyclical,81.46
+QCOM34.SA,QUALCOMM    DRN,84.05,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-13,True,False,24136,Technology,83.94
+SEQL3.SA,SEQUOIA LOG ON      NM,0.07,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-13,True,False,2092650,Industrials,100.0
 MCDC34.SA,MCDONALDS   DRN,64.29,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-06,False,True,20635,Consumer Cyclical,8.15
-MSBR34.SA,MORGAN STAN DRN,208.55,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-06,False,True,2333,Financial Services,17.37
-AXPB34.SA,AMERICAN EXPDRN,161.28,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-06,False,True,1812,Financial Services,10.5
 HONB34.SA,HONEYWELL   DRN,1077.5,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-23,False,True,214,Industrials,12.74
 LOWC34.SA,LOWES COMPA DRN,50.55,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-30,False,True,154,Consumer Cyclical,1.47
-EVEN3.SA,EVEN        ON      NM,4.21,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-20,False,True,1250900,Real Estate,15.04
-AMZO34.SA,AMAZON      DRN,66.17,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-20,False,True,692692,Consumer Cyclical,18.23
-UNHH34.SA,UNITEDHEALTHDRN ED,27.51,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-20,False,True,9242,Healthcare,18.02
+MSBR34.SA,MORGAN STAN DRN,208.55,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-06,False,True,2333,Financial Services,17.37
+AXPB34.SA,AMERICAN EXPDRN,161.28,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-06,False,True,1812,Financial Services,10.5
+JBSS32.SA,JBS N.V.    DR2,60.98,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-13,False,True,1253555,Consumer Defensive,19.21
+EVEN3.SA,EVEN        ON      NM,4.29,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-20,False,True,1275685,Real Estate,15.63
+JPMC34.SA,JPMORGAN    DRN,173.93,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-20,False,True,26492,Financial Services,19.86
+AMZO34.SA,AMAZON      DRN,65.38,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-20,False,True,724732,Consumer Cyclical,0.0
