@@ -3,17 +3,18 @@ CYRE3.SA,CYRELA REALTON      NM,26.67,100.0,🔴 Sobrecompra,🔵 Tendência de 
 HYPE3.SA,HYPERA      ON      NM,24.53,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-13,True,False,3054325,Healthcare,84.07
 BPAC11.SA,BTGP BANCO  UNT     N2,62.7,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-13,True,False,9812535,Financial Services,82.73
 M1TA34.SA,META PLAT   DRN ED,139.41,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-13,True,False,431537,Communication Services,87.07
-A1MD34.SA,ADVANCED MICDRN,406.0,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-27,True,False,80341,Technology,100.0
-XPBR31.SA,XP INC      DR1,147.02,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-10-04,True,False,1491293,Financial Services,82.19
-V1RS34.SA,VERISK ANALYDRN,11.39,95.91,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-20,True,False,130,Industrials,96.41
-UPSS34.SA,UPS         DRN,33.0,92.4,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-10-04,True,False,1840,Industrials,87.48
-A1EP34.SA,AMERICAN ELEDRN,60.53,3.2,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-27,False,True,208,Utilities,0.0
+MSFT34.SA,MICROSOFT   DRN,110.32,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-10-04,True,False,367359,Technology,80.15
+XPBR31.SA,XP INC      DR1,146.66,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-10-04,True,False,1489867,Financial Services,100.0
+A1MD34.SA,ADVANCED MICDRN,405.1,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-09-27,True,False,76912,Technology,89.79
+PGCO34.SA,PG          DRN,53.14,100.0,🔴 Sobrecompra,🔵 Tendência de Alta,ALTA,SAÍDA,SOBRECOMPRA,2026-10-04,True,False,6493,Consumer Defensive,80.96
 MCDC34.SA,MCDONALDS   DRN,64.29,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-06,False,True,20635,Consumer Cyclical,8.15
 JPMC34.SA,JPMORGAN    DRN,174.8,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-20,False,True,31294,Financial Services,17.21
 PEPB34.SA,PEPSICO INC DRN,43.85,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-20,False,True,10388,Consumer Defensive,0.0
-LOWC34.SA,LOWES COMPA DRN,50.55,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-30,False,True,154,Consumer Cyclical,1.47
-AXPB34.SA,AMERICAN EXPDRN,161.28,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-06,False,True,1812,Financial Services,10.5
-GSGI34.SA,GOLDMANSACHSDRN,158.17,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-20,False,True,11833,Financial Services,16.02
 CMCS34.SA,COMCAST     DRN,22.42,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-20,False,True,5129,Communication Services,8.51
-MELI34.SA,MERCADOLIBREDRN,77.08,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-27,False,True,1738381,Consumer Cyclical,10.66
-BOAC34.SA,BANK AMERICADRN,67.25,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-10-04,False,True,34435,Financial Services,0.0
+GSGI34.SA,GOLDMANSACHSDRN,158.17,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-20,False,True,11833,Financial Services,16.02
+AXPB34.SA,AMERICAN EXPDRN,161.28,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-06,False,True,1812,Financial Services,10.5
+LOWC34.SA,LOWES COMPA DRN,50.55,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-08-30,False,True,154,Consumer Cyclical,1.47
+ROXO34.SA,NU HOLDINGS DRN,13.07,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-27,False,True,13128677,Financial Services,18.51
+MELI34.SA,MERCADOLIBREDRN,78.39,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-27,False,True,1757705,Consumer Cyclical,10.86
+CTGP34.SA,CITIGROUP   DRN,106.49,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-09-27,False,True,25702,Financial Services,16.84
+BOAC34.SA,BANK AMERICADRN,67.3,0.0,🟢 Sobrevenda,🟠 Tendência de Baixa,BAIXA,ENTRADA,SOBREVENDA,2026-10-04,False,True,35186,Financial Services,0.0
